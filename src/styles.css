@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.App {
+  font-family: sans-serif;
+  text-align: center;
+}
+
+#root,
+body,
+html {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  margin: 0;
+}
