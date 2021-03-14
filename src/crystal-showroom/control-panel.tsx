@@ -26,14 +26,6 @@ export default function ControlPanel() {
       <div className="h-20 w-full flex flex-col p-2">
         <label className="text-left text-lg">水晶</label>
         <SlideList list={CRYSTAL_TYPE} />
-
-        <ul className="overflow-x-auto flex-row">
-          {CRYSTAL_TYPE.map((crystal) => (
-            <li key={crystal.key}>
-              <img src={crystal.url} />
-            </li>
-          ))}
-        </ul>
       </div>
       <div className=" h-20 w-full flex flex-col p-2">
         <label className="text-left text-lg">花</label>

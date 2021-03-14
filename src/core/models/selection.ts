@@ -4,4 +4,6 @@ export default class Selection {
   value!: string;
 
   url?: string;
+
+  isSelected?: boolean;
 }

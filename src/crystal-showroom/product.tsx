@@ -8,7 +8,7 @@ const ProductDisplay = styled.div`
   height: 360px;
 `;
 
-const Bead = styled.div<StyledCss>`
+const Bead = styled.div<any>`
   position: absolute;
   top: ${(props: { top: number }) => `${props.top}px`};
   left: ${(props: { left: number }) => `${props.left}px`};
