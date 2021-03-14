@@ -1,15 +1,14 @@
-import { useState } from "react";
-import styled, { css } from "styled-components";
-import StyledCss from "../core/models/css";
-import Selection from "../core/models/selection";
-import use2DArray from "../utils/customer-hook/use2DArray";
+import { useContext, useState } from 'react';
+import styled, { css } from 'styled-components';
+import { SlideListContext } from '../core/contexts/selected-list.context';
+import Selection from '../core/models/selection';
+import use2DArray from '../utils/customer-hook/use2DArray';
 
 const Item = styled.div<any>`
   width: 50px;
   height: 50px;
   margin: 0 4px;
-  background: ${(props: { isOdd: boolean }) =>
-    `${props.isOdd ? "red" : "green"}`};
+  background: ${(props: { isOdd: boolean }) => `${props.isOdd ? 'red' : 'green'}`};
 
   ${(props: { isSelected: boolean }) =>
     props.isSelected &&
@@ -21,22 +20,27 @@ const Item = styled.div<any>`
 const ChangeSlideButton = styled.button`
   flex: 0 0 30px;
   height: 30px;
+  background-image: url(/assets/icon/chevron.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 30px;
+  ${(props: { isLeft?: boolean }) =>
+    props.isLeft &&
+    css`
+      transform: scaleX(-1);
+    `};
 `;
 
 export default function SlideList(props: { list: Selection[] }) {
   const { list } = props;
   const slideList = use2DArray<Selection>(list, 4);
   const [slideIndex, setSlideIndex] = useState(0);
-  const [selectedList, setSelectedList] = useState<Selection[]>([]);
+  const { setSelectedList } = useContext(SlideListContext);
 
   const slideRoom = (showOnIndex: number) => {
     const onSelected = (item: Selection) => {
       item.isSelected = !item.isSelected;
-      setSelectedList((preState) =>
-        item.isSelected
-          ? preState.concat(item)
-          : preState.filter((selection) => selection.key !== item.key)
-      );
+      setSelectedList(item);
     };
 
     return slideList.map(
@@ -52,7 +56,7 @@ export default function SlideList(props: { list: Selection[] }) {
               ></Item>
             ))}
           </li>
-        )
+        ),
     );
   };
 
@@ -73,9 +77,9 @@ export default function SlideList(props: { list: Selection[] }) {
 
   return (
     <div className="flex flex-row items-center">
-      <ChangeSlideButton onClick={() => slide(-1)}>Left</ChangeSlideButton>
+      <ChangeSlideButton isLeft={true} onClick={() => slide(-1)} />
       <ul className="flex flex-row flex-1">{slideRoom(slideIndex)}</ul>
-      <ChangeSlideButton onClick={() => slide(1)}>Right</ChangeSlideButton>
+      <ChangeSlideButton onClick={() => slide(1)} />
     </div>
   );
 }

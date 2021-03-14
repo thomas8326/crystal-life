@@ -1,6 +1,7 @@
-import styled from "styled-components";
-import StyledCss from "../core/models/css";
-import "../styles/animation.css";
+import styled from 'styled-components';
+import StyledCss from '../core/models/css';
+import Selection from '../core/models/selection';
+import '../styles/animation.css';
 
 const ProductDisplay = styled.div`
   position: relative;
@@ -34,10 +35,6 @@ function generateCrystalBeads(length: number): any[] {
   });
 }
 
-export default function Product() {
-  return (
-    <ProductDisplay>
-      {generateCrystalBeads(12).map((bead) => bead)}
-    </ProductDisplay>
-  );
+export default function Product(props: { selectedList: Selection[] }) {
+  return <ProductDisplay>{generateCrystalBeads(12).map((bead) => bead)}</ProductDisplay>;
 }
