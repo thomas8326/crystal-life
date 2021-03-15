@@ -4,7 +4,11 @@ import styled from 'styled-components';
 import { useState } from 'react';
 import React from 'react';
 
-import { SlideListContext } from '../core/contexts/selected-list.context';
+import {
+  crystalShowroomContext,
+  CrystalShowroomContextProps,
+  crystalShowroomReducer,
+} from '../core/contexts/selected-list.context';
 import Selection from '../core/models/selection';
 
 const Showroom = styled.div`
@@ -13,22 +17,19 @@ const Showroom = styled.div`
 `;
 
 function CrystalShowroom() {
-  const [selectedList, setSelectedList] = useState<Selection[]>([]);
-  const updateSelectedList = (item: Selection) => {
-    setSelectedList((preState: Selection[]) =>
-      item.isSelected ? preState.concat(item) : preState.filter((selection) => selection.key !== item.key),
-    );
-  };
+  const [state, dispatch] = React.useReducer(crystalShowroomReducer, new CrystalShowroomContextProps());
 
   return (
     <Showroom className="App">
       <div className="flex flex-grow justify-center items-center">
-        <Product selectedList={selectedList} />
+        <Product selectedList={state.selectedList} />
       </div>
       <div className="bg-gray-50 h-full border-l border-gray-500" style={{ flex: '0 0 385px' }}>
-        <SlideListContext.Provider value={{ setSelectedList: updateSelectedList }}>
+        <crystalShowroomContext.Provider
+          value={{ selectedList: state.selectedList, handSize: state.handSize, dispatch }}
+        >
           <ControlPanel />
-        </SlideListContext.Provider>
+        </crystalShowroomContext.Provider>
       </div>
     </Showroom>
   );

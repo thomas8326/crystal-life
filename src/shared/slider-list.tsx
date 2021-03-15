@@ -1,14 +1,19 @@
+import React from 'react';
 import { useContext, useState } from 'react';
 import styled, { css } from 'styled-components';
-import { SlideListContext } from '../core/contexts/selected-list.context';
+import {
+  crystalShowroomContext,
+  CrystalShowroomContextProps,
+  UPDATED_SELECTED_LIST,
+} from '../core/contexts/selected-list.context';
+import Action from '../core/models/action';
 import Selection from '../core/models/selection';
 import use2DArray from '../utils/customer-hook/use2DArray';
 
-const Item = styled.div<any>`
+const Item = styled.img<any>`
   width: 50px;
   height: 50px;
   margin: 0 4px;
-  background: ${(props: { isOdd: boolean }) => `${props.isOdd ? 'red' : 'green'}`};
 
   ${(props: { isSelected: boolean }) =>
     props.isSelected &&
@@ -31,16 +36,15 @@ const ChangeSlideButton = styled.button`
     `};
 `;
 
-export default function SlideList(props: { list: Selection[] }) {
-  const { list } = props;
+export default function SlideList(props: { list: Selection[]; updateSelect: (item: Selection) => void }) {
+  const { list, updateSelect } = props;
   const slideList = use2DArray<Selection>(list, 4);
   const [slideIndex, setSlideIndex] = useState(0);
-  const { setSelectedList } = useContext(SlideListContext);
 
   const slideRoom = (showOnIndex: number) => {
     const onSelected = (item: Selection) => {
       item.isSelected = !item.isSelected;
-      setSelectedList(item);
+      updateSelect(item);
     };
 
     return slideList.map(
@@ -53,6 +57,7 @@ export default function SlideList(props: { list: Selection[] }) {
                 isOdd={index % 2 !== 0}
                 onClick={() => onSelected(item)}
                 isSelected={item.isSelected}
+                src={item.url}
               ></Item>
             ))}
           </li>
