@@ -6,10 +6,9 @@ import React from 'react';
 
 import {
   crystalShowroomContext,
-  CrystalShowroomContextProps,
+  crystalShowroomInitState,
   crystalShowroomReducer,
 } from '../core/contexts/selected-list.context';
-import Selection from '../core/models/selection';
 
 const Showroom = styled.div`
   display: flex;
@@ -17,7 +16,7 @@ const Showroom = styled.div`
 `;
 
 function CrystalShowroom() {
-  const [state, dispatch] = useReducer(crystalShowroomReducer, new CrystalShowroomContextProps());
+  const [state, dispatch] = useReducer(crystalShowroomReducer, crystalShowroomInitState);
 
   return (
     <Showroom className="App">

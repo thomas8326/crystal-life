@@ -3,8 +3,11 @@ import React from 'react';
 import Action from '../models/action';
 
 import Selection from '../models/selection';
+import { v4 as uuidv4 } from 'uuid';
+import { HAND_SIZE } from 'src/core/constants/constants';
 
 export const UPDATED_SELECTED_LIST = 'UPDATED_SELECTED_LIST';
+export const DELETE_SELECTED = 'DELETE_SELECTED';
 export const SELECT_HAND_SIZE = 'SELECT_HAND_SIZE';
 
 export class CrystalShowroomContextProps {
@@ -15,28 +18,27 @@ export class CrystalShowroomContextProps {
   dispatch: React.Dispatch<any> = () => null;
 }
 
-export const crystalShowroomContext = React.createContext<CrystalShowroomContextProps>({
+export const crystalShowroomInitState: CrystalShowroomContextProps = {
   selectedList: [],
-  handSize: new HandSize(),
+  handSize: HAND_SIZE[0],
   dispatch: () => null,
-});
+};
+
+export const crystalShowroomContext = React.createContext<CrystalShowroomContextProps>(crystalShowroomInitState);
 
 export const crystalShowroomReducer = (
   state: CrystalShowroomContextProps,
-  action: Action<{ selectedItem: Selection }>,
+  action: Action<{ selectedItem: HandSize | Selection }>,
 ) => {
   switch (action.type) {
     case UPDATED_SELECTED_LIST: {
-      const selectedItem = action.data.selectedItem;
+      const selectedItem = { ...action.data.selectedItem, ...{ key: uuidv4() } };
 
-      const newSelectedList = selectedItem.isSelected
-        ? state.selectedList.concat(selectedItem)
-        : state.selectedList.filter((selection) => selection.key !== selectedItem.key);
-
+      const newSelectedList = state.selectedList.concat(selectedItem);
       return Object.assign({}, state, { selectedList: newSelectedList });
     }
     case SELECT_HAND_SIZE:
-      return Object.assign({}, state, { handSize: action.data.selectedItem });
+      return Object.assign({}, state, { handSize: action.data.selectedItem, selectedList: [] });
     default:
       return state;
   }

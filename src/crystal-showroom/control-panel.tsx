@@ -10,9 +10,11 @@ import RadioGroup from '../shared/redio-group';
 import SlideList from '../shared/slider-list';
 
 export default function ControlPanel() {
-  const { handSize, dispatch } = useContext(crystalShowroomContext);
+  const { handSize, selectedList, dispatch } = useContext(crystalShowroomContext);
   const updateSelectedCrystal = (item: Selection) => {
-    dispatch({ type: UPDATED_SELECTED_LIST, data: { selectedItem: item } });
+    if (selectedList.length < handSize.crystalCount) {
+      dispatch({ type: UPDATED_SELECTED_LIST, data: { selectedItem: item } });
+    }
   };
 
   const updateSelectHandSize = (item: HandSize) => {

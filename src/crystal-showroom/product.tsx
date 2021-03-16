@@ -9,7 +9,7 @@ const ProductDisplay = styled.div`
   height: 360px;
 `;
 
-const Bead = styled.img<any>`
+const Bead = styled.div<any>`
   position: absolute;
   top: ${(props: { top: number }) => `${props.top}px`};
   left: ${(props: { left: number }) => `${props.left}px`};
@@ -47,12 +47,13 @@ export default function Product(props: { selectedList: Selection[]; handSize: Ha
     <ProductDisplay>
       {itemPosition.map((item, index) => (
         <Bead
-          key={selectedList[index]?.key}
+          key={selectedList[index]?.key ?? index}
           top={item.top}
           left={item.left}
-          src={selectedList[index]?.url}
           isEmpty={!selectedList[index]?.url}
-        ></Bead>
+        >
+          {selectedList[index]?.url && <img src={selectedList[index]?.url} className="w-full h-full" />}
+        </Bead>
       ))}
     </ProductDisplay>
   );

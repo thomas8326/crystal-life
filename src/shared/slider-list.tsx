@@ -43,7 +43,6 @@ export default function SlideList(props: { list: Selection[]; updateSelect: (ite
 
   const slideRoom = (showOnIndex: number) => {
     const onSelected = (item: Selection) => {
-      item.isSelected = !item.isSelected;
       updateSelect(item);
     };
 
@@ -52,13 +51,7 @@ export default function SlideList(props: { list: Selection[]; updateSelect: (ite
         showOnIndex === index && (
           <li key={index} className="flex flex-row w-full">
             {room.map((item: Selection) => (
-              <Item
-                key={item.key}
-                isOdd={index % 2 !== 0}
-                onClick={() => onSelected(item)}
-                isSelected={item.isSelected}
-                src={item.url}
-              ></Item>
+              <Item key={item.key} isOdd={index % 2 !== 0} onClick={() => onSelected(item)} src={item.url}></Item>
             ))}
           </li>
         ),
