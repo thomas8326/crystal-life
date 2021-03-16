@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 import StyledCss from '../core/models/css';
-import Selection from '../core/models/selection';
+import Selection, { HandSize } from '../core/models/selection';
 import '../styles/animation.css';
 
 const ProductDisplay = styled.div`
@@ -25,14 +25,13 @@ const Bead = styled.img<any>`
   border-radius: 50%;
 `;
 
-function generateCrystalBeads(length: number): { top: number; left: number }[] {
+function generateCrystalBeads(radius: number, count: number): { top: number; left: number }[] {
   const containerX = 150;
   const containerY = 150;
-  const radius = 165;
-  const circleAngular = 360 / length;
+  const circleAngular = 360 / count;
   const circleHeight = (circleAngular * Math.PI) / 180;
 
-  return new Array(length).fill(-1).map((dom, index) => {
+  return new Array(count).fill(-1).map((dom, index) => {
     const left = Math.sin(circleHeight * index) * radius + containerX;
     const top = Math.cos(circleHeight * index) * radius + containerY;
 
@@ -40,9 +39,9 @@ function generateCrystalBeads(length: number): { top: number; left: number }[] {
   });
 }
 
-export default function Product(props: { selectedList: Selection[] }) {
-  const itemPosition = generateCrystalBeads(21);
-  const { selectedList } = props;
+export default function Product(props: { selectedList: Selection[]; handSize: HandSize }) {
+  const { selectedList, handSize } = props;
+  const itemPosition = generateCrystalBeads(handSize.radiusWidth, handSize.crystalCount);
 
   return (
     <ProductDisplay>

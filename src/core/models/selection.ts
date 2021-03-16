@@ -7,3 +7,8 @@ export default class Selection {
 
   isSelected?: boolean;
 }
+
+export class HandSize extends Selection {
+  radiusWidth!: number;
+  crystalCount!: number;
+}

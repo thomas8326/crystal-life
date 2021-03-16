@@ -1,12 +1,12 @@
-import Selection from '../models/selection';
+import Selection, { HandSize } from '../models/selection';
 
-export const HAND_SIZE: Selection[] = [
-  { key: '1458', value: '14.5 8mm' },
-  { key: '14510', value: '14.5 10mm' },
-  { key: '168', value: '16 8mm' },
-  { key: '1610', value: '16 10mm' },
-  { key: '178', value: '17 8mm' },
-  { key: '1710', value: '17 10mm' },
+export const HAND_SIZE: HandSize[] = [
+  { key: '1458', value: '14.5 8mm', radiusWidth: 165, crystalCount: 21 },
+  { key: '14510', value: '14.5 10mm', radiusWidth: 138, crystalCount: 17 },
+  { key: '168', value: '16 8mm', radiusWidth: 190, crystalCount: 24 },
+  { key: '1610', value: '16 10mm', radiusWidth: 155, crystalCount: 19 },
+  { key: '178', value: '17 8mm', radiusWidth: 210, crystalCount: 26 },
+  { key: '1710', value: '17 10mm', radiusWidth: 160, crystalCount: 20 },
 ];
 
 export const CRYSTAL_TYPE: Selection[] = [

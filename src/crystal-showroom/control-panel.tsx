@@ -1,14 +1,22 @@
 import { useContext } from 'react';
 import { CRYSTAL_TYPE, HAND_SIZE } from '../core/constants/constants';
-import { crystalShowroomContext, UPDATED_SELECTED_LIST } from '../core/contexts/selected-list.context';
-import Selection from '../core/models/selection';
+import {
+  crystalShowroomContext,
+  SELECT_HAND_SIZE,
+  UPDATED_SELECTED_LIST,
+} from '../core/contexts/selected-list.context';
+import Selection, { HandSize } from '../core/models/selection';
 import RadioGroup from '../shared/redio-group';
 import SlideList from '../shared/slider-list';
 
 export default function ControlPanel() {
-  const { dispatch } = useContext(crystalShowroomContext);
+  const { handSize, dispatch } = useContext(crystalShowroomContext);
   const updateSelectedCrystal = (item: Selection) => {
     dispatch({ type: UPDATED_SELECTED_LIST, data: { selectedItem: item } });
+  };
+
+  const updateSelectHandSize = (item: HandSize) => {
+    dispatch({ type: SELECT_HAND_SIZE, data: { selectedItem: item } });
   };
 
   return (
@@ -16,7 +24,7 @@ export default function ControlPanel() {
       <h4 className="text-left text-2xl font-bold">NOVUS LIFE</h4>
       <div className="w-full flex flex-col p-2">
         <label className="text-left text-lg">手圍</label>
-        <RadioGroup list={HAND_SIZE} groupName="handSize" />
+        <RadioGroup list={HAND_SIZE} groupName="handSize" updateRadio={updateSelectHandSize} />
       </div>
       <div className="h-20 w-full flex flex-col p-2">
         <label className="text-left text-lg">銀鍊</label>

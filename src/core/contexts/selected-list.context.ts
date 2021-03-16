@@ -1,3 +1,4 @@
+import { HandSize } from './../models/selection';
 import React from 'react';
 import Action from '../models/action';
 
@@ -9,14 +10,14 @@ export const SELECT_HAND_SIZE = 'SELECT_HAND_SIZE';
 export class CrystalShowroomContextProps {
   selectedList: Selection[] = [];
 
-  handSize: string = '';
+  handSize: HandSize = new HandSize();
 
   dispatch: React.Dispatch<any> = () => null;
 }
 
 export const crystalShowroomContext = React.createContext<CrystalShowroomContextProps>({
   selectedList: [],
-  handSize: '',
+  handSize: new HandSize(),
   dispatch: () => null,
 });
 
@@ -35,9 +36,7 @@ export const crystalShowroomReducer = (
       return Object.assign({}, state, { selectedList: newSelectedList });
     }
     case SELECT_HAND_SIZE:
-      return Object.assign({}, state, {
-        handSize: state.handSize,
-      });
+      return Object.assign({}, state, { handSize: action.data.selectedItem });
     default:
       return state;
   }
