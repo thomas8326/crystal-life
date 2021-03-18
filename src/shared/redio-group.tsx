@@ -3,11 +3,14 @@ import Selection from '../core/models/selection';
 
 export default function RadioGroup<T extends Selection>(props: {
   list: T[];
+  defaultValue: Selection;
   groupName: string;
   updateRadio: (item: T) => void;
 }) {
-  const { groupName, list, updateRadio } = props;
-  const [selectedItem, setSelectedItem] = useState(list[0]);
+  const { groupName, list, defaultValue, updateRadio } = props;
+  console.log(list);
+  console.log(defaultValue);
+  // const [selectedItem, setSelectedItem] = useState(defaultValue);
 
   const RadioItem = (props: { item: T }) => {
     const { item } = props;
@@ -21,13 +24,13 @@ export default function RadioGroup<T extends Selection>(props: {
           id={item.key}
           value={item.value}
           name={groupName}
-          checked={item.key === selectedItem.key}
+          checked={item.key === defaultValue.key}
           onChange={() => {
             updateRadio(item);
-            setSelectedItem(item);
+            // setSelectedItem(item);
           }}
         />
-        <span>{item.value}</span>
+        <span>{item.text}</span>
       </label>
     );
   };

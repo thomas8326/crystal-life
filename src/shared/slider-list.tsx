@@ -14,6 +14,7 @@ const Item = styled.img<any>`
   width: 50px;
   height: 50px;
   margin: 0 4px;
+  cursor: pointer;
 
   ${(props: { isSelected: boolean }) =>
     props.isSelected &&

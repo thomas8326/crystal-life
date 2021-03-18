@@ -1,7 +1,12 @@
+import { useContext, useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
-import StyledCss from '../core/models/css';
-import Selection, { HandSize } from '../core/models/selection';
+import Selection from '../core/models/selection';
 import '../styles/animation.css';
+import {
+  crystalShowroomContext,
+  REMOVE_SELECTED_CRYSTAL_BEAD,
+  SELECT_CRYSTAL_BEAD,
+} from 'src/core/contexts/selected-list.context';
 
 const ProductDisplay = styled.div`
   position: relative;
@@ -16,44 +21,79 @@ const Bead = styled.div<any>`
   display: flex;
   width: 50px;
   height: 50px;
-  ${(props: { isEmpty: boolean }) =>
+  border-radius: 50%;
+  cursor: pointer;
+
+  &: hover {
+    background-color: #f7f0c0;
+  }
+
+  ${(props: { isEmpty: boolean; isClicked: boolean }) =>
     props.isEmpty &&
     css`
       background-color: #fffbe0;
       border: 1px dashed rgb(234 146 82 / 50%);
     `};
-  border-radius: 50%;
+
+  ${(props: { isClicked: boolean }) =>
+    props.isClicked &&
+    css`
+      border: 2px dashed #ea7e30;
+    `};
 `;
 
-function generateCrystalBeads(radius: number, count: number): { top: number; left: number }[] {
+function generateCrystalBeads(
+  selectedList: Selection[],
+  radius: number,
+  count: number,
+): { item: Selection; top: number; left: number }[] {
   const containerX = 150;
   const containerY = 150;
   const circleAngular = 360 / count;
   const circleHeight = (circleAngular * Math.PI) / 180;
 
-  return new Array(count).fill(-1).map((dom, index) => {
+  return selectedList.map((item, index) => {
     const left = Math.sin(circleHeight * index) * radius + containerX;
     const top = Math.cos(circleHeight * index) * radius + containerY;
 
-    return { top, left };
+    return { item, top, left };
   });
 }
 
-export default function Product(props: { selectedList: Selection[]; handSize: HandSize }) {
-  const { selectedList, handSize } = props;
-  const itemPosition = generateCrystalBeads(handSize.radiusWidth, handSize.crystalCount);
+function BeadContainer(props: { top: number; left: number; item: Selection }) {
+  const { dispatch } = useContext(crystalShowroomContext);
+  const { top, left, item } = props;
+  const [isClicked, setIsClicked] = useState<boolean>(false);
+
+  useEffect(() => setIsClicked(false), [item]);
+
+  const onSelectBead = (item: Selection) => {
+    setIsClicked((preState: boolean) => {
+      const newState = !preState;
+
+      newState
+        ? dispatch({ type: SELECT_CRYSTAL_BEAD, data: { selectedBead: item.key } })
+        : dispatch({ type: REMOVE_SELECTED_CRYSTAL_BEAD, data: { selectedBead: item.key } });
+
+      return newState;
+    });
+  };
+
+  return (
+    <Bead top={top} left={left} isEmpty={!item?.url} isClicked={isClicked} onClick={() => onSelectBead(item)}>
+      {item?.url && <img src={item?.url} className="w-full h-full" />}
+    </Bead>
+  );
+}
+
+export default function Product() {
+  const { selectedSliverPipe, handSize, selectedList } = useContext(crystalShowroomContext);
+  const itemPosition = generateCrystalBeads(selectedList, handSize.radiusWidth, handSize.crystalCount);
 
   return (
     <ProductDisplay>
-      {itemPosition.map((item, index) => (
-        <Bead
-          key={selectedList[index]?.key ?? index}
-          top={item.top}
-          left={item.left}
-          isEmpty={!selectedList[index]?.url}
-        >
-          {selectedList[index]?.url && <img src={selectedList[index]?.url} className="w-full h-full" />}
-        </Bead>
+      {itemPosition.map((data) => (
+        <BeadContainer key={data.item.key} top={data.top} left={data.left} item={data.item} />
       ))}
     </ProductDisplay>
   );
