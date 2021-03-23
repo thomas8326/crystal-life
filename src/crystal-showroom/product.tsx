@@ -1,6 +1,7 @@
+// prettier ignore
 import { useContext, useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
-import Selection from '../core/models/selection';
+import Selection, { HandSize } from '../core/models/selection';
 import '../styles/animation.css';
 import {
   crystalShowroomContext,
@@ -10,8 +11,18 @@ import {
 
 const ProductDisplay = styled.div`
   position: relative;
-  width: 360px;
-  height: 360px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: ${(props: { radius: number; beadSize: number }) => `${props.radius * 2 + props.beadSize}px`};
+  height: ${(props: { radius: number; beadSize: number }) => `${props.radius * 2 + props.beadSize}px`};
+`;
+
+const ProductInnerBorder = styled.div`
+  width: ${(props: { beadSize: number }) => `calc(100% - ${props.beadSize}px)`};
+  height: ${(props: { beadSize: number }) => `calc(100% - ${props.beadSize}px)`};
+  border: 4px solid #d1d5db;
+  border-radius: 50%;
 `;
 
 const Bead = styled.div<any>`
@@ -19,8 +30,8 @@ const Bead = styled.div<any>`
   top: ${(props: { top: number }) => `${props.top}px`};
   left: ${(props: { left: number }) => `${props.left}px`};
   display: flex;
-  width: 50px;
-  height: 50px;
+  width: ${(props: { radius: number }) => `${props.radius}px`};
+  height: ${(props: { radius: number }) => `${props.radius}px`};
   border-radius: 50%;
   cursor: pointer;
 
@@ -44,24 +55,23 @@ const Bead = styled.div<any>`
 
 function generateCrystalBeads(
   selectedList: Selection[],
-  radius: number,
-  count: number,
+  handSize: HandSize,
 ): { item: Selection; top: number; left: number }[] {
-  const containerX = 150;
-  const containerY = 150;
-  const circleAngular = 360 / count;
+  const containerX = handSize.radiusWidth;
+  const containerY = handSize.radiusWidth;
+  const circleAngular = 360 / handSize.crystalCount;
   const circleHeight = (circleAngular * Math.PI) / 180;
 
   return selectedList.map((item, index) => {
-    const left = Math.sin(circleHeight * index) * radius + containerX;
-    const top = Math.cos(circleHeight * index) * radius + containerY;
+    const left = Math.sin(circleHeight * index) * handSize.radiusWidth + containerX;
+    const top = Math.cos(circleHeight * index) * handSize.radiusWidth + containerY;
 
     return { item, top, left };
   });
 }
 
 function BeadContainer(props: { top: number; left: number; item: Selection }) {
-  const { dispatch } = useContext(crystalShowroomContext);
+  const { handSize, dispatch } = useContext(crystalShowroomContext);
   const { top, left, item } = props;
   const [isClicked, setIsClicked] = useState<boolean>(false);
 
@@ -80,7 +90,14 @@ function BeadContainer(props: { top: number; left: number; item: Selection }) {
   };
 
   return (
-    <Bead top={top} left={left} isEmpty={!item?.url} isClicked={isClicked} onClick={() => onSelectBead(item)}>
+    <Bead
+      top={top}
+      left={left}
+      isEmpty={!item?.url}
+      isClicked={isClicked}
+      radius={handSize.beadSize}
+      onClick={() => onSelectBead(item)}
+    >
       {item?.url && <img src={item?.url} className="w-full h-full" />}
     </Bead>
   );
@@ -88,13 +105,17 @@ function BeadContainer(props: { top: number; left: number; item: Selection }) {
 
 export default function Product() {
   const { selectedSliverPipe, handSize, selectedList } = useContext(crystalShowroomContext);
-  const itemPosition = generateCrystalBeads(selectedList, handSize.radiusWidth, handSize.crystalCount);
+  const itemPosition = generateCrystalBeads(selectedList, handSize);
+
+  console.log(handSize);
 
   return (
-    <ProductDisplay>
-      {itemPosition.map((data) => (
-        <BeadContainer key={data.item.key} top={data.top} left={data.left} item={data.item} />
-      ))}
+    <ProductDisplay radius={handSize.radiusWidth} beadSize={handSize.beadSize}>
+      <ProductInnerBorder beadSize={handSize.beadSize}>
+        {itemPosition.map((data) => (
+          <BeadContainer key={data.item.key} top={data.top} left={data.left} item={data.item} />
+        ))}
+      </ProductInnerBorder>
     </ProductDisplay>
   );
 }

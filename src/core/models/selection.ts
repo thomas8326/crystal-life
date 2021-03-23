@@ -18,4 +18,5 @@ export default class Selection {
 export class HandSize extends Selection {
   radiusWidth!: number;
   crystalCount!: number;
+  beadSize!: number;
 }
