@@ -1,5 +1,11 @@
 import { useContext } from 'react';
-import { CRYSTAL_TYPE, EIGHT_MM_SLIVER_PIPE, HAND_SIZE, TEN_MM_SLIVER_PIPE } from '../core/constants/constants';
+import {
+  CRYSTAL_TYPE,
+  EIGHT_MM_SLIVER_PIPE,
+  FLOWER_OPTION,
+  HAND_SIZE,
+  TEN_MM_SLIVER_PIPE,
+} from '../core/constants/constants';
 import {
   crystalShowroomContext,
   SELECT_HAND_SIZE,
@@ -51,6 +57,12 @@ export default function ControlPanel() {
       </div>
       <div className=" h-20 w-full flex flex-col p-2">
         <label className="text-left text-lg">花蓋</label>
+        <RadioGroup
+          list={FLOWER_OPTION}
+          defaultValue={{ key: 'FLOWER_OPTION_NONE', text: 'None' }}
+          groupName="flowerClover"
+          updateRadio={() => {}}
+        />
       </div>
       <div className=" h-20 w-full flex flex-col p-2">
         <label className="text-left text-lg">吊飾</label>

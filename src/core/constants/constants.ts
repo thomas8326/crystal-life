@@ -121,3 +121,18 @@ export const TEN_MM_SLIVER_PIPE: Selection[] = [
     value: 4,
   },
 ];
+
+export const FLOWER_OPTION: Selection[] = [
+  {
+    key: 'FLOWER_OPTION_NONE',
+    text: 'None',
+  },
+  {
+    key: 'FLOWER_OPTION_LEFT',
+    text: 'Add Left',
+  },
+  {
+    key: 'FLOWER_OPTION_RIGHT',
+    text: 'Add Right',
+  },
+];
