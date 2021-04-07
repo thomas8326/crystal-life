@@ -34,9 +34,32 @@ const Bead = styled.div<any>`
   height: ${(props: { radius: number }) => `${props.radius}px`};
   border-radius: 50%;
   cursor: pointer;
+  align-items: center;
+
+  transform: rotate(${(props: { angular: number }) => `${props.angular}deg`});
 
   &: hover {
     background-color: #f7f0c0;
+  }
+
+  &:: before {
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    left: 0;
+
+    background-color: red;
+    content: '';
+  }
+
+  &::after {
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    right: 0;
+
+    background-color: red;
+    content: '';
   }
 
   ${(props: { isEmpty: boolean; isClicked: boolean }) =>
@@ -56,7 +79,7 @@ const Bead = styled.div<any>`
 function generateCrystalBeads(
   selectedList: Selection[],
   handSize: HandSize,
-): { item: Selection; top: number; left: number }[] {
+): { item: Selection; top: number; left: number; angular: number }[] {
   const containerX = handSize.radiusWidth;
   const containerY = handSize.radiusWidth;
   const circleAngular = 360 / handSize.crystalCount;
@@ -66,13 +89,13 @@ function generateCrystalBeads(
     const left = Math.sin(circleHeight * index) * handSize.radiusWidth + containerX;
     const top = Math.cos(circleHeight * index) * handSize.radiusWidth + containerY;
 
-    return { item, top, left };
+    return { item, top, left, angular: circleAngular };
   });
 }
 
-function BeadContainer(props: { top: number; left: number; item: Selection }) {
+function BeadContainer(props: { top: number; left: number; item: Selection; angular: number }) {
   const { handSize, dispatch } = useContext(crystalShowroomContext);
-  const { top, left, item } = props;
+  const { top, left, item, angular } = props;
   const [isClicked, setIsClicked] = useState<boolean>(false);
 
   useEffect(() => setIsClicked(false), [item]);
@@ -96,6 +119,7 @@ function BeadContainer(props: { top: number; left: number; item: Selection }) {
       isEmpty={!item?.url}
       isClicked={isClicked}
       radius={handSize.beadSize}
+      angular={angular}
       onClick={() => onSelectBead(item)}
     >
       {item?.url && <img src={item?.url} className="w-full h-full" />}
@@ -112,8 +136,14 @@ export default function Product() {
   return (
     <ProductDisplay radius={handSize.radiusWidth} beadSize={handSize.beadSize}>
       <ProductInnerBorder beadSize={handSize.beadSize}>
-        {itemPosition.map((data) => (
-          <BeadContainer key={data.item.key} top={data.top} left={data.left} item={data.item} />
+        {itemPosition.map((data, index) => (
+          <BeadContainer
+            key={data.item.key}
+            top={data.top}
+            left={data.left}
+            item={data.item}
+            angular={data.angular * index * -1}
+          />
         ))}
       </ProductInnerBorder>
     </ProductDisplay>
