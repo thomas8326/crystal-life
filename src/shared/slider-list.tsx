@@ -4,7 +4,7 @@ import styled, { css } from 'styled-components';
 import {
   crystalShowroomContext,
   CrystalShowroomContextProps,
-  UPDATED_SELECTED_LIST,
+  UPDATED_SELECTED_BEAD,
 } from '../core/contexts/selected-list.context';
 import Action from '../core/models/action';
 import Selection from '../core/models/selection';

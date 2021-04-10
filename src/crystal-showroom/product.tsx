@@ -5,8 +5,8 @@ import Selection, { HandSize } from '../core/models/selection';
 import '../styles/animation.css';
 import {
   crystalShowroomContext,
-  REMOVE_SELECTED_CRYSTAL_BEAD,
-  SELECT_CRYSTAL_BEAD,
+  REMOVE_DISPLAY_SELECTED_CRYSTAL_BEAD,
+  SELECT_DISPLAY_CRYSTAL_BEAD,
 } from 'src/core/contexts/selected-list.context';
 
 const ProductDisplay = styled.div`
@@ -105,8 +105,8 @@ function BeadContainer(props: { top: number; left: number; item: Selection; angu
       const newState = !preState;
 
       newState
-        ? dispatch({ type: SELECT_CRYSTAL_BEAD, data: { selectedBead: item.key } })
-        : dispatch({ type: REMOVE_SELECTED_CRYSTAL_BEAD, data: { selectedBead: item.key } });
+        ? dispatch({ type: SELECT_DISPLAY_CRYSTAL_BEAD, data: { selectedDisplayCrystal: item.key } })
+        : dispatch({ type: REMOVE_DISPLAY_SELECTED_CRYSTAL_BEAD, data: { selectedDisplayCrystal: item.key } });
 
       return newState;
     });
@@ -128,10 +128,10 @@ function BeadContainer(props: { top: number; left: number; item: Selection; angu
 }
 
 export default function Product() {
-  const { selectedSliverPipe, handSize, selectedList } = useContext(crystalShowroomContext);
-  const itemPosition = generateCrystalBeads(selectedList, handSize);
+  const { crystalRing } = useContext(crystalShowroomContext);
+  const { beads, handSize } = crystalRing;
 
-  console.log(handSize);
+  const itemPosition = generateCrystalBeads(beads, handSize);
 
   return (
     <ProductDisplay radius={handSize.radiusWidth} beadSize={handSize.beadSize}>

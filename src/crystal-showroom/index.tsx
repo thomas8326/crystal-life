@@ -17,16 +17,16 @@ const Showroom = styled.div`
 
 function CrystalShowroom() {
   const [state, dispatch] = useReducer(crystalShowroomReducer, crystalShowroomInitState);
-  console.log(state);
 
   return (
     <Showroom className="App">
       <div className="flex flex-grow justify-center items-center">
         <crystalShowroomContext.Provider
           value={{
+            crystalRing: state.crystalRing,
             selectedList: state.selectedList,
             handSize: state.handSize,
-            selectedBeads: state.selectedBeads,
+            selectedDisplayCrystal: state.selectedDisplayCrystal,
             selectedSliverPipe: state.selectedSliverPipe,
             dispatch,
           }}
@@ -37,9 +37,10 @@ function CrystalShowroom() {
       <div className="bg-gray-50 h-full border-l border-gray-500" style={{ flex: '0 0 385px' }}>
         <crystalShowroomContext.Provider
           value={{
+            crystalRing: state.crystalRing,
             selectedList: state.selectedList,
             handSize: state.handSize,
-            selectedBeads: state.selectedBeads,
+            selectedDisplayCrystal: state.selectedDisplayCrystal,
             selectedSliverPipe: state.selectedSliverPipe,
             dispatch,
           }}

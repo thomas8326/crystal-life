@@ -8,9 +8,6 @@ export default function RadioGroup<T extends Selection>(props: {
   updateRadio: (item: T) => void;
 }) {
   const { groupName, list, defaultValue, updateRadio } = props;
-  console.log(list);
-  console.log(defaultValue);
-  // const [selectedItem, setSelectedItem] = useState(defaultValue);
 
   const RadioItem = (props: { item: T }) => {
     const { item } = props;
@@ -27,7 +24,6 @@ export default function RadioGroup<T extends Selection>(props: {
           checked={item.key === defaultValue.key}
           onChange={() => {
             updateRadio(item);
-            // setSelectedItem(item);
           }}
         />
         <span>{item.text}</span>

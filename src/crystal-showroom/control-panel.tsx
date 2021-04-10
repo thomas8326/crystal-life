@@ -10,7 +10,7 @@ import {
   crystalShowroomContext,
   SELECT_HAND_SIZE,
   SELECT_SLIVER_PIPE,
-  UPDATED_SELECTED_LIST,
+  UPDATED_SELECTED_BEAD,
 } from '../core/contexts/selected-list.context';
 import Selection, { HandSize } from '../core/models/selection';
 import RadioGroup from '../shared/redio-group';
@@ -18,20 +18,19 @@ import SlideList from '../shared/slider-list';
 
 export default function ControlPanel() {
   const { handSize, selectedSliverPipe, dispatch } = useContext(crystalShowroomContext);
-  const updateSelectedCrystal = (item: Selection) => {
-    dispatch({ type: UPDATED_SELECTED_LIST, data: { selectedItem: item } });
+  const updateSelectedCrystal = (bead: Selection) => {
+    dispatch({ type: UPDATED_SELECTED_BEAD, data: { bead } });
   };
 
-  const updateSelectHandSize = (item: HandSize) => {
-    dispatch({ type: SELECT_HAND_SIZE, data: { selectedItem: item } });
+  const updateSelectHandSize = (handSize: HandSize) => {
+    dispatch({ type: SELECT_HAND_SIZE, data: { handSize } });
   };
 
   const updateSelectSliverHand = (item: Selection) => {
-    dispatch({ type: SELECT_SLIVER_PIPE, data: { selectedItem: item } });
+    dispatch({ type: SELECT_SLIVER_PIPE, data: { sliverPipe: item } });
   };
 
   const getSliverPipeList = (): Selection[] => {
-    console.log(handSize);
     return handSize.value === 8 ? EIGHT_MM_SLIVER_PIPE : TEN_MM_SLIVER_PIPE;
   };
 
