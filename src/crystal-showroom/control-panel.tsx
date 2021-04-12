@@ -17,7 +17,7 @@ import RadioGroup from '../shared/redio-group';
 import SlideList from '../shared/slider-list';
 
 export default function ControlPanel() {
-  const { handSize, selectedSliverPipe, dispatch } = useContext(crystalShowroomContext);
+  const { crystalRing, dispatch } = useContext(crystalShowroomContext);
   const updateSelectedCrystal = (bead: Selection) => {
     dispatch({ type: UPDATED_SELECTED_BEAD, data: { bead } });
   };
@@ -31,7 +31,7 @@ export default function ControlPanel() {
   };
 
   const getSliverPipeList = (): Selection[] => {
-    return handSize.value === 8 ? EIGHT_MM_SLIVER_PIPE : TEN_MM_SLIVER_PIPE;
+    return crystalRing.handSize.value === 8 ? EIGHT_MM_SLIVER_PIPE : TEN_MM_SLIVER_PIPE;
   };
 
   return (
@@ -39,13 +39,18 @@ export default function ControlPanel() {
       <h4 className="text-left text-2xl font-bold">NOVUS LIFE</h4>
       <div className="w-full flex flex-col p-2">
         <label className="text-left text-lg">手圍</label>
-        <RadioGroup list={HAND_SIZE} defaultValue={handSize} groupName="handSize" updateRadio={updateSelectHandSize} />
+        <RadioGroup
+          list={HAND_SIZE}
+          defaultValue={crystalRing.handSize}
+          groupName="handSize"
+          updateRadio={updateSelectHandSize}
+        />
       </div>
       <div className="w-full flex flex-col p-2">
         <label className="text-left text-lg">銀管</label>
         <RadioGroup
           list={getSliverPipeList()}
-          defaultValue={selectedSliverPipe}
+          defaultValue={crystalRing.sliverPipe}
           groupName="sliverPipe"
           updateRadio={updateSelectSliverHand}
         />

@@ -42,7 +42,7 @@ export const initNewSelectedList = (crystalCount: number): Crystal[] =>
   new Array(crystalCount).fill(-1).map(() => new Crystal(uuidv4()));
 
 export const crystalShowroomInitState: CrystalShowroomContextProps = {
-  crystalRing: new CrystalRing(HAND_SIZE[0]),
+  crystalRing: new CrystalRing(HAND_SIZE[0], EIGHT_MM_SLIVER_PIPE[0]),
   selectedDisplayCrystal: [],
   selectedList: initNewSelectedList(HAND_SIZE[0].crystalCount),
   handSize: HAND_SIZE[0],
@@ -56,7 +56,9 @@ export const crystalShowroomReducer = (state: CrystalShowroomContextProps, actio
   switch (action.type) {
     case SELECT_HAND_SIZE:
       const handSize = action.data.handSize;
-      const crystalRing = new CrystalRing(handSize);
+      const crystalRing = state.crystalRing;
+      crystalRing.setHandSize(handSize);
+      crystalRing.setBeads(handSize.crystalCount);
 
       return Object.assign({}, state, { crystalRing });
     case UPDATED_SELECTED_BEAD: {
@@ -77,13 +79,13 @@ export const crystalShowroomReducer = (state: CrystalShowroomContextProps, actio
       return Object.assign({}, state, { selectedBeads: newBeads });
     case SELECT_SLIVER_PIPE: {
       const selectedSliverPipe = action.data.sliverPipe;
-      const currentHandSize = state.crystalRing.handSize;
+      const currentCrystalRing = state.crystalRing;
+      const newBeadsCount = currentCrystalRing.handSize.crystalCount - (selectedSliverPipe.value as number);
 
-      const currentCrystalRing = new CrystalRing({
-        ...currentHandSize,
-        ...{ crystalCount: currentHandSize.crystalCount - (selectedSliverPipe.value as number) },
-      });
-      currentCrystalRing.setSliverPipe(selectedSliverPipe.key);
+      currentCrystalRing.setBeads(newBeadsCount);
+      currentCrystalRing.setSliverPipe(selectedSliverPipe);
+
+      console.log(currentCrystalRing);
 
       return Object.assign({}, state, {
         crystalRing: currentCrystalRing,

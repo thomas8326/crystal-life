@@ -1,27 +1,31 @@
-import { HandSize } from './selection';
+import Selection, { HandSize } from './selection';
 import Crystal from 'src/core/models/crystal';
 import { v4 as uuidv4 } from 'uuid';
-import { HAND_SIZE } from 'src/core/constants/constants';
+import { EIGHT_MM_SLIVER_PIPE, HAND_SIZE } from 'src/core/constants/constants';
 
 export default class CrystalRing {
   handSize: HandSize = HAND_SIZE[0];
 
-  sliverPipe?: string;
+  sliverPipe!: Selection;
 
   beads: Crystal[] = [];
 
-  constructor(handSize: HandSize, beads?: Crystal[], sliverPipe?: string) {
+  constructor(handSize: HandSize, sliverPipe: Selection) {
     this.handSize = handSize ?? HAND_SIZE[0];
-    this.sliverPipe = sliverPipe;
-    this.beads = !!beads ? beads : this.generateBeads(handSize?.crystalCount);
+    this.sliverPipe = sliverPipe ?? EIGHT_MM_SLIVER_PIPE[0];
+    this.beads = this.generateBeads(handSize.crystalCount);
   }
 
-  setSliverPipe(sliverPipe: string) {
+  setHandSize(handSize: HandSize) {
+    this.handSize = handSize;
+  }
+
+  setSliverPipe(sliverPipe: Selection) {
     this.sliverPipe = sliverPipe;
   }
 
-  setHandSizeCount(count: number) {
-    this.handSize.crystalCount = count;
+  setBeads(count: number) {
+    this.beads = this.generateBeads(count);
   }
 
   private generateBeads(count: number) {

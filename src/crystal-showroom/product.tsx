@@ -94,7 +94,7 @@ function generateCrystalBeads(
 }
 
 function BeadContainer(props: { top: number; left: number; item: Selection; angular: number }) {
-  const { handSize, dispatch } = useContext(crystalShowroomContext);
+  const { crystalRing, dispatch } = useContext(crystalShowroomContext);
   const { top, left, item, angular } = props;
   const [isClicked, setIsClicked] = useState<boolean>(false);
 
@@ -118,7 +118,7 @@ function BeadContainer(props: { top: number; left: number; item: Selection; angu
       left={left}
       isEmpty={!item?.url}
       isClicked={isClicked}
-      radius={handSize.beadSize}
+      radius={crystalRing.handSize.beadSize}
       angular={angular}
       onClick={() => onSelectBead(item)}
     >
