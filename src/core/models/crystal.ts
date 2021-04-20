@@ -1,6 +1,6 @@
-import Selection from 'src/core/models/selection';
+import SelectedItem from 'src/core/models/selection';
 
-export default class Crystal extends Selection {
+export default class Crystal extends SelectedItem {
   key!: string;
 
   text?: string;

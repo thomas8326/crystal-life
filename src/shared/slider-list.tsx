@@ -7,7 +7,7 @@ import {
   UPDATED_SELECTED_BEAD,
 } from '../core/contexts/selected-list.context';
 import Action from '../core/models/action';
-import Selection from '../core/models/selection';
+import SelectedItem from '../core/models/selection';
 import use2DArray from '../utils/customer-hook/use2DArray';
 
 const Item = styled.img<any>`
@@ -37,21 +37,21 @@ const ChangeSlideButton = styled.button`
     `};
 `;
 
-export default function SlideList(props: { list: Selection[]; updateSelect: (item: Selection) => void }) {
+export default function SlideList(props: { list: SelectedItem[]; updateSelect: (item: SelectedItem) => void }) {
   const { list, updateSelect } = props;
-  const slideList = use2DArray<Selection>(list, 4);
+  const slideList = use2DArray<SelectedItem>(list, 4);
   const [slideIndex, setSlideIndex] = useState(0);
 
   const slideRoom = (showOnIndex: number) => {
-    const onSelected = (item: Selection) => {
+    const onSelected = (item: SelectedItem) => {
       updateSelect(item);
     };
 
     return slideList.map(
-      (room: Selection[], index: number) =>
+      (room: SelectedItem[], index: number) =>
         showOnIndex === index && (
           <li key={index} className="flex flex-row w-full">
-            {room.map((item: Selection) => (
+            {room.map((item: SelectedItem) => (
               <Item key={item.key} isOdd={index % 2 !== 0} onClick={() => onSelected(item)} src={item.url}></Item>
             ))}
           </li>

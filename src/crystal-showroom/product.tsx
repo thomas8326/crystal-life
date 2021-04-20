@@ -1,7 +1,7 @@
 // prettier ignore
 import { useContext, useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
-import Selection, { HandSize } from '../core/models/selection';
+import SelectedItem, { HandSize } from '../core/models/selection';
 import '../styles/animation.css';
 import {
   crystalShowroomContext,
@@ -35,7 +35,6 @@ const Bead = styled.div<any>`
   border-radius: 50%;
   cursor: pointer;
   align-items: center;
-
   transform: rotate(${(props: { angular: number }) => `${props.angular}deg`});
 
   &: hover {
@@ -44,20 +43,18 @@ const Bead = styled.div<any>`
 
   &:: before {
     position: absolute;
+    left: 0;
     width: 22px;
     height: 22px;
-    left: 0;
-
     background-color: red;
     content: '';
   }
 
   &::after {
     position: absolute;
+    right: 0;
     width: 22px;
     height: 22px;
-    right: 0;
-
     background-color: red;
     content: '';
   }
@@ -77,9 +74,9 @@ const Bead = styled.div<any>`
 `;
 
 function generateCrystalBeads(
-  selectedList: Selection[],
+  selectedList: SelectedItem[],
   handSize: HandSize,
-): { item: Selection; top: number; left: number; angular: number }[] {
+): { item: SelectedItem; top: number; left: number; angular: number }[] {
   const containerX = handSize.radiusWidth;
   const containerY = handSize.radiusWidth;
   const circleAngular = 360 / handSize.crystalCount;
@@ -93,14 +90,14 @@ function generateCrystalBeads(
   });
 }
 
-function BeadContainer(props: { top: number; left: number; item: Selection; angular: number }) {
+function BeadContainer(props: { top: number; left: number; item: SelectedItem; angular: number }) {
   const { crystalRing, dispatch } = useContext(crystalShowroomContext);
   const { top, left, item, angular } = props;
   const [isClicked, setIsClicked] = useState<boolean>(false);
 
   useEffect(() => setIsClicked(false), [item]);
 
-  const onSelectBead = (item: Selection) => {
+  const onSelectBead = (item: SelectedItem) => {
     setIsClicked((preState: boolean) => {
       const newState = !preState;
 

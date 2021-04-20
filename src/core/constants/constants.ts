@@ -1,4 +1,4 @@
-import Selection, { HandSize } from '../models/selection';
+import SelectedItem, { HandSize } from '../models/selection';
 
 export const HAND_SIZE: HandSize[] = [
   { key: '1458', text: '14.5 8mm', value: 8, radiusWidth: 180, beadSize: 54, crystalCount: 21 },
@@ -9,7 +9,7 @@ export const HAND_SIZE: HandSize[] = [
   { key: '1710', text: '17 10mm', value: 10, radiusWidth: 180, beadSize: 57, crystalCount: 20 },
 ];
 
-export const CRYSTAL_TYPE: Selection[] = [
+export const CRYSTAL_TYPE: SelectedItem[] = [
   {
     key: '9951889',
     url: `${process.env.PUBLIC_URL}/assets/S__9551889-removebg-preview.png`,
@@ -56,7 +56,7 @@ export const CRYSTAL_TYPE: Selection[] = [
   },
 ];
 
-export const EIGHT_MM_SLIVER_PIPE: Selection[] = [
+export const EIGHT_MM_SLIVER_PIPE: SelectedItem[] = [
   {
     key: 'SLIVER_PIPE_NONE',
     text: 'NONE',
@@ -89,7 +89,7 @@ export const EIGHT_MM_SLIVER_PIPE: Selection[] = [
   },
 ];
 
-export const TEN_MM_SLIVER_PIPE: Selection[] = [
+export const TEN_MM_SLIVER_PIPE: SelectedItem[] = [
   {
     key: 'SLIVER_PIPE_NONE',
     text: 'NONE',
@@ -122,7 +122,7 @@ export const TEN_MM_SLIVER_PIPE: Selection[] = [
   },
 ];
 
-export const FLOWER_OPTION: Selection[] = [
+export const FLOWER_OPTION: SelectedItem[] = [
   {
     key: 'FLOWER_OPTION_NONE',
     text: 'None',

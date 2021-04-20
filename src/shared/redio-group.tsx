@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import Selection from '../core/models/selection';
+import SelectedItem from '../core/models/selection';
 
-export default function RadioGroup<T extends Selection>(props: {
+export default function RadioGroup<T extends SelectedItem>(props: {
   list: T[];
-  defaultValue: Selection;
+  defaultValue: SelectedItem;
   groupName: string;
   updateRadio: (item: T) => void;
 }) {

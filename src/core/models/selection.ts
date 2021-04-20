@@ -1,4 +1,4 @@
-export default class Selection {
+export default class SelectedItem {
   key!: string;
 
   text?: string;
@@ -15,7 +15,7 @@ export default class Selection {
   }
 }
 
-export class HandSize extends Selection {
+export class HandSize extends SelectedItem {
   radiusWidth!: number;
   crystalCount!: number;
   beadSize!: number;

@@ -3,7 +3,7 @@ import { HandSize } from './../models/selection';
 import React from 'react';
 import Action from '../models/action';
 
-import Selection from '../models/selection';
+import SelectedItem from '../models/selection';
 
 import { v4 as uuidv4 } from 'uuid';
 import { HAND_SIZE } from 'src/core/constants/constants';
@@ -19,21 +19,21 @@ export const SELECT_HAND_SIZE = 'SELECT_HAND_SIZE';
 
 export class CrystalShowroomAction {
   handSize!: HandSize;
-  bead!: Selection;
-  sliverPipe!: Selection;
+  bead!: SelectedItem;
+  sliverPipe!: SelectedItem;
   selectedDisplayCrystal!: string;
 }
 
 export class CrystalShowroomContextProps {
   crystalRing!: CrystalRing;
 
-  selectedList: Selection[] = [];
+  selectedList: SelectedItem[] = [];
 
   handSize: HandSize = new HandSize();
 
   selectedDisplayCrystal: string[] = [];
 
-  selectedSliverPipe: Selection = new Selection();
+  selectedSliverPipe: SelectedItem = new SelectedItem();
 
   dispatch: React.Dispatch<any> = () => null;
 }
