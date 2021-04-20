@@ -1,5 +1,7 @@
-import { useContext, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { ControlPanelState } from 'src/core/enums/control-panel';
+import FlowerAdder from 'src/crystal-showroom/flowerAdder';
+import InfiniteList from 'src/shared/infiniteList';
 import {
   CRYSTAL_TYPE,
   EIGHT_MM_SLIVER_PIPE,
@@ -8,6 +10,8 @@ import {
   TEN_MM_SLIVER_PIPE,
 } from '../core/constants/constants';
 import {
+  ADD_FLOWER_COVER_ON_LEFT,
+  ADD_FLOWER_COVER_ON_RIGHT,
   crystalShowroomContext,
   SELECT_HAND_SIZE,
   SELECT_SLIVER_PIPE,
@@ -31,6 +35,10 @@ export default function ControlPanel() {
 
   const updateSelectSliverHand = (item: SelectedItem) => {
     dispatch({ type: SELECT_SLIVER_PIPE, data: { sliverPipe: item } });
+  };
+
+  const updateFlowerCover = (type: string) => () => {
+    dispatch({ type });
   };
 
   const getSliverPipeList = (): SelectedItem[] => {
@@ -75,17 +83,15 @@ export default function ControlPanel() {
         {currentState === ControlPanelState.Crystal && (
           <div className="w-full h-full flex flex-col p-2">
             <label className="text-left text-lg">水晶</label>
-            <SlideList list={CRYSTAL_TYPE} updateSelect={updateSelectedCrystal} />
+            <InfiniteList layout="grid" list={CRYSTAL_TYPE} updateSelect={updateSelectedCrystal} />
           </div>
         )}
         {currentState === ControlPanelState.FlowerCover && (
           <div className="w-full h-full flex flex-col p-2">
             <label className="text-left text-lg">花蓋</label>
-            <RadioGroup
-              list={FLOWER_OPTION}
-              defaultValue={{ key: 'FLOWER_OPTION_NONE', text: 'None' }}
-              groupName="flowerClover"
-              updateRadio={() => {}}
+            <FlowerAdder
+              updateLeft={() => updateFlowerCover(ADD_FLOWER_COVER_ON_LEFT)}
+              updateRight={() => updateFlowerCover(ADD_FLOWER_COVER_ON_RIGHT)}
             />
           </div>
         )}

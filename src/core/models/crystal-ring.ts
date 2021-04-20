@@ -24,7 +24,11 @@ export default class CrystalRing {
     this.sliverPipe = sliverPipe;
   }
 
-  setBeads(count: number) {
+  setBeads(beads: Crystal[]) {
+    this.beads = beads;
+  }
+
+  createBeads(count: number) {
     this.beads = this.generateBeads(count);
   }
 

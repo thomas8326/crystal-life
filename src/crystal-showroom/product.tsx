@@ -8,6 +8,7 @@ import {
   REMOVE_DISPLAY_SELECTED_CRYSTAL_BEAD,
   SELECT_DISPLAY_CRYSTAL_BEAD,
 } from 'src/core/contexts/selected-list.context';
+import Crystal from 'src/core/models/crystal';
 
 const ProductDisplay = styled.div`
   position: relative;
@@ -41,23 +42,32 @@ const Bead = styled.div<any>`
     background-color: #f7f0c0;
   }
 
-  &:: before {
-    position: absolute;
-    left: 0;
-    width: 22px;
-    height: 22px;
-    background-color: red;
-    content: '';
-  }
+  ${(props: { leftFlower: boolean }) =>
+    props.leftFlower &&
+    css`
+      &:: before {
+        position: absolute;
+        left: 0;
+        width: 22px;
+        height: 22px;
+        background-color: red;
+        content: '';
+      }
+    `}
 
-  &::after {
-    position: absolute;
-    right: 0;
-    width: 22px;
-    height: 22px;
-    background-color: red;
-    content: '';
-  }
+  ${(props: { rightFlower: boolean }) =>
+    props.rightFlower &&
+    css`
+      &::after {
+        position: absolute;
+        right: 0;
+        width: 22px;
+        height: 22px;
+        background-color: red;
+        content: '';
+      }
+    `}
+
 
   ${(props: { isEmpty: boolean; isClicked: boolean }) =>
     props.isEmpty &&
@@ -74,9 +84,9 @@ const Bead = styled.div<any>`
 `;
 
 function generateCrystalBeads(
-  selectedList: SelectedItem[],
+  selectedList: Crystal[],
   handSize: HandSize,
-): { item: SelectedItem; top: number; left: number; angular: number }[] {
+): { item: Crystal; top: number; left: number; angular: number }[] {
   const containerX = handSize.radiusWidth;
   const containerY = handSize.radiusWidth;
   const circleAngular = 360 / handSize.crystalCount;
@@ -90,7 +100,7 @@ function generateCrystalBeads(
   });
 }
 
-function BeadContainer(props: { top: number; left: number; item: SelectedItem; angular: number }) {
+function BeadContainer(props: { top: number; left: number; item: Crystal; angular: number }) {
   const { crystalRing, dispatch } = useContext(crystalShowroomContext);
   const { top, left, item, angular } = props;
   const [isClicked, setIsClicked] = useState<boolean>(false);
@@ -118,6 +128,8 @@ function BeadContainer(props: { top: number; left: number; item: SelectedItem; a
       radius={crystalRing.handSize.beadSize}
       angular={angular}
       onClick={() => onSelectBead(item)}
+      leftFlower={item.hasLeftFlower}
+      rightFlower={item.hasRightFlower}
     >
       {item?.url && <img src={item?.url} className="w-full h-full" />}
     </Bead>

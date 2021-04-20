@@ -19,5 +19,7 @@ export default class Crystal extends SelectedItem {
     super(key);
     this.key = key ?? '';
     this.url = url ?? '';
+    this.hasLeftFlower = false;
+    this.hasRightFlower = false;
   }
 }

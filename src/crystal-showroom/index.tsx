@@ -24,10 +24,7 @@ function CrystalShowroom() {
         <crystalShowroomContext.Provider
           value={{
             crystalRing: state.crystalRing,
-            selectedList: state.selectedList,
-            handSize: state.handSize,
             selectedDisplayCrystal: state.selectedDisplayCrystal,
-            selectedSliverPipe: state.selectedSliverPipe,
             dispatch,
           }}
         >
@@ -38,10 +35,7 @@ function CrystalShowroom() {
         <crystalShowroomContext.Provider
           value={{
             crystalRing: state.crystalRing,
-            selectedList: state.selectedList,
-            handSize: state.handSize,
             selectedDisplayCrystal: state.selectedDisplayCrystal,
-            selectedSliverPipe: state.selectedSliverPipe,
             dispatch,
           }}
         >
