@@ -11,15 +11,13 @@ export default class Crystal extends SelectedItem {
 
   isSelected?: boolean;
 
-  hasLeftFlower!: boolean;
+  leftFlower!: SelectedItem;
 
-  hasRightFlower!: boolean;
+  rightFlower!: SelectedItem;
 
   constructor(key?: string, url?: string) {
     super(key);
     this.key = key ?? '';
     this.url = url ?? '';
-    this.hasLeftFlower = false;
-    this.hasRightFlower = false;
   }
 }

@@ -5,7 +5,7 @@ import InfiniteList from 'src/shared/infiniteList';
 import {
   CRYSTAL_TYPE,
   EIGHT_MM_SLIVER_PIPE,
-  FLOWER_OPTION,
+  FLOWER_OPTIONS,
   HAND_SIZE,
   TEN_MM_SLIVER_PIPE,
 } from '../core/constants/constants';
@@ -37,8 +37,10 @@ export default function ControlPanel() {
     dispatch({ type: SELECT_SLIVER_PIPE, data: { sliverPipe: item } });
   };
 
-  const updateFlowerCover = (type: string) => () => {
-    dispatch({ type });
+  const updateFlowerCover = (type: string) => (flower: SelectedItem) => {
+    if (flower.key !== FLOWER_OPTIONS[0].key) {
+      dispatch({ type, data: { flower } });
+    }
   };
 
   const getSliverPipeList = (): SelectedItem[] => {
@@ -90,8 +92,8 @@ export default function ControlPanel() {
           <div className="w-full h-full flex flex-col p-2">
             <label className="text-left text-lg">花蓋</label>
             <FlowerAdder
-              updateLeft={() => updateFlowerCover(ADD_FLOWER_COVER_ON_LEFT)}
-              updateRight={() => updateFlowerCover(ADD_FLOWER_COVER_ON_RIGHT)}
+              updateLeft={updateFlowerCover(ADD_FLOWER_COVER_ON_LEFT)}
+              updateRight={updateFlowerCover(ADD_FLOWER_COVER_ON_RIGHT)}
             />
           </div>
         )}

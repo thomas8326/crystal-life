@@ -23,6 +23,7 @@ export class CrystalShowroomAction {
   bead!: SelectedItem;
   sliverPipe!: SelectedItem;
   selectedDisplayCrystal!: string;
+  flower!: SelectedItem;
 }
 
 export class CrystalShowroomContextProps {
@@ -45,40 +46,44 @@ export const crystalShowroomReducer = (state: CrystalShowroomContextProps, actio
   switch (action.type) {
     case ADD_FLOWER_COVER_ON_LEFT: {
       const selectedCrystals = state.selectedDisplayCrystal;
-      const crystalRing = state.crystalRing;
+      const crystalRing: CrystalRing = state.crystalRing;
 
       const beads = crystalRing.beads.map((bead) =>
-        selectedCrystals.includes(bead.key) ? { ...bead, ...{ hasLeftFlower: true } } : bead,
+        selectedCrystals.includes(bead.key) ? { ...bead, ...{ leftFlower: action.data.flower } } : bead,
       );
       crystalRing.setBeads(beads);
 
-      return Object.assign({}, state, { crystalRing });
+      return Object.assign({}, state, { crystalRing, selectedDisplayCrystal: [] });
     }
-    case ADD_FLOWER_COVER_ON_LEFT: {
-      const selectedCrystals = action.data.selectedDisplayCrystal;
+    case ADD_FLOWER_COVER_ON_RIGHT: {
+      const selectedCrystals = state.selectedDisplayCrystal;
       const crystalRing = state.crystalRing;
 
       const beads = crystalRing.beads.map((bead) =>
-        selectedCrystals.includes(bead.key) ? { ...bead, ...{ hasRightFlower: true } } : bead,
+        selectedCrystals.includes(bead.key) ? { ...bead, ...{ rightFlower: action.data.flower } } : bead,
       );
+
       crystalRing.setBeads(beads);
 
-      return Object.assign({}, state, { crystalRing });
+      return Object.assign({}, state, { crystalRing, selectedDisplayCrystal: [] });
     }
     case SELECT_HAND_SIZE:
       const handSize = action.data.handSize;
       const crystalRing = state.crystalRing;
+
       crystalRing.setHandSize(handSize);
       crystalRing.createBeads(handSize.crystalCount);
 
       return Object.assign({}, state, { crystalRing });
     case UPDATED_SELECTED_BEAD: {
       const url = action.data.bead.url;
+      const crystalRing = state.crystalRing;
       const newBeads = state.crystalRing.beads.map((item) =>
         state.selectedDisplayCrystal.includes(item.key) ? { ...item, ...{ url } } : item,
       );
+      crystalRing.setBeads(newBeads);
 
-      return Object.assign({}, state, { crystalRing: { ...state.crystalRing, beads: newBeads } });
+      return Object.assign({}, state, { crystalRing, selectedDisplayCrystal: [] });
     }
     case SELECT_DISPLAY_CRYSTAL_BEAD: {
       const newBeads = state.selectedDisplayCrystal.concat(action.data.selectedDisplayCrystal);
@@ -87,7 +92,7 @@ export const crystalShowroomReducer = (state: CrystalShowroomContextProps, actio
 
     case REMOVE_DISPLAY_SELECTED_CRYSTAL_BEAD:
       const newBeads = state.selectedDisplayCrystal.filter((bead) => bead !== action.data.selectedDisplayCrystal);
-      return Object.assign({}, state, { selectedBeads: newBeads });
+      return Object.assign({}, state, { selectedDisplayCrystal: newBeads });
     case SELECT_SLIVER_PIPE: {
       const selectedSliverPipe = action.data.sliverPipe;
       const currentCrystalRing = state.crystalRing;
@@ -98,7 +103,7 @@ export const crystalShowroomReducer = (state: CrystalShowroomContextProps, actio
 
       return Object.assign({}, state, {
         crystalRing: currentCrystalRing,
-        selectedBeads: [],
+        selectedDisplayCrystal: [],
       });
     }
     default:

@@ -42,33 +42,6 @@ const Bead = styled.div<any>`
     background-color: #f7f0c0;
   }
 
-  ${(props: { leftFlower: boolean }) =>
-    props.leftFlower &&
-    css`
-      &:: before {
-        position: absolute;
-        left: 0;
-        width: 22px;
-        height: 22px;
-        background-color: red;
-        content: '';
-      }
-    `}
-
-  ${(props: { rightFlower: boolean }) =>
-    props.rightFlower &&
-    css`
-      &::after {
-        position: absolute;
-        right: 0;
-        width: 22px;
-        height: 22px;
-        background-color: red;
-        content: '';
-      }
-    `}
-
-
   ${(props: { isEmpty: boolean; isClicked: boolean }) =>
     props.isEmpty &&
     css`
@@ -81,6 +54,22 @@ const Bead = styled.div<any>`
     css`
       border: 2px dashed #ea7e30;
     `};
+`;
+
+const Flower = styled.img.attrs((props: { isLeft: boolean }) => ({ isLeft: props.isLeft ?? true }))`
+  position: absolute;
+  ${(props) => (props.isLeft ? `left: -25%` : `right: -25%`)};
+  width: 100%;
+  height: 100%;
+  content: '';
+  ${(props) => props.isLeft && `transform: rotate(180deg)`};
+`;
+
+const Charm = styled.div`
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 1px solid red;
 `;
 
 function generateCrystalBeads(
@@ -100,9 +89,15 @@ function generateCrystalBeads(
   });
 }
 
-function BeadContainer(props: { top: number; left: number; item: Crystal; angular: number }) {
-  const { crystalRing, dispatch } = useContext(crystalShowroomContext);
-  const { top, left, item, angular } = props;
+function BeadContainer(props: {
+  top: number;
+  left: number;
+  item: Crystal;
+  angular: number;
+  beadSize: number;
+  dispatch: React.Dispatch<any>;
+}) {
+  const { top, left, item, angular, beadSize, dispatch } = props;
   const [isClicked, setIsClicked] = useState<boolean>(false);
 
   useEffect(() => setIsClicked(false), [item]);
@@ -120,24 +115,27 @@ function BeadContainer(props: { top: number; left: number; item: Crystal; angula
   };
 
   return (
-    <Bead
-      top={top}
-      left={left}
-      isEmpty={!item?.url}
-      isClicked={isClicked}
-      radius={crystalRing.handSize.beadSize}
-      angular={angular}
-      onClick={() => onSelectBead(item)}
-      leftFlower={item.hasLeftFlower}
-      rightFlower={item.hasRightFlower}
-    >
-      {item?.url && <img src={item?.url} className="w-full h-full" />}
-    </Bead>
+    <>
+      <Bead
+        top={top}
+        left={left}
+        isEmpty={!item?.url}
+        isClicked={isClicked}
+        radius={beadSize}
+        angular={angular}
+        onClick={() => onSelectBead(item)}
+      >
+        {item?.leftFlower?.url && <Flower src={item?.leftFlower.url} />}
+        {item?.url && <img src={item?.url} className="w-full h-full" />}
+        {item?.rightFlower?.url && <Flower src={item?.rightFlower.url} isLeft={false} />}
+        <Charm />
+      </Bead>
+    </>
   );
 }
 
 export default function Product() {
-  const { crystalRing } = useContext(crystalShowroomContext);
+  const { crystalRing, dispatch } = useContext(crystalShowroomContext);
   const { beads, handSize } = crystalRing;
 
   const itemPosition = generateCrystalBeads(beads, handSize);
@@ -151,6 +149,8 @@ export default function Product() {
             top={data.top}
             left={data.left}
             item={data.item}
+            dispatch={dispatch}
+            beadSize={crystalRing.handSize.beadSize}
             angular={data.angular * index * -1}
           />
         ))}

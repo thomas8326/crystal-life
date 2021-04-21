@@ -122,17 +122,15 @@ export const TEN_MM_SLIVER_PIPE: SelectedItem[] = [
   },
 ];
 
-export const FLOWER_OPTION: SelectedItem[] = [
+export const FLOWER_OPTIONS: SelectedItem[] = [
   {
-    key: 'FLOWER_OPTION_NONE',
-    text: 'None',
+    key: 'FLOWER_COVER_NONE',
+    text: 'NONE',
+    url: `${process.env.PUBLIC_URL}/assets/icon/empty.svg`,
   },
   {
-    key: 'FLOWER_OPTION_LEFT',
-    text: 'Add Left',
-  },
-  {
-    key: 'FLOWER_OPTION_RIGHT',
-    text: 'Add Right',
+    key: 'S__9551885-removebg-preview',
+    text: 'flower-cover',
+    url: `${process.env.PUBLIC_URL}/assets/S__9551885-removebg-preview.png`,
   },
 ];
