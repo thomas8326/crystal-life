@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react';
 import {
+  updateCharm,
   updateFlowerCover,
   updateSelectedCrystal,
   updateSelectHandSize,
@@ -76,29 +77,17 @@ export default function ControlPanel() {
             />
           </div>
         )}
+        {currentState === ControlPanelState.Charm && (
+          <div className=" h-20 w-full flex flex-col p-2">
+            <label className="text-left text-lg">吊飾</label>
+            <button onClick={updateCharm(dispatch)}>加吊飾</button>
+          </div>
+        )}
       </div>
       <div className="flex justify-evenly">
         <button onClick={() => prevState()}>Previous</button>
         <button onClick={() => nextState()}>Next</button>
       </div>
-
-      {/*
-      <div className="h-20 w-full flex flex-col p-2">
-        <label className="text-left text-lg">水晶</label>
-        <SlideList list={CRYSTAL_TYPE} updateSelect={updateSelectedCrystal} />
-      </div>
-      <div className=" h-20 w-full flex flex-col p-2">
-        <label className="text-left text-lg">花蓋</label>
-        <RadioGroup
-          list={FLOWER_OPTION}
-          defaultValue={{ key: 'FLOWER_OPTION_NONE', text: 'None' }}
-          groupName="flowerClover"
-          updateRadio={() => {}}
-        />
-      </div>
-      <div className=" h-20 w-full flex flex-col p-2">
-        <label className="text-left text-lg">吊飾</label>
-      </div> */}
     </div>
   );
 }

@@ -15,6 +15,8 @@ export default class Crystal extends SelectedItem {
 
   rightFlower!: SelectedItem;
 
+  charm!: SelectedItem;
+
   constructor(key?: string, url?: string) {
     super(key);
     this.key = key ?? '';

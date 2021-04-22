@@ -66,9 +66,8 @@ const Flower = styled.img.attrs((props: { isLeft: boolean }) => ({ isLeft: props
 `;
 
 const Charm = styled.div`
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
+  width: 1px;
+  height: 100px;
   border: 1px solid red;
 `;
 
@@ -125,6 +124,7 @@ function BeadContainer(props: {
         angular={angular}
         onClick={() => onSelectBead(item)}
       >
+        {item?.charm && <Charm />}
         {item?.leftFlower?.url && <Flower src={item?.leftFlower.url} />}
         {item?.url && <img src={item?.url} className="w-full h-full" />}
         {item?.rightFlower?.url && <Flower src={item?.rightFlower.url} isLeft={false} />}

@@ -134,3 +134,10 @@ export const FLOWER_OPTIONS: SelectedItem[] = [
     url: `${process.env.PUBLIC_URL}/assets/S__9551885-removebg-preview.png`,
   },
 ];
+
+export const CHARM_OPTIONS: SelectedItem[] = [
+  {
+    key: 'CHARM_001',
+    text: 'default-charm',
+  },
+];

@@ -3,4 +3,5 @@ export enum ControlPanelState {
   SliverPipe,
   Crystal,
   FlowerCover,
+  Charm,
 }

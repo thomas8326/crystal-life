@@ -1,8 +1,9 @@
-import { FLOWER_OPTIONS } from 'src/core/constants/constants';
+import { CHARM_OPTIONS, FLOWER_OPTIONS } from 'src/core/constants/constants';
 import {
   UPDATED_SELECTED_BEAD,
   SELECT_HAND_SIZE,
   SELECT_SLIVER_PIPE,
+  ADD_CHARM,
 } from 'src/core/contexts/crystalShowroom/selected-list.context';
 import SelectedItem, { HandSize } from 'src/core/models/selection';
 
@@ -22,4 +23,8 @@ export const updateFlowerCover = (type: string, dispatch: React.Dispatch<any>) =
   if (flower.key !== FLOWER_OPTIONS[0].key) {
     dispatch({ type, data: { flower } });
   }
+};
+
+export const updateCharm = (dispatch: React.Dispatch<any>) => () => {
+  dispatch({ type: ADD_CHARM, data: { charm: CHARM_OPTIONS[0] } });
 };
