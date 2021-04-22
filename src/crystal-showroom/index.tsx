@@ -8,7 +8,7 @@ import {
   crystalShowroomContext,
   crystalShowroomInitState,
   crystalShowroomReducer,
-} from '../core/contexts/selected-list.context';
+} from '../core/contexts/crystalShowroom/selected-list.context';
 
 const Showroom = styled.div`
   display: flex;

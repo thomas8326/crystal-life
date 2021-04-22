@@ -7,7 +7,7 @@ import {
   crystalShowroomContext,
   REMOVE_DISPLAY_SELECTED_CRYSTAL_BEAD,
   SELECT_DISPLAY_CRYSTAL_BEAD,
-} from 'src/core/contexts/selected-list.context';
+} from 'src/core/contexts/crystalShowroom/selected-list.context';
 import Crystal from 'src/core/models/crystal';
 
 const ProductDisplay = styled.div`
@@ -128,7 +128,6 @@ function BeadContainer(props: {
         {item?.leftFlower?.url && <Flower src={item?.leftFlower.url} />}
         {item?.url && <img src={item?.url} className="w-full h-full" />}
         {item?.rightFlower?.url && <Flower src={item?.rightFlower.url} isLeft={false} />}
-        <Charm />
       </Bead>
     </>
   );

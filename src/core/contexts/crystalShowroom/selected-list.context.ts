@@ -1,9 +1,9 @@
-import { EIGHT_MM_SLIVER_PIPE } from './../constants/constants';
-import { HandSize } from './../models/selection';
+import { EIGHT_MM_SLIVER_PIPE } from '../../constants/constants';
+import { HandSize } from '../../models/selection';
 import React from 'react';
-import Action from '../models/action';
+import Action from '../../models/action';
 
-import SelectedItem from '../models/selection';
+import SelectedItem from '../../models/selection';
 
 import { HAND_SIZE } from 'src/core/constants/constants';
 import CrystalRing from 'src/core/models/crystal-ring';
