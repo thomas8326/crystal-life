@@ -16,6 +16,7 @@ export const ADD_FLOWER_COVER_ON_LEFT = 'ADD_FLOWER_COVER_ON_LEFT';
 export const ADD_FLOWER_COVER_ON_RIGHT = 'ADD_FLOWER_COVER_ON_RIGHT';
 
 export const ADD_CHARM = 'ADD_CHARM';
+export const REMOVE_CHARM = 'REMOVE_CHARM';
 
 export const SELECT_SLIVER_PIPE = 'SELECT_SLIVER_PIPE';
 export const SELECT_HAND_SIZE = 'SELECT_HAND_SIZE';
@@ -48,12 +49,21 @@ export const crystalShowroomContext = React.createContext<CrystalShowroomContext
 export const crystalShowroomReducer = (state: CrystalShowroomContextProps, action: Action<CrystalShowroomAction>) => {
   switch (action.type) {
     case ADD_CHARM: {
-      // debugger;
       const selectedCrystals = state.selectedDisplayCrystal;
       const crystalRing: CrystalRing = state.crystalRing;
 
       const beads = crystalRing.beads.map((bead) =>
         selectedCrystals.includes(bead.key) ? { ...bead, ...{ charm: action.data.charm } } : bead,
+      );
+      crystalRing.setBeads(beads);
+      return Object.assign({}, state, { crystalRing, selectedDisplayCrystal: [] });
+    }
+    case REMOVE_CHARM: {
+      const selectedCrystals = state.selectedDisplayCrystal;
+      const crystalRing: CrystalRing = state.crystalRing;
+
+      const beads = crystalRing.beads.map((bead) =>
+        selectedCrystals.includes(bead.key) ? { ...bead, ...{ charm: undefined } } : bead,
       );
       crystalRing.setBeads(beads);
       return Object.assign({}, state, { crystalRing, selectedDisplayCrystal: [] });
@@ -87,6 +97,7 @@ export const crystalShowroomReducer = (state: CrystalShowroomContextProps, actio
 
       crystalRing.setHandSize(handSize);
       crystalRing.createBeads(handSize.crystalCount);
+      crystalRing.setSliverPipe(EIGHT_MM_SLIVER_PIPE[0]);
 
       return Object.assign({}, state, { crystalRing });
     case UPDATED_SELECTED_BEAD: {

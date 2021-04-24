@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react';
 import {
-  updateCharm,
+  addCharm,
+  removeCharm,
   updateFlowerCover,
   updateSelectedCrystal,
   updateSelectHandSize,
@@ -42,7 +43,7 @@ export default function ControlPanel() {
         {currentState === ControlPanelState.HandSize && (
           <div className="w-full h-full flex flex-col p-2">
             <label className="text-left text-lg">手圍</label>
-            <small className="text-left text-sm">選擇適合你的手圍長度</small>
+            <small className="text-left text-xs">選擇適合你的手圍長度</small>
             <RadioGroup
               list={HAND_SIZE}
               defaultValue={crystalRing.handSize}
@@ -54,6 +55,7 @@ export default function ControlPanel() {
         {currentState === ControlPanelState.SliverPipe && (
           <div className="w-full h-full flex flex-col p-2">
             <label className="text-left text-lg">銀管</label>
+            <small className="text-left text-xs">選擇適合你的銀圍長度</small>
             <RadioGroup
               list={getSliverPipeList()}
               defaultValue={crystalRing.sliverPipe}
@@ -65,28 +67,46 @@ export default function ControlPanel() {
         {currentState === ControlPanelState.Crystal && (
           <div className="w-full h-full flex flex-col p-2">
             <label className="text-left text-lg">水晶</label>
-            <InfiniteList layout="grid" list={CRYSTAL_TYPE} updateSelect={updateSelectedCrystal(dispatch)} />
+            <small className="text-left text-xs">在左邊產品中選取圓珠，在右邊選擇想要的水晶</small>
+            <div className="mt-6">
+              <InfiniteList layout="grid" list={CRYSTAL_TYPE} updateSelect={updateSelectedCrystal(dispatch)} />
+            </div>
           </div>
         )}
         {currentState === ControlPanelState.FlowerCover && (
           <div className="w-full h-full flex flex-col p-2">
             <label className="text-left text-lg">花蓋</label>
-            <FlowerAdder
-              updateLeft={updateFlowerCover(ADD_FLOWER_COVER_ON_LEFT, dispatch)}
-              updateRight={updateFlowerCover(ADD_FLOWER_COVER_ON_RIGHT, dispatch)}
-            />
+            <small className="text-left text-xs">在左邊產品中選取圓珠，在右邊選擇想要的花蓋，按下加在左邊或右邊</small>
+            <div className="mt-6">
+              <FlowerAdder
+                updateLeft={updateFlowerCover(ADD_FLOWER_COVER_ON_LEFT, dispatch)}
+                updateRight={updateFlowerCover(ADD_FLOWER_COVER_ON_RIGHT, dispatch)}
+              />
+            </div>
           </div>
         )}
         {currentState === ControlPanelState.Charm && (
           <div className=" h-20 w-full flex flex-col p-2">
             <label className="text-left text-lg">吊飾</label>
-            <button onClick={updateCharm(dispatch)}>加吊飾</button>
+            <small className="text-left text-xs">在左邊產品中選取圓珠，按下加吊飾，會在該圓珠左邊加入</small>
+            <div className="mt-6 flex flex-row justify-around">
+              <button onClick={addCharm(dispatch)} className="text-blue-500">
+                加吊飾
+              </button>
+              <button onClick={removeCharm(dispatch)} className="text-blue-500">
+                移除吊飾
+              </button>
+            </div>
           </div>
         )}
       </div>
       <div className="flex justify-evenly">
-        <button onClick={() => prevState()}>Previous</button>
-        <button onClick={() => nextState()}>Next</button>
+        <button onClick={() => prevState()} disabled={currentState == 0}>
+          Previous
+        </button>
+        <button onClick={() => nextState()} disabled={currentState == ControlPanelState.Charm}>
+          Next
+        </button>
       </div>
     </div>
   );

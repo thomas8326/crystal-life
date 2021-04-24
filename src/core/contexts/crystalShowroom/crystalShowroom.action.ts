@@ -4,6 +4,7 @@ import {
   SELECT_HAND_SIZE,
   SELECT_SLIVER_PIPE,
   ADD_CHARM,
+  REMOVE_CHARM,
 } from 'src/core/contexts/crystalShowroom/selected-list.context';
 import SelectedItem, { HandSize } from 'src/core/models/selection';
 
@@ -25,6 +26,10 @@ export const updateFlowerCover = (type: string, dispatch: React.Dispatch<any>) =
   }
 };
 
-export const updateCharm = (dispatch: React.Dispatch<any>) => () => {
+export const addCharm = (dispatch: React.Dispatch<any>) => () => {
   dispatch({ type: ADD_CHARM, data: { charm: CHARM_OPTIONS[0] } });
+};
+
+export const removeCharm = (dispatch: React.Dispatch<any>) => () => {
+  dispatch({ type: REMOVE_CHARM });
 };

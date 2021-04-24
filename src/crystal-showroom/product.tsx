@@ -66,9 +66,10 @@ const Flower = styled.img.attrs((props: { isLeft: boolean }) => ({ isLeft: props
 `;
 
 const Charm = styled.div`
-  width: 1px;
+  width: 2px;
+  background-color: red;
   height: 100px;
-  border: 1px solid red;
+  position: absolute;
 `;
 
 function generateCrystalBeads(
@@ -99,7 +100,9 @@ function BeadContainer(props: {
   const { top, left, item, angular, beadSize, dispatch } = props;
   const [isClicked, setIsClicked] = useState<boolean>(false);
 
-  useEffect(() => setIsClicked(false), [item]);
+  useEffect(() => {
+    setIsClicked(false);
+  }, [item]);
 
   const onSelectBead = (item: SelectedItem) => {
     setIsClicked((preState: boolean) => {
