@@ -8,8 +8,10 @@
     "@craco/craco": "^6.1.1",
     "@types/styled-components": "5.1.7",
     "eslint-config-prettier": "^8.1.0",
+    "firebase": "^8.4.3",
     "react": "17.0.1",
     "react-dom": "17.0.1",
+    "react-firebase-hooks": "^3.0.4",
     "react-scripts": "4.0.1",
     "styled-components": "5.2.1",
     "uuid": "^8.3.2"
