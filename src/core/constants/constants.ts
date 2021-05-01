@@ -1,3 +1,4 @@
+import Navigation from 'src/core/models/navigation';
 import SelectedItem, { HandSize } from '../models/selection';
 
 export const HAND_SIZE: HandSize[] = [
@@ -139,5 +140,33 @@ export const CHARM_OPTIONS: SelectedItem[] = [
   {
     key: 'CHARM_001',
     text: 'default-charm',
+  },
+];
+
+export const DASHBOARD_NAVIGATION: Navigation[] = [
+  {
+    key: 'HAND_SIZE',
+    text: '手圍',
+    path: '',
+  },
+  {
+    key: 'SLIVER_PIPE',
+    text: '銀圍',
+    path: '',
+  },
+  {
+    key: 'CRYSTAL',
+    text: '水晶',
+    path: '',
+  },
+  {
+    key: 'FLOWER',
+    text: '花蓋',
+    path: '',
+  },
+  {
+    key: 'CHARM',
+    text: '吊飾',
+    path: '',
   },
 ];
