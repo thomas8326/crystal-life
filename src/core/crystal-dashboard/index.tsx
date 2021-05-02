@@ -4,15 +4,17 @@ import RadioGroup from 'src/shared/redio-group';
 import { useList, useListVals, useObject, useObjectVal } from 'react-firebase-hooks/database';
 import firebase from 'firebase/app';
 import initFireBase from 'src/core/config/firebase.config';
+import AllowUser from 'src/core/models/allow-user';
+import AllowListController from 'src/core/crystal-dashboard/components/allowlist-control';
 
 export default function CrystalDashboard() {
-  const [values, loading, error] = useObjectVal<[]>(firebase.database(initFireBase).ref('allowList'));
-  console.log(values);
   return (
     <div className="h-full flex">
       <DashboardNavigation />
       <div className="flex flex-col flex-grow items-center divide-y-2">
-        <ul className="w-full">{values && values?.map((v: any) => <li>{v.phone}</li>)}</ul>
+        <div className="w-full">
+          <AllowListController></AllowListController>
+        </div>
         <div className="w-full">
           手圍
           <div>
