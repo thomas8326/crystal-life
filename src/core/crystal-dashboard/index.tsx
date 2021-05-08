@@ -6,10 +6,11 @@ import firebase from 'firebase/app';
 import AllowUser from 'src/core/models/allow-user';
 import AllowListController from 'src/core/crystal-dashboard/components/allowlist-control';
 import SliverPipeForm from 'src/core/crystal-dashboard/components/sliver-pipe-form';
-import CrystalBeadForm from 'src/core/crystal-dashboard/components/crystal-bead-form';
+import CrystalBeadForm from 'src/core/crystal-dashboard/components/upload-image-form';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import { MainPath } from 'src/core/enums/main-path';
 import { DASHBOARD_NAVIGATION } from 'src/core/constants/constants';
+import UploadImageForm from 'src/core/crystal-dashboard/components/upload-image-form';
 
 export default function CrystalDashboard() {
   return (
@@ -25,8 +26,11 @@ export default function CrystalDashboard() {
               <Route path={MainPath.SliverPipeForm}>
                 <SliverPipeForm />
               </Route>
-              <Route path={MainPath.CrystalBead}>
-                <CrystalBeadForm />
+              <Route path={MainPath.CrystalBeadForm}>
+                <UploadImageForm tableName="crystalImages" />
+              </Route>
+              <Route path={MainPath.FlowerCoverForm}>
+                <UploadImageForm tableName="flowerCovers" />
               </Route>
             </Switch>
           </div>

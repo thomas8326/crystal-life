@@ -1,5 +1,7 @@
 export enum MainPath {
   HandSizeForm = '/handSizes',
   SliverPipeForm = '/sliverPipes',
-  CrystalBead = '/crystalBeads',
+  CrystalBeadForm = '/crystalBeads',
+  FlowerCoverForm = '/flowerCover',
+  CharmForm = '/charm',
 }

@@ -158,16 +158,16 @@ export const DASHBOARD_NAVIGATION: Navigation[] = [
   {
     key: 'CRYSTAL',
     text: '水晶',
-    path: MainPath.CrystalBead,
+    path: MainPath.CrystalBeadForm,
   },
   {
     key: 'FLOWER',
     text: '花蓋',
-    path: '',
+    path: MainPath.FlowerCoverForm,
   },
   {
     key: 'CHARM',
     text: '吊飾',
-    path: '',
+    path: MainPath.CharmForm,
   },
 ];

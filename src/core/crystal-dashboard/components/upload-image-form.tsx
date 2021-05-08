@@ -4,7 +4,8 @@ import SelectedItem from 'src/core/models/selection';
 import InfiniteList from 'src/shared/infiniteList';
 import { UploadArea } from 'src/shared/upload-area';
 
-export default function CrystalBeadForm() {
+export default function UploadImageForm(props: { tableName: string }) {
+  const { tableName } = props;
   const [items, setItems] = useState<SelectedItem[]>([]);
 
   const onUploadFile = (current: HTMLInputElement) => {
@@ -13,20 +14,20 @@ export default function CrystalBeadForm() {
     }
 
     for (const file of Array.from(current.files)) {
-      storageRef.child(`crystalImages/${file.name}`).put(file, { contentType: 'image/jpeg' });
+      storageRef.child(`${tableName}/${file.name}`).put(file, { contentType: 'image/jpeg' });
     }
   };
 
   useEffect(() => {
     storageRef
-      .child('crystalImages')
+      .child(tableName)
       .listAll()
-      .then(({ items }) =>
-        items.forEach((item) =>
-          item.getDownloadURL().then((url) => setItems((preItems) => preItems.concat(new SelectedItem(url)))),
-        ),
-      );
-  }, []);
+      .then(({ items }) => Promise.all(items.map((item) => item.getDownloadURL())))
+      .then((urls) => {
+        const result = urls.map((url) => new SelectedItem(url));
+        setItems(result);
+      });
+  }, [tableName]);
 
   return (
     <>
