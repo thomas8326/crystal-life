@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const Table = styled.div`
   display: table;
+  width: 100%;
 
   .table-cell {
     padding: 7px;

@@ -1,3 +1,4 @@
+import { MainPath } from 'src/core/enums/main-path';
 import Navigation from 'src/core/models/navigation';
 import SelectedItem, { HandSize } from '../models/selection';
 
@@ -147,17 +148,17 @@ export const DASHBOARD_NAVIGATION: Navigation[] = [
   {
     key: 'HAND_SIZE',
     text: '手圍',
-    path: '',
+    path: MainPath.HandSizeForm,
   },
   {
     key: 'SLIVER_PIPE',
     text: '銀圍',
-    path: '',
+    path: MainPath.SliverPipeForm,
   },
   {
     key: 'CRYSTAL',
     text: '水晶',
-    path: '',
+    path: MainPath.CrystalBead,
   },
   {
     key: 'FLOWER',

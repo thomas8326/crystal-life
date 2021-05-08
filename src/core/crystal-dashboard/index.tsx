@@ -7,26 +7,31 @@ import AllowUser from 'src/core/models/allow-user';
 import AllowListController from 'src/core/crystal-dashboard/components/allowlist-control';
 import SliverPipeForm from 'src/core/crystal-dashboard/components/sliver-pipe-form';
 import CrystalBeadForm from 'src/core/crystal-dashboard/components/crystal-bead-form';
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { MainPath } from 'src/core/enums/main-path';
+import { DASHBOARD_NAVIGATION } from 'src/core/constants/constants';
 
 export default function CrystalDashboard() {
   return (
     <div className="h-full flex">
-      <DashboardNavigation />
-      <div className="flex flex-col flex-grow items-center divide-y-2">
-        <div className="w-full flex">
-          <AllowListController></AllowListController>
+      <Router>
+        <DashboardNavigation navigation={DASHBOARD_NAVIGATION} />
+        <div className="flex flex-col flex-grow items-center divide-y-2">
+          <div className="w-full">
+            <Switch>
+              <Route path={MainPath.HandSizeForm}>
+                <HandSizeForm />
+              </Route>
+              <Route path={MainPath.SliverPipeForm}>
+                <SliverPipeForm />
+              </Route>
+              <Route path={MainPath.CrystalBead}>
+                <CrystalBeadForm />
+              </Route>
+            </Switch>
+          </div>
         </div>
-        <div className="w-full flex">
-          <HandSizeForm></HandSizeForm>
-        </div>
-        <div className="w-full flex">
-          <SliverPipeForm />
-        </div>
-        <div className="w-full flex">
-          <CrystalBeadForm />
-        </div>
-        <div className="w-full">手圍</div>
-      </div>
+      </Router>
     </div>
   );
 }

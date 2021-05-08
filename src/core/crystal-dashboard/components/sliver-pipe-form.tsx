@@ -21,25 +21,6 @@ export default function SliverPipeForm() {
 
   return (
     <>
-      <Table className="table">
-        <div className="table-header-group">
-          <div className="table-cell">編號</div>
-          <div className="table-cell">名稱</div>
-          <div className="table-cell">圓珠大小</div>
-          <div className="table-cell">佔圓珠數量</div>
-        </div>
-        <div className="table-row-group">
-          {values &&
-            values?.map((v: SliverPipe, index: number) => (
-              <div key={v.key} className="table-row">
-                <div className="table-cell">{index + 1}</div>
-                <div className="table-cell">{v.text}</div>
-                <div className="table-cell">{v.value}</div>
-                <div className="table-cell">{v.crystalCount}</div>
-              </div>
-            ))}
-        </div>
-      </Table>
       <Form1>
         <div className="field">
           <div className="title">名稱: </div>
@@ -76,6 +57,25 @@ export default function SliverPipeForm() {
         </div>
         <input type="button" value="新增" onClick={post} />
       </Form1>
+      <Table className="table">
+        <div className="table-header-group">
+          <div className="table-cell">編號</div>
+          <div className="table-cell">名稱</div>
+          <div className="table-cell">圓珠大小</div>
+          <div className="table-cell">佔圓珠數量</div>
+        </div>
+        <div className="table-row-group">
+          {values &&
+            values?.map((v: SliverPipe, index: number) => (
+              <div key={v.key} className="table-row">
+                <div className="table-cell">{index + 1}</div>
+                <div className="table-cell">{v.text}</div>
+                <div className="table-cell">{v.value}</div>
+                <div className="table-cell">{v.crystalCount}</div>
+              </div>
+            ))}
+        </div>
+      </Table>
     </>
   );
 }

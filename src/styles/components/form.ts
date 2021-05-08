@@ -2,8 +2,8 @@ import styled from 'styled-components';
 
 export const Form1 = styled.form`
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  flex-direction: row;
+  justify-content: space-around;
   padding: 10px;
   border: 1px solid #dadada;
   margin: 12px;
@@ -21,6 +21,7 @@ export const Form1 = styled.form`
   }
 
   .field {
+    width: 192px;
     &: focus-within {
       .title {
         color: #3f51b5;
@@ -33,10 +34,12 @@ export const Form1 = styled.form`
   }
 
   input[type='button'] {
+    background: transparent;
     cursor: pointer;
   }
 
-  input: not([type= 'button' ]) {
+  input: not([type= 'button' ], [type= 'radio' ]) {
+    width: 100%;
     border-bottom: 1px solid rgba(0, 0, 0, 0.54);
 
     &:focus-visible {

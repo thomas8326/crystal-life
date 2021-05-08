@@ -22,6 +22,43 @@ export default function HandSizeForm() {
 
   return (
     <>
+      <Form1>
+        <div className="field">
+          <div className="title">名稱: </div>
+          <input type="text" className="px-1" onInput={(e) => setName(e.currentTarget.value)}></input>
+        </div>
+        <div className="field">
+          <div className="title">大小: </div>
+          <div className="flex justify-around">
+            <div className="flex items-center">
+              <input
+                id="8mm"
+                type="radio"
+                value={8}
+                name="crystalSize"
+                onChange={(e) => setCrystalSize(parseInt(e.currentTarget.value))}
+              ></input>
+              <label htmlFor="8mm">8nm</label>
+            </div>
+
+            <div className="flex items-center">
+              <input
+                id="10mm"
+                type="radio"
+                value={10}
+                name="crystalSize"
+                onChange={(e) => setCrystalSize(parseInt(e.currentTarget.value))}
+              ></input>
+              <label htmlFor="10mm">10nm</label>
+            </div>
+          </div>
+        </div>
+        <div className="field">
+          <div className="title">數量: </div>
+          <input type="text" className="px-1" onInput={(e) => setCrystalCount(parseInt(e.currentTarget.value))}></input>
+        </div>
+        <input type="button" value="新增" onClick={post} />
+      </Form1>
       <Table className="table">
         <div className="table-header-group">
           <div className="table-cell">編號</div>
@@ -41,40 +78,6 @@ export default function HandSizeForm() {
             ))}
         </div>
       </Table>
-      <Form1>
-        <div className="field">
-          <div className="title">名稱: </div>
-          <input type="text" className="px-1" onInput={(e) => setName(e.currentTarget.value)}></input>
-        </div>
-        <div className="field">
-          <div className="title">大小: </div>
-          <div className="flex justify-around">
-            <label>
-              <input
-                type="radio"
-                value={8}
-                name="crystalSize"
-                onChange={(e) => setCrystalSize(parseInt(e.currentTarget.value))}
-              ></input>
-              8nm
-            </label>
-            <label>
-              <input
-                type="radio"
-                value={10}
-                name="crystalSize"
-                onChange={(e) => setCrystalSize(parseInt(e.currentTarget.value))}
-              ></input>
-              10nm
-            </label>
-          </div>
-        </div>
-        <div className="field">
-          <div className="title">數量: </div>
-          <input type="text" className="px-1" onInput={(e) => setCrystalCount(parseInt(e.currentTarget.value))}></input>
-        </div>
-        <input type="button" value="新增" onClick={post} />
-      </Form1>
     </>
   );
 }
