@@ -32,3 +32,14 @@ export class HandSize extends SelectedItem {
     this.beadSize = (360 / count) * 3 + 3;
   }
 }
+
+export class SliverPipe extends SelectedItem {
+  crystalCount!: number;
+
+  constructor(name: string, value: number, count: number) {
+    super();
+    this.text = name;
+    this.value = value;
+    this.crystalCount = count;
+  }
+}

@@ -6,6 +6,7 @@ import firebase from 'firebase/app';
 import initFireBase from 'src/core/config/firebase.config';
 import AllowUser from 'src/core/models/allow-user';
 import AllowListController from 'src/core/crystal-dashboard/components/allowlist-control';
+import SliverPipeForm from 'src/core/crystal-dashboard/components/sliver-pipe-form';
 
 export default function CrystalDashboard() {
   return (
@@ -18,7 +19,9 @@ export default function CrystalDashboard() {
         <div className="w-full flex">
           <HandSizeForm></HandSizeForm>
         </div>
-        <div className="w-full">手圍</div>
+        <div className="w-full flex">
+          <SliverPipeForm />
+        </div>
         <div className="w-full">手圍</div>
         <div className="w-full">手圍</div>
         <div className="w-full">手圍</div>
