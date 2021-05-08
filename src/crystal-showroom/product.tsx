@@ -82,8 +82,8 @@ function generateCrystalBeads(
   const circleHeight = (circleAngular * Math.PI) / 180;
 
   return selectedList.map((item, index) => {
-    const left = Math.sin(circleHeight * index) * handSize.radiusWidth + containerX;
-    const top = Math.cos(circleHeight * index) * handSize.radiusWidth + containerY;
+    const left = Math.sin(circleHeight * index) * containerX + containerX;
+    const top = Math.cos(circleHeight * index) * containerY + containerY;
 
     return { item, top, left, angular: circleAngular };
   });

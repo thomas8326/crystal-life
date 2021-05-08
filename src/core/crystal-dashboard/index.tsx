@@ -12,26 +12,11 @@ export default function CrystalDashboard() {
     <div className="h-full flex">
       <DashboardNavigation />
       <div className="flex flex-col flex-grow items-center divide-y-2">
-        <div className="w-full">
+        <div className="w-full flex">
           <AllowListController></AllowListController>
         </div>
-        <div className="w-full">
-          手圍
-          <div>
-            <span>水晶珠大小</span>
-            <label>
-              <input type="radio" value={8} name="crystalSize"></input>
-              8nm
-            </label>
-            <label>
-              <input type="radio" value={10} name="crystalSize"></input>
-              10nm
-            </label>
-          </div>
-          <div>
-            <span>水晶珠數量</span>
-            <input type="text" className="border"></input>
-          </div>
+        <div className="w-full flex">
+          <HandSizeForm></HandSizeForm>
         </div>
         <div className="w-full">手圍</div>
         <div className="w-full">手圍</div>

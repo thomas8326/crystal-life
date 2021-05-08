@@ -1,0 +1,46 @@
+import styled from 'styled-components';
+
+export const Form1 = styled.form`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 10px;
+  border: 1px solid #dadada;
+  margin: 12px;
+  box-shadow: 1px 1px 2px 0px #dadada, -1px -1px 2px 0px #dadada;
+
+  & > * {
+    margin-top: 4px;
+    margin-bottom: 4px;
+  }
+
+  .title {
+    font-size: 12px;
+    color: rgba(0, 0, 0, 0.54);
+    font-weight: bold;
+  }
+
+  .field {
+    &: focus-within {
+      .title {
+        color: #3f51b5;
+      }
+
+      input: not([type= 'button' ]) {
+        border-bottom: 1px solid #3f51b5;
+      }
+    }
+  }
+
+  input[type='button'] {
+    cursor: pointer;
+  }
+
+  input: not([type= 'button' ]) {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.54);
+
+    &:focus-visible {
+      outline: none;
+    }
+  }
+`;

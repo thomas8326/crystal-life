@@ -13,4 +13,6 @@ const firebaseConfig = {
 
 const initFireBase = firebase.initializeApp(firebaseConfig);
 
-export default initFireBase;
+const realtimeDB = firebase.database(initFireBase);
+
+export default realtimeDB;
