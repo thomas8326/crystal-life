@@ -1,13 +1,13 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { storageRef } from 'src/core/config/firebase.config';
 import SelectedItem from 'src/core/models/selection';
 import InfiniteList from 'src/shared/infiniteList';
+import { UploadArea } from 'src/shared/upload-area';
 
 export default function CrystalBeadForm() {
-  const uploadedFilesRef = useRef<HTMLInputElement>(null);
   const [items, setItems] = useState<SelectedItem[]>([]);
 
-  const onUploadFile = (current: HTMLInputElement | null) => {
+  const onUploadFile = (current: HTMLInputElement) => {
     if (!current || !current.files) {
       return;
     }
@@ -30,10 +30,8 @@ export default function CrystalBeadForm() {
 
   return (
     <>
+      <UploadArea upload={onUploadFile}></UploadArea>
       <InfiniteList layout="grid" list={items} updateSelect={() => {}}></InfiniteList>
-      <div>
-        <input type="file" ref={uploadedFilesRef} onChange={() => onUploadFile(uploadedFilesRef.current)} multiple />
-      </div>
     </>
   );
 }
