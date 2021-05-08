@@ -3,10 +3,10 @@ import HandSizeForm from 'src/core/crystal-dashboard/components/handsize-form';
 import RadioGroup from 'src/shared/redio-group';
 import { useList, useListVals, useObject, useObjectVal } from 'react-firebase-hooks/database';
 import firebase from 'firebase/app';
-import initFireBase from 'src/core/config/firebase.config';
 import AllowUser from 'src/core/models/allow-user';
 import AllowListController from 'src/core/crystal-dashboard/components/allowlist-control';
 import SliverPipeForm from 'src/core/crystal-dashboard/components/sliver-pipe-form';
+import CrystalBeadForm from 'src/core/crystal-dashboard/components/crystal-bead-form';
 
 export default function CrystalDashboard() {
   return (
@@ -22,8 +22,9 @@ export default function CrystalDashboard() {
         <div className="w-full flex">
           <SliverPipeForm />
         </div>
-        <div className="w-full">手圍</div>
-        <div className="w-full">手圍</div>
+        <div className="w-full flex">
+          <CrystalBeadForm />
+        </div>
         <div className="w-full">手圍</div>
       </div>
     </div>

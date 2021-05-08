@@ -11,8 +11,8 @@ export default class SelectedItem {
 
   isSelected?: boolean;
 
-  constructor(key?: string, url?: string) {
-    this.key = key ?? uuidv4();
+  constructor(url?: string) {
+    this.key = uuidv4();
     this.url = url ?? '';
     this.isSelected = false;
   }

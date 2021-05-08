@@ -11,8 +11,7 @@ const firebaseConfig = {
   measurementId: 'G-PHLW3HRD0Z',
 };
 
-const initFireBase = firebase.initializeApp(firebaseConfig);
+firebase.initializeApp(firebaseConfig);
 
-const realtimeDB = firebase.database(initFireBase);
-
-export default realtimeDB;
+export const realtimeDB = firebase.database();
+export const storageRef = firebase.storage().ref();

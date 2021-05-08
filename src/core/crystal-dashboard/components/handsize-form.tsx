@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useListVals } from 'react-firebase-hooks/database';
-import realtimeDB from 'src/core/config/firebase.config';
+import { realtimeDB } from 'src/core/config/firebase.config';
 import { HandSize } from 'src/core/models/selection';
 import { Form1 } from 'src/styles/components/form';
 import { Table } from 'src/styles/components/table';
