@@ -14,13 +14,19 @@ export default function AllowListController() {
   const [phone, setPhone] = useState<string>('');
 
   const post = () => {
-    const newPost = dataTable.push();
     const newAllowUser = new AllowUser(phone);
-    newPost.set(newAllowUser);
+    realtimeDB.ref(`allowList/${phone}`).set(newAllowUser);
   };
 
   return (
     <>
+      <Form1>
+        <div className="field">
+          <div className="title">手機: </div>
+          <input type="text" className="px-1" onInput={(e) => setPhone(e.currentTarget.value)}></input>
+        </div>
+        <input type="button" value="新增" onClick={post} />
+      </Form1>
       <Table className="table">
         <div className="table-header-group">
           <div className="table-cell">編號</div>
@@ -47,13 +53,6 @@ export default function AllowListController() {
             ))}
         </div>
       </Table>
-      <Form1>
-        <div className="field">
-          <div className="title">手機: </div>
-          <input type="text" className="px-1" onInput={(e) => setPhone(e.currentTarget.value)}></input>
-        </div>
-        <input type="button" value="新增" onClick={post} />
-      </Form1>
     </>
   );
 }

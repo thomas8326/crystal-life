@@ -146,6 +146,11 @@ export const CHARM_OPTIONS: SelectedItem[] = [
 
 export const DASHBOARD_NAVIGATION: Navigation[] = [
   {
+    key: 'ALLOW_LIST',
+    text: '權限列表',
+    path: MainPath.AllowList,
+  },
+  {
     key: 'HAND_SIZE',
     text: '手圍',
     path: MainPath.HandSizeForm,

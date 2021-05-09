@@ -1,12 +1,28 @@
 import './styles.css';
 import CrystalShowroom from './crystal-showroom';
 import CrystalDashboard from 'src/core/crystal-dashboard';
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
+import { MainPath } from 'src/core/enums/main-path';
+import { UserLogin } from 'src/core/login/user-login';
+import EmployeeLogin from 'src/core/login/employee-login';
 
 export default function App() {
   return (
     <>
-      <CrystalDashboard />
-      {/* <CrystalShowroom /> */}
+      <Switch>
+        <Route path={MainPath.UserLogin}>
+          <UserLogin />
+        </Route>
+        <Route path={MainPath.EmployeeLogin}>
+          <EmployeeLogin />
+        </Route>
+        <Route path={MainPath.CrystalShowroom}>
+          <CrystalShowroom />
+        </Route>
+        <Route path={MainPath.CrystalDashboard}>
+          <CrystalDashboard />
+        </Route>
+      </Switch>
     </>
   );
 }

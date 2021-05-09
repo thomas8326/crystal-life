@@ -8,7 +8,6 @@ import { Table } from 'src/styles/components/table';
 export default function HandSizeForm() {
   const dataTable = realtimeDB.ref('handSize');
   const [values] = useListVals<HandSize>(dataTable);
-  const [editable, setEditable] = useState(false);
 
   const [name, setName] = useState('');
   const [crystalSize, setCrystalSize] = useState(8);
