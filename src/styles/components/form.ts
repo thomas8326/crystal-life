@@ -46,4 +46,8 @@ export const Form1 = styled.form`
       outline: none;
     }
   }
+
+  .warning {
+    color: #dd3a3a;
+  }
 `;

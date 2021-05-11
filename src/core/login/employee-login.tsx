@@ -2,6 +2,7 @@ import firebase from 'firebase';
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { MainPath } from 'src/core/enums/main-path';
+import { Form1 } from 'src/styles/components/form';
 
 export default function EmployeeLogin() {
   const history = useHistory();
@@ -20,11 +21,19 @@ export default function EmployeeLogin() {
   };
 
   return (
-    <>
-      <input onInput={(e) => setEmail(e.currentTarget.value)}></input>
-      <input type="password" onInput={(e) => setPassword(e.currentTarget.value)}></input>
-      <input type="button" onClick={onAuthVerified} value="登入" />
-      {isError && <span>帳號密碼錯誤</span>}
-    </>
+    <div className="w-full h-full flex justify-center items-center">
+      <Form1 direction="column" className="items-center" style={{ width: '260px' }}>
+        <div className="field ">
+          <div className="title">帳號</div>
+          <input onInput={(e) => setEmail(e.currentTarget.value)}></input>
+        </div>
+        <div className="field">
+          <div className="title">密碼</div>
+          <input type="password" onInput={(e) => setPassword(e.currentTarget.value)}></input>
+        </div>
+        <input type="button" onClick={onAuthVerified} value="登入" />
+        {isError && <div className="warning">帳號密碼錯誤</div>}
+      </Form1>
+    </div>
   );
 }
