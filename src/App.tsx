@@ -22,6 +22,9 @@ export default function App() {
         <Route path={MainPath.CrystalDashboard}>
           <CrystalDashboard />
         </Route>
+        <Route exact path="/">
+          <Redirect to={MainPath.UserLogin} />
+        </Route>
       </Switch>
     </>
   );
