@@ -1,11 +1,11 @@
-import DashboardNavigation from 'src/core/crystal-dashboard/components/dashboard-navigation';
-import HandSizeForm from 'src/core/crystal-dashboard/components/handsize-form';
-import SliverPipeForm from 'src/core/crystal-dashboard/components/sliver-pipe-form';
+import DashboardNavigation from 'src/crystal-dashboard/components/dashboard-navigation';
+import HandSizeForm from 'src/crystal-dashboard/components/handsize-form';
+import SliverPipeForm from 'src/crystal-dashboard/components/sliver-pipe-form';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import { MainPath } from 'src/core/enums/main-path';
 import { DASHBOARD_NAVIGATION } from 'src/core/constants/constants';
-import UploadImageForm from 'src/core/crystal-dashboard/components/upload-image-form';
-import AllowListController from 'src/core/crystal-dashboard/components/allowlist-control';
+import UploadImageForm from 'src/crystal-dashboard/components/upload-image-form';
+import AllowListController from 'src/crystal-dashboard/components/allowlist-control';
 
 export default function CrystalDashboard() {
   return (

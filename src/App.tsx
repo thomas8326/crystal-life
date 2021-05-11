@@ -1,10 +1,10 @@
 import './styles.css';
 import CrystalShowroom from './crystal-showroom';
-import CrystalDashboard from 'src/core/crystal-dashboard';
-import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
+import CrystalDashboard from 'src/crystal-dashboard';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import { MainPath } from 'src/core/enums/main-path';
-import { UserLogin } from 'src/core/login/user-login';
-import EmployeeLogin from 'src/core/login/employee-login';
+import { UserLogin } from 'src/login/user-login';
+import EmployeeLogin from 'src/login/employee-login';
 
 export default function App() {
   return (
