@@ -26,10 +26,10 @@ export function UserLogin() {
   return (
     <div className="w-full h-full flex justify-center items-center flex-col">
       <Form1 direction="column">
-        <div className="field">
+        <label className="field">
           <div className="title">輸入您的手機號碼:</div>
           <input onInput={(e) => setPhoneNumber(e.currentTarget.value)}></input>
-        </div>
+        </label>
         <input type="button" onClick={onVerifiedUser} value="登入"></input>
       </Form1>
     </div>

@@ -23,14 +23,14 @@ export default function EmployeeLogin() {
   return (
     <div className="w-full h-full flex justify-center items-center">
       <Form1 direction="column" className="items-center" style={{ width: '260px' }}>
-        <div className="field ">
+        <label className="field ">
           <div className="title">帳號</div>
           <input onInput={(e) => setEmail(e.currentTarget.value)}></input>
-        </div>
-        <div className="field">
+        </label>
+        <label className="field">
           <div className="title">密碼</div>
           <input type="password" onInput={(e) => setPassword(e.currentTarget.value)}></input>
-        </div>
+        </label>
         <input type="button" onClick={onAuthVerified} value="登入" />
         {isError && <div className="warning">帳號密碼錯誤</div>}
       </Form1>
