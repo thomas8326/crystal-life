@@ -1,5 +1,5 @@
-import ControlPanel from './control-panel';
-import Product from './product';
+import ControlPanel from './components/control-panel';
+import Product from './components/product';
 import styled from 'styled-components';
 import { useReducer, useState } from 'react';
 import React from 'react';

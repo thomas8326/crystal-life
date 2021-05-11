@@ -8,16 +8,16 @@ import {
   updateSelectSliverHand,
 } from 'src/core/contexts/crystalShowroom/crystalShowroom.action';
 import { ControlPanelState } from 'src/core/enums/control-panel';
-import FlowerAdder from 'src/crystal-showroom/flowerAdder';
+import FlowerAdder from 'src/crystal-showroom/components/flower-adder';
 import InfiniteList from 'src/shared/infiniteList';
-import { CRYSTAL_TYPE, EIGHT_MM_SLIVER_PIPE, HAND_SIZE, TEN_MM_SLIVER_PIPE } from '../core/constants/constants';
+import { CRYSTAL_TYPE, EIGHT_MM_SLIVER_PIPE, HAND_SIZE, TEN_MM_SLIVER_PIPE } from '../../core/constants/constants';
 import {
   ADD_FLOWER_COVER_ON_LEFT,
   ADD_FLOWER_COVER_ON_RIGHT,
   crystalShowroomContext,
-} from '../core/contexts/crystalShowroom/selected-list.context';
-import SelectedItem from '../core/models/selection';
-import RadioGroup from '../shared/redio-group';
+} from '../../core/contexts/crystalShowroom/selected-list.context';
+import SelectedItem from '../../core/models/selection';
+import RadioGroup from '../../shared/redio-group';
 
 export default function ControlPanel() {
   const [currentState, setCurrentState] = useState<ControlPanelState>(ControlPanelState.HandSize);

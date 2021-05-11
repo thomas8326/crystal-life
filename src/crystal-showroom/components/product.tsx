@@ -1,14 +1,13 @@
 // prettier ignore
 import { useContext, useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
-import SelectedItem, { HandSize } from '../core/models/selection';
-import '../styles/animation.css';
 import {
   crystalShowroomContext,
   REMOVE_DISPLAY_SELECTED_CRYSTAL_BEAD,
   SELECT_DISPLAY_CRYSTAL_BEAD,
 } from 'src/core/contexts/crystalShowroom/selected-list.context';
 import Crystal from 'src/core/models/crystal';
+import SelectedItem, { HandSize } from 'src/core/models/selection';
 
 const ProductDisplay = styled.div`
   position: relative;
