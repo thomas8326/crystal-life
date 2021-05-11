@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const Form1 = styled.form`
   display: flex;
-  flex-direction: row;
+  flex-direction: ${(props: { direction?: string }) => props?.direction || 'row'};
   justify-content: space-around;
   padding: 10px;
   border: 1px solid #dadada;
