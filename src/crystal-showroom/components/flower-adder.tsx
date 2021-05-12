@@ -16,10 +16,11 @@ const FlowerItem = styled.li`
 `;
 
 export default function FlowerAdder(props: {
+  list: SelectedItem[];
   updateLeft: (flower: SelectedItem) => void;
   updateRight: (flower: SelectedItem) => void;
 }) {
-  const { updateLeft, updateRight } = props;
+  const { list, updateLeft, updateRight } = props;
   const [selected, setSelected] = useState<SelectedItem>(FLOWER_OPTIONS[0]);
   return (
     <div className="flex flex-col">
@@ -33,7 +34,7 @@ export default function FlowerAdder(props: {
       </div>
       <div className="flex-1">
         <InfiniteLayout layout="grid">
-          {FLOWER_OPTIONS.map((flower) => (
+          {list.map((flower) => (
             <FlowerItem key={flower.key} isSelected={flower.key === selected.key} onClick={() => setSelected(flower)}>
               <img src={flower.url} />
             </FlowerItem>

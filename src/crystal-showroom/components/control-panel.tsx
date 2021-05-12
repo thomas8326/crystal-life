@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import {
   addCharm,
   removeCharm,
@@ -10,23 +10,23 @@ import {
 import { ControlPanelState } from 'src/core/enums/control-panel';
 import FlowerAdder from 'src/crystal-showroom/components/flower-adder';
 import InfiniteList from 'src/shared/infiniteList';
-import { CRYSTAL_TYPE, EIGHT_MM_SLIVER_PIPE, HAND_SIZE, TEN_MM_SLIVER_PIPE } from '../../core/constants/constants';
+import { useDBList } from 'src/utils/customer-hook/useDBList';
+import { useListUrl } from 'src/utils/customer-hook/useListUrl';
 import {
   ADD_FLOWER_COVER_ON_LEFT,
   ADD_FLOWER_COVER_ON_RIGHT,
   crystalShowroomContext,
 } from '../../core/contexts/crystalShowroom/selected-list.context';
-import SelectedItem from '../../core/models/selection';
+import SelectedItem, { HandSize } from '../../core/models/selection';
 import RadioGroup from '../../shared/redio-group';
 
 export default function ControlPanel() {
   const [currentState, setCurrentState] = useState<ControlPanelState>(ControlPanelState.HandSize);
-
   const { crystalRing, dispatch } = useContext(crystalShowroomContext);
-
-  const getSliverPipeList = (): SelectedItem[] => {
-    return crystalRing.handSize.value === 8 ? EIGHT_MM_SLIVER_PIPE : TEN_MM_SLIVER_PIPE;
-  };
+  const handSizes = useDBList<HandSize>('handSize');
+  const sliverPipes = useDBList('sliverPipe');
+  const crystalBeadImages = useListUrl('crystalImages');
+  const flowerCovers = useListUrl('flowerCovers');
 
   const prevState = () => {
     setCurrentState((prevState) => prevState - 1);
@@ -45,7 +45,7 @@ export default function ControlPanel() {
             <label className="text-left text-lg">手圍</label>
             <small className="text-left text-xs">選擇適合你的手圍長度</small>
             <RadioGroup
-              list={HAND_SIZE}
+              list={handSizes}
               defaultValue={crystalRing.handSize}
               groupName="handSize"
               updateRadio={updateSelectHandSize(dispatch)}
@@ -57,7 +57,9 @@ export default function ControlPanel() {
             <label className="text-left text-lg">銀管</label>
             <small className="text-left text-xs">選擇適合你的銀圍長度</small>
             <RadioGroup
-              list={getSliverPipeList()}
+              list={
+                sliverPipes && sliverPipes.filter((item: SelectedItem) => item.value === crystalRing.handSize.value)
+              }
               defaultValue={crystalRing.sliverPipe}
               groupName="sliverPipe"
               updateRadio={updateSelectSliverHand(dispatch)}
@@ -69,7 +71,7 @@ export default function ControlPanel() {
             <label className="text-left text-lg">水晶</label>
             <small className="text-left text-xs">在左邊產品中選取圓珠，在右邊選擇想要的水晶</small>
             <div className="mt-6">
-              <InfiniteList layout="grid" list={CRYSTAL_TYPE} updateSelect={updateSelectedCrystal(dispatch)} />
+              <InfiniteList layout="grid" list={crystalBeadImages} updateSelect={updateSelectedCrystal(dispatch)} />
             </div>
           </div>
         )}
@@ -79,6 +81,7 @@ export default function ControlPanel() {
             <small className="text-left text-xs">在左邊產品中選取圓珠，在右邊選擇想要的花蓋，按下加在左邊或右邊</small>
             <div className="mt-6">
               <FlowerAdder
+                list={flowerCovers}
                 updateLeft={updateFlowerCover(ADD_FLOWER_COVER_ON_LEFT, dispatch)}
                 updateRight={updateFlowerCover(ADD_FLOWER_COVER_ON_RIGHT, dispatch)}
               />
