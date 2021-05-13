@@ -1,5 +1,5 @@
 import { EIGHT_MM_SLIVER_PIPE } from '../../constants/constants';
-import { HandSize } from '../../models/selection';
+import { HandSize, SliverPipe } from '../../models/selection';
 import React from 'react';
 import Action from '../../models/action';
 
@@ -24,7 +24,7 @@ export const SELECT_HAND_SIZE = 'SELECT_HAND_SIZE';
 export class CrystalShowroomAction {
   handSize!: HandSize;
   bead!: SelectedItem;
-  sliverPipe!: SelectedItem;
+  sliverPipe!: SliverPipe;
   selectedDisplayCrystal!: string;
   flower!: SelectedItem;
   charm!: SelectedItem;
@@ -121,7 +121,7 @@ export const crystalShowroomReducer = (state: CrystalShowroomContextProps, actio
     case SELECT_SLIVER_PIPE: {
       const selectedSliverPipe = action.data.sliverPipe;
       const currentCrystalRing = state.crystalRing;
-      const newBeadsCount = currentCrystalRing.handSize.crystalCount - (selectedSliverPipe.value as number);
+      const newBeadsCount = currentCrystalRing.handSize.crystalCount - selectedSliverPipe.crystalCount;
 
       currentCrystalRing.createBeads(newBeadsCount);
       currentCrystalRing.setSliverPipe(selectedSliverPipe);

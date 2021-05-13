@@ -32,7 +32,7 @@ export default function RadioGroup<T extends SelectedItem>(props: {
 
   return (
     <div className="flex flex-col space-y-4 mt-6">
-      {list?.length && list?.map((item) => <RadioItem key={item.key} item={item} />)}
+      {!!list?.length && list?.map((item) => <RadioItem key={item.key} item={item} />)}
     </div>
   );
 }
