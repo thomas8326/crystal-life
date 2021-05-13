@@ -3,9 +3,9 @@ import SelectedItem from '../core/models/selection';
 
 export default function RadioGroup<T extends SelectedItem>(props: {
   list: T[];
-  defaultValue: SelectedItem;
   groupName: string;
   updateRadio: (item: T) => void;
+  defaultValue?: SelectedItem;
 }) {
   const { groupName, list, defaultValue, updateRadio } = props;
   const RadioItem = (props: { item: T }) => {
@@ -20,7 +20,7 @@ export default function RadioGroup<T extends SelectedItem>(props: {
           id={item.key}
           value={item.value}
           name={groupName}
-          checked={item.key === defaultValue.key}
+          checked={defaultValue && item.key === defaultValue.key}
           onChange={() => {
             updateRadio(item);
           }}

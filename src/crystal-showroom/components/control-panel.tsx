@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import {
   addCharm,
+  initCrystalRing,
   removeCharm,
   updateFlowerCover,
   updateSelectedCrystal,
@@ -27,6 +28,12 @@ export default function ControlPanel() {
   const sliverPipes = useDBList('sliverPipe');
   const crystalBeadImages = useListUrl('crystalImages');
   const flowerCovers = useListUrl('flowerCovers');
+
+  useEffect(() => {
+    if (!!handSizes && !!handSizes.length) {
+      initCrystalRing(dispatch)(handSizes[0]);
+    }
+  }, [handSizes]);
 
   const prevState = () => {
     setCurrentState((prevState) => prevState - 1);

@@ -5,6 +5,7 @@ import {
   SELECT_SLIVER_PIPE,
   ADD_CHARM,
   REMOVE_CHARM,
+  INIT_CRYSTAL_SHOWROOM,
 } from 'src/core/contexts/crystalShowroom/selected-list.context';
 import SelectedItem, { HandSize } from 'src/core/models/selection';
 
@@ -32,4 +33,8 @@ export const addCharm = (dispatch: React.Dispatch<any>) => () => {
 
 export const removeCharm = (dispatch: React.Dispatch<any>) => () => {
   dispatch({ type: REMOVE_CHARM });
+};
+
+export const initCrystalRing = (dispatch: React.Dispatch<any>) => (handSize: HandSize) => {
+  dispatch({ type: INIT_CRYSTAL_SHOWROOM, data: { handSize } });
 };

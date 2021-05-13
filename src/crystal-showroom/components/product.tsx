@@ -139,6 +139,10 @@ export default function Product() {
   const { crystalRing, dispatch } = useContext(crystalShowroomContext);
   const { beads, handSize } = crystalRing;
 
+  if (!handSize) {
+    return <></>;
+  }
+
   const itemPosition = generateCrystalBeads(beads, handSize);
 
   return (

@@ -8,6 +8,8 @@ import SelectedItem from '../../models/selection';
 import { HAND_SIZE } from 'src/core/constants/constants';
 import CrystalRing from 'src/core/models/crystal-ring';
 
+export const INIT_CRYSTAL_SHOWROOM = 'INIT_CRYSTAL_SHOWROOM';
+
 export const UPDATED_SELECTED_BEAD = 'SELECT_BEAD';
 export const SELECT_DISPLAY_CRYSTAL_BEAD = 'SELECT_CRYSTAL_BEAD';
 export const REMOVE_DISPLAY_SELECTED_CRYSTAL_BEAD = 'REMOVE_SELECTED_CRYSTAL_BEAD';
@@ -39,7 +41,7 @@ export class CrystalShowroomContextProps {
 }
 
 export const crystalShowroomInitState: CrystalShowroomContextProps = {
-  crystalRing: new CrystalRing(HAND_SIZE[0], EIGHT_MM_SLIVER_PIPE[0]),
+  crystalRing: new CrystalRing(),
   selectedDisplayCrystal: [],
   dispatch: () => null,
 };
@@ -48,6 +50,12 @@ export const crystalShowroomContext = React.createContext<CrystalShowroomContext
 
 export const crystalShowroomReducer = (state: CrystalShowroomContextProps, action: Action<CrystalShowroomAction>) => {
   switch (action.type) {
+    case INIT_CRYSTAL_SHOWROOM: {
+      const crystalRing: CrystalRing = new CrystalRing();
+      crystalRing.setHandSize(action.data.handSize);
+      crystalRing.createBeads(action.data.handSize.crystalCount);
+      return Object.assign({}, state, { crystalRing, selectedDisplayCrystal: [] });
+    }
     case ADD_CHARM: {
       const selectedCrystals = state.selectedDisplayCrystal;
       const crystalRing: CrystalRing = state.crystalRing;
