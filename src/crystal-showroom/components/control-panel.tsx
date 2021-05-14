@@ -26,7 +26,6 @@ export default function ControlPanel() {
   const { crystalRing, dispatch } = useContext(crystalShowroomContext);
   const handSizes = useDBList<HandSize>('handSize');
   const sliverPipes = useDBList('sliverPipe');
-  const crystalBeadImages = useListUrl('crystalImages');
   const flowerCovers = useListUrl('flowerCovers');
 
   useEffect(() => {
@@ -44,9 +43,9 @@ export default function ControlPanel() {
   };
 
   return (
-    <div className="flex flex-col h-full divide-y-2 divide-black space-y-4 py-16 mx-10">
+    <div className="flex flex-col w-full h-full divide-y-2 divide-black space-y-4 py-16 mx-10">
       <h4 className="text-left text-2xl font-bold">NOVUS LIFE</h4>
-      <div className="flex-1">
+      <div className="flex-1 max-h-full overflow-hidden">
         {currentState === ControlPanelState.HandSize && (
           <div className="w-full h-full flex flex-col p-2">
             <label className="text-left text-lg">手圍</label>
@@ -77,8 +76,8 @@ export default function ControlPanel() {
           <div className="w-full h-full flex flex-col p-2">
             <label className="text-left text-lg">水晶</label>
             <small className="text-left text-xs">在左邊產品中選取圓珠，在右邊選擇想要的水晶</small>
-            <div className="mt-6">
-              <InfiniteList layout="grid" list={crystalBeadImages} updateSelect={updateSelectedCrystal(dispatch)} />
+            <div className="mt-6" style={{ maxHeight: '88%' }}>
+              <InfiniteList layout="grid" tableName="crystalImages" updateSelect={updateSelectedCrystal(dispatch)} />
             </div>
           </div>
         )}

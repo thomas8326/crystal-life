@@ -30,7 +30,7 @@ function CrystalShowroom() {
         <div className="flex flex-grow justify-center items-center">
           <Product />
         </div>
-        <div className="bg-gray-50 h-full border-l border-gray-500" style={{ flex: '0 0 385px' }}>
+        <div className="bg-gray-50 h-full border-l border-gray-500 flex" style={{ flex: '0 0 385px' }}>
           <ControlPanel />
         </div>
       </Showroom>
