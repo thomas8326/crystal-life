@@ -3,7 +3,7 @@ import AllowUser from 'src/core/models/allow-user';
 import { realtimeDB } from 'src/core/config/firebase.config';
 import { Table } from 'src/styles/components/table';
 import { Form1 } from 'src/styles/components/form';
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 export default function AllowListController() {
   const dataTable = realtimeDB.ref('allowList');
@@ -12,7 +12,11 @@ export default function AllowListController() {
 
   const post = () => {
     const newAllowUser = new AllowUser(phone);
-    realtimeDB.ref(`allowList/${phone}`).set(newAllowUser);
+    dataTable.child(phone).set(newAllowUser);
+  };
+
+  const updateToggle = (id: string, status: boolean) => {
+    dataTable.child(id).update({ activate: status });
   };
 
   return (
@@ -38,11 +42,23 @@ export default function AllowListController() {
                 <div className="table-cell">{v.phone}</div>
                 <div className="table-cell">
                   <label>
-                    <input id="activate" type="radio" name={`activated${index}`} defaultChecked={!!v.activate} />
+                    <input
+                      id="activate"
+                      type="radio"
+                      name={`activated${index}`}
+                      defaultChecked={!!v.activate}
+                      onChange={() => updateToggle(v.key, true)}
+                    />
                     啟用
                   </label>
                   <label>
-                    <input id="deactivate" type="radio" name={`activated${index}`} defaultChecked={!v.activate} />
+                    <input
+                      id="deactivate"
+                      type="radio"
+                      name={`activated${index}`}
+                      defaultChecked={!v.activate}
+                      onChange={() => updateToggle(v.key, false)}
+                    />
                     停用
                   </label>
                 </div>
