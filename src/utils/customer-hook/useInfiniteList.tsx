@@ -64,6 +64,12 @@ export function useInfiniteList(
   };
 
   useEffect(() => {
+    setIsLoadMore(false);
+    setIsComplete(false);
+    setList([]);
+  }, [tableName]);
+
+  useEffect(() => {
     let intersection: IntersectionObserver;
     let mutation: MutationObserver;
 
@@ -76,14 +82,14 @@ export function useInfiniteList(
       intersection && intersection.disconnect();
       mutation && mutation.disconnect();
     };
-  }, [observeElement, rootElement]);
+  }, [tableName, observeElement, rootElement]);
 
   useEffect(() => {
     if (!!isLoadMore && !isComplete) {
       getPage();
       setIsLoadMore(false);
     }
-  }, [isLoadMore, isComplete]);
+  }, [tableName, isLoadMore, isComplete]);
 
   return list;
 }

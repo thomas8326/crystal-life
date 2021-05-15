@@ -54,6 +54,7 @@ export default function InfiniteList(props: {
   const [mutationElement, setMutationElement] = useState<HTMLUListElement | null>(null);
 
   const { layout, tableName, selected, updateSelect } = props;
+  console.log(tableName);
   const list = useInfiniteList(tableName, anchor, viewport, mutationElement);
 
   return (
