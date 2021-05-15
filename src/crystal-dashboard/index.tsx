@@ -13,29 +13,27 @@ export default function CrystalDashboard() {
   return (
     <div className="h-full flex">
       <DashboardNavigation navigation={DASHBOARD_NAVIGATION} currentUrl={url} />
-      <div className="flex flex-col flex-grow items-center divide-y-2">
-        <div className="w-full">
-          <Switch>
-            <Route path={`${url}${MainPath.AllowList}`}>
-              <AllowListController />
-            </Route>
-            <Route path={`${url}${MainPath.HandSizeForm}`}>
-              <HandSizeForm />
-            </Route>
-            <Route path={`${url}${MainPath.SliverPipeForm}`}>
-              <SliverPipeForm />
-            </Route>
-            <Route path={`${url}${MainPath.CrystalBeadForm}`}>
-              <UploadImageForm tableName="crystalImages" />
-            </Route>
-            <Route path={`${url}${MainPath.FlowerCoverForm}`}>
-              <UploadImageForm tableName="flowerCovers" />
-            </Route>
-            <Route exact path={`${url}`}>
-              <Redirect to={`${url}${MainPath.AllowList}`}></Redirect>
-            </Route>
-          </Switch>
-        </div>
+      <div className="flex flex-col w-full h-full">
+        <Switch>
+          <Route path={`${url}${MainPath.AllowList}`}>
+            <AllowListController />
+          </Route>
+          <Route path={`${url}${MainPath.HandSizeForm}`}>
+            <HandSizeForm />
+          </Route>
+          <Route path={`${url}${MainPath.SliverPipeForm}`}>
+            <SliverPipeForm />
+          </Route>
+          <Route path={`${url}${MainPath.CrystalBeadForm}`}>
+            <UploadImageForm tableName="crystalImages" />
+          </Route>
+          <Route path={`${url}${MainPath.FlowerCoverForm}`}>
+            <UploadImageForm tableName="flowerCovers" />
+          </Route>
+          <Route exact path={`${url}`}>
+            <Redirect to={`${url}${MainPath.AllowList}`}></Redirect>
+          </Route>
+        </Switch>
       </div>
     </div>
   );

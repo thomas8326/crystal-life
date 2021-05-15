@@ -20,7 +20,11 @@ export default function UploadImageForm(props: { tableName: string }) {
   return (
     <>
       <UploadArea upload={onUploadFile}></UploadArea>
-      <InfiniteList layout="grid" tableName={tableName} updateSelect={() => {}}></InfiniteList>
+      <hr></hr>
+      <div className="text-2xl">已有產品圖</div>
+      <div className="max-h-full overflow-hidden">
+        <InfiniteList layout="grid" tableName={tableName} updateSelect={() => {}}></InfiniteList>
+      </div>
     </>
   );
 }
