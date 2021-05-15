@@ -1,3 +1,15 @@
 .icon-chevron {
-  background-image: url(/public/assets/icon/chevron.svg);
+  background-image: url(/src/assets/icon/chevron.svg);
+}
+
+.icon-x-mark {
+  background-image: url(/src/assets/icon/x-mark.svg);
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
 }

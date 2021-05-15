@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import './styles/icons.css';
+
 .App {
   font-family: sans-serif;
 }
