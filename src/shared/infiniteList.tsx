@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { ReactChild, useEffect, useRef, useState } from 'react';
 import { storageRef } from 'src/core/config/firebase.config';
 import SelectedItem from 'src/core/models/selection';
 import { useInfiniteList } from 'src/utils/customer-hook/useInfiniteList';
@@ -21,6 +21,17 @@ export const InfiniteLayout = styled.ul`
   }
 `;
 
+const InfiniteItem = styled.li`
+  cursor: pointer;
+  padding: 4px;
+  ${(props: { isSelected: boolean }) =>
+    props.isSelected &&
+    css`
+      border: 1px solid gray;
+      border-radius: 20px;
+    `}
+`;
+
 export const Container = styled.div`
   position: relative;
 
@@ -28,7 +39,6 @@ export const Container = styled.div`
     position: absolute;
     width: 100%;
     height: 30px;
-    background: red;
     bottom: 0;
   }
 `;
@@ -37,12 +47,13 @@ export default function InfiniteList(props: {
   layout: string;
   tableName: string;
   updateSelect: (item: SelectedItem) => void;
+  selected?: SelectedItem | null;
 }) {
   const [anchor, setAnchor] = useState<HTMLDivElement | null>(null);
   const [viewport, setViewport] = useState<HTMLDivElement | null>(null);
   const [mutationElement, setMutationElement] = useState<HTMLUListElement | null>(null);
 
-  const { layout, tableName, updateSelect } = props;
+  const { layout, tableName, selected, updateSelect } = props;
   const list = useInfiniteList(tableName, anchor, viewport, mutationElement);
 
   return (
@@ -50,9 +61,9 @@ export default function InfiniteList(props: {
       <Container>
         <InfiniteLayout layout={layout} ref={setMutationElement}>
           {list.map((item) => (
-            <li key={item.key} onClick={() => updateSelect(item)}>
+            <InfiniteItem key={item.key} onClick={() => updateSelect(item)} isSelected={item.key === selected?.key}>
               <img src={item.url} />
-            </li>
+            </InfiniteItem>
           ))}
         </InfiniteLayout>
         <div className="sensor" ref={setAnchor}></div>

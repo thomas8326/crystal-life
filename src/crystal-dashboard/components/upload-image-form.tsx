@@ -6,7 +6,6 @@ import { UploadArea } from 'src/shared/upload-area';
 
 export default function UploadImageForm(props: { tableName: string }) {
   const { tableName } = props;
-  const [items, setItems] = useState<SelectedItem[]>([]);
 
   const onUploadFile = (current: HTMLInputElement) => {
     if (!current || !current.files) {
@@ -18,21 +17,10 @@ export default function UploadImageForm(props: { tableName: string }) {
     }
   };
 
-  useEffect(() => {
-    storageRef
-      .child(tableName)
-      .listAll()
-      .then(({ items }) => Promise.all(items.map((item) => item.getDownloadURL())))
-      .then((urls) => {
-        const result = urls.map((url) => new SelectedItem(url));
-        setItems(result);
-      });
-  }, [tableName]);
-
   return (
     <>
       <UploadArea upload={onUploadFile}></UploadArea>
-      <InfiniteList layout="grid" list={items} updateSelect={() => {}}></InfiniteList>
+      <InfiniteList layout="grid" tableName={tableName} updateSelect={() => {}}></InfiniteList>
     </>
   );
 }

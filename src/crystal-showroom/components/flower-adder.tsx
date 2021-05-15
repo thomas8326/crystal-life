@@ -1,19 +1,8 @@
 import { useState } from 'react';
 import { FLOWER_OPTIONS } from 'src/core/constants/constants';
 import SelectedItem from 'src/core/models/selection';
-import { InfiniteLayout } from 'src/shared/infiniteList';
+import InfiniteList from 'src/shared/infiniteList';
 import styled, { css } from 'styled-components';
-
-const FlowerItem = styled.li`
-  cursor: pointer;
-  padding: 8px;
-  ${(props: { isSelected: boolean }) =>
-    props.isSelected &&
-    css`
-      border: 1px solid gray;
-      border-radius: 20px;
-    `}
-`;
 
 export default function FlowerAdder(props: {
   list: SelectedItem[];
@@ -33,13 +22,12 @@ export default function FlowerAdder(props: {
         </button>
       </div>
       <div className="flex-1">
-        <InfiniteLayout layout="grid">
-          {list.map((flower) => (
-            <FlowerItem key={flower.key} isSelected={flower.key === selected.key} onClick={() => setSelected(flower)}>
-              <img src={flower.url} />
-            </FlowerItem>
-          ))}
-        </InfiniteLayout>
+        <InfiniteList
+          layout="grid"
+          tableName="flowerCovers"
+          selected={selected}
+          updateSelect={(flower) => setSelected(flower)}
+        ></InfiniteList>
       </div>
     </div>
   );
