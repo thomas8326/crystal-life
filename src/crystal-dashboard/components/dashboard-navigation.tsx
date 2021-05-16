@@ -11,11 +11,15 @@ export default function DashboardNavigation(props: { navigation: Navigation[]; c
 
   return (
     <div className="flex flex-col bg-blue-50 h-full border-r border-gray-300 p-5" style={{ flex: '0 0 250px' }}>
-      <div className="flex-1 space-y-4">
+      <div className="flex-1 divide-y divide-indigo-300 ">
         {navigation.map((nav) => (
-          <Link key={nav.key} className="flex justify-between" to={`${currentUrl}${nav.path}`}>
+          <Link
+            key={nav.key}
+            className="flex justify-between py-4 hover:bg-blue-100 rounded-md"
+            to={`${currentUrl}${nav.path}`}
+          >
             <label className="text-xl">{nav.text}</label>
-            <span> {'>'} </span>
+            <i className="icon icon-right-arrow" />
           </Link>
         ))}
       </div>

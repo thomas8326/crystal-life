@@ -10,6 +10,10 @@
   background-image: url(/src/assets/icon/x-mark.svg);
 }
 
+.icon-right-arrow {
+  background-image: url(/src/assets/icon/right-arrow.svg);
+}
+
 .icon {
   display: block;
   width: 24px;
