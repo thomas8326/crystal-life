@@ -3,12 +3,21 @@ import AllowUser from 'src/core/models/allow-user';
 import { realtimeDB } from 'src/core/config/firebase.config';
 import { Table } from 'src/styles/components/table';
 import { Form1 } from 'src/styles/components/form';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
+import useFormValidation, {
+  FormControl,
+  FormControlType,
+  FormErrorType,
+} from 'src/utils/customer-hook/useFormValidation';
+import FormErrorMsg from 'src/shared/form-error-msg';
 
 export default function AllowListController() {
   const dataTable = realtimeDB.ref('allowList');
   const [values] = useListVals<AllowUser>(dataTable);
   const [phone, setPhone] = useState<string>('');
+
+  const [validate, setValidate] = useState<boolean>(false);
+  const [errMsg, setErrMsg] = useFormValidation();
 
   const post = () => {
     const newAllowUser = new AllowUser(phone);
@@ -19,14 +28,25 @@ export default function AllowListController() {
     dataTable.child(id).update({ activate: status });
   };
 
+  const inputPhoneNumber = (e: React.FormEvent<HTMLInputElement>) => {
+    setValidate(e.currentTarget.checkValidity());
+    setErrMsg({
+      type: FormErrorType.FormatError,
+      fieldName: FormControlType.Phone,
+      isError: e.currentTarget.validity.patternMismatch,
+    });
+    setPhone(e.currentTarget.value);
+  };
+
   return (
     <>
       <Form1>
         <div className="field">
           <div className="title">手機: </div>
-          <input type="text" className="px-1" onInput={(e) => setPhone(e.currentTarget.value)}></input>
+          <input type="text" className="px-1" pattern="^\d{10}$" required onInput={inputPhoneNumber}></input>
+          <FormErrorMsg format={errMsg[FormControlType.Phone]?.[FormErrorType.FormatError]} />
         </div>
-        <input type="button" value="新增" onClick={post} />
+        <input type="button" value="新增" onClick={post} disabled={!validate} />
       </Form1>
       <Table className="table">
         <div className="table-header-group">
