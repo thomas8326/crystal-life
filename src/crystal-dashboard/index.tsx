@@ -25,10 +25,10 @@ export default function CrystalDashboard() {
             <SliverPipeForm />
           </Route>
           <Route path={`${url}${MainPath.CrystalBeadForm}`}>
-            <UploadImageForm tableName="crystalImages" />
+            <UploadImageForm key="crystalImages" tableName="crystalImages" />
           </Route>
           <Route path={`${url}${MainPath.FlowerCoverForm}`}>
-            <UploadImageForm tableName="flowerCovers" />
+            <UploadImageForm key="flowerCovers" tableName="flowerCovers" />
           </Route>
           <Route exact path={`${url}`}>
             <Redirect to={`${url}${MainPath.AllowList}`}></Redirect>
