@@ -2,11 +2,16 @@
   background-image: url(/src/assets/icon/chevron.svg);
 }
 
+.icon-upload-image {
+  background-image: url(/src/assets/icon/upload-image-icon.svg);
+}
+
 .icon-x-mark {
   background-image: url(/src/assets/icon/x-mark.svg);
 }
 
 .icon {
+  display: block;
   width: 24px;
   height: 24px;
   background-repeat: no-repeat;
