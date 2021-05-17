@@ -1,25 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import firebase from 'firebase';
+import React from 'react';
 import { storageRef } from 'src/core/config/firebase.config';
-import SelectedItem from 'src/core/models/selection';
 import InfiniteList from 'src/shared/infiniteList';
 import { UploadArea } from 'src/shared/upload-area';
+import useUploadFileStatus, { startUpload, uploading } from 'src/utils/customer-hook/useUploadFileStatus';
 
 export default function UploadImageForm(props: { tableName: string }) {
   const { tableName } = props;
 
-  const onUploadFile = (current: HTMLInputElement) => {
-    if (!current || !current.files) {
-      return;
-    }
-
-    for (const file of Array.from(current.files)) {
-      storageRef.child(`${tableName}/${file.name}`).put(file, { contentType: 'image/jpeg' });
-    }
-  };
-
   return (
     <>
-      <UploadArea upload={onUploadFile}></UploadArea>
+      <UploadArea tableName={tableName}></UploadArea>
       <hr></hr>
       <div className="text-2xl">已有產品圖</div>
       <div className="max-h-full overflow-hidden">

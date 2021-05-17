@@ -1,9 +1,16 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { storageRef } from 'src/core/config/firebase.config';
 import { FileLink } from 'src/core/models/fileLink';
+import ProgressBar from 'src/shared/progress-bar';
 import { Button1 } from 'src/styles/components/button';
 import { Grid } from 'src/styles/layout/grid';
 import useDragFiles from 'src/utils/customer-hook/useDragFile';
 import useImageReader from 'src/utils/customer-hook/useImageReader';
+import useUploadFileStatus, {
+  FileUploadStatusType,
+  startUpload,
+  uploading,
+} from 'src/utils/customer-hook/useUploadFileStatus';
 import fillUUIDToArray from 'src/utils/transofrm/list-utilis';
 import styled, { css } from 'styled-components';
 import { v4 as uuidv4 } from 'uuid';
@@ -63,7 +70,7 @@ const GridItem = styled.div`
 
 const MAX_ARRAY_LENGTH = 32;
 
-export function UploadArea(props: { upload: (current: HTMLInputElement) => void }) {
+export function UploadArea(props: { tableName: string }) {
   const uploadedFilesRef = useRef<HTMLInputElement>(null);
 
   const [gridWidth] = useState<number>(300);
@@ -75,7 +82,23 @@ export function UploadArea(props: { upload: (current: HTMLInputElement) => void 
 
   const { isDragging, files } = useDragFiles(uploadAreaRef);
   const readFile = useImageReader();
-  const { upload } = props;
+  const { tableName } = props;
+
+  const [uploadStatus, setUploadStatus] = useUploadFileStatus();
+
+  const onUploadFile = (current: HTMLInputElement) => {
+    if (!current || !current.files) {
+      return;
+    }
+
+    setUploadStatus(startUpload(Array.from(current.files)));
+    for (const file of Array.from(current.files)) {
+      const task = storageRef.child(`${tableName}/${file.name}`).put(file, { contentType: 'image/jpeg' });
+      task.on('state_changed', null, null, () => {
+        task.snapshot.ref.getDownloadURL().then((url) => setUploadStatus(uploading(url)));
+      });
+    }
+  };
 
   const readImage = (files: FileList | null) => {
     if (files && files.length) {
@@ -92,21 +115,27 @@ export function UploadArea(props: { upload: (current: HTMLInputElement) => void 
 
   const uploadImage = () => {
     if (uploadedFilesRef?.current) {
-      upload(uploadedFilesRef.current);
-      setSelectedImage(null);
-      setImageUrls([]);
-      setEmptyList(fillUUIDToArray(MAX_ARRAY_LENGTH));
+      onUploadFile(uploadedFilesRef.current);
     }
   };
 
   const removeUploadImage = (file: FileLink) => {
     setImageUrls((prev) => {
       const newImages = prev.filter((imageUrl) => imageUrl.id !== file.id);
+      file.id === selectedImage?.id && setSelectedImage(null);
       !!newImages.length && setSelectedImage(newImages[0]);
       return newImages;
     });
     setEmptyList((empty) => empty.concat(uuidv4()));
   };
+
+  useEffect(() => {
+    if (uploadStatus.isCompleted) {
+      setImageUrls([]);
+      setEmptyList(fillUUIDToArray(MAX_ARRAY_LENGTH));
+      setSelectedImage(null);
+    }
+  }, [uploadStatus]);
 
   useEffect(() => {
     if (files?.length) {
@@ -155,9 +184,12 @@ export function UploadArea(props: { upload: (current: HTMLInputElement) => void 
             <EmptyCell key={key} />
           ))}
         </Grid>
-        <Button1 type="button" onClick={uploadImage} disabled={!imageUrls.length}>
-          開始上傳
-        </Button1>
+        {!uploadStatus.isUploading && (
+          <Button1 type="button" onClick={uploadImage} disabled={!imageUrls.length}>
+            開始上傳
+          </Button1>
+        )}
+        {uploadStatus.isUploading && <ProgressBar percent={uploadStatus.progress ?? 0}></ProgressBar>}
       </div>
     </div>
   );
