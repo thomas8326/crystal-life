@@ -4,20 +4,19 @@ import { realtimeDB } from 'src/core/config/firebase.config';
 import { Table } from 'src/styles/components/table';
 import { Form1 } from 'src/styles/components/form';
 import React, { useRef, useState } from 'react';
-import useFormValidation, {
-  FormControl,
-  FormControlType,
-  FormErrorType,
-} from 'src/utils/customer-hook/useFormValidation';
+import useFormError, { checkFormat, FormControlType } from 'src/utils/customer-hook/useFormError';
 import FormErrorMsg from 'src/shared/form-error-msg';
+import { useFormValidate } from 'src/utils/customer-hook/useFormValidate';
 
 export default function AllowListController() {
   const dataTable = realtimeDB.ref('allowList');
   const [values] = useListVals<AllowUser>(dataTable);
   const [phone, setPhone] = useState<string>('');
 
-  const [validate, setValidate] = useState<boolean>(false);
-  const [errMsg, setErrMsg] = useFormValidation();
+  // validation
+  const formRef = useRef<HTMLFormElement | null>(null);
+  const validate = useFormValidate(formRef.current, phone);
+  const [errMsg, setErrMsg] = useFormError();
 
   const post = () => {
     const newAllowUser = new AllowUser(phone);
@@ -29,22 +28,24 @@ export default function AllowListController() {
   };
 
   const inputPhoneNumber = (e: React.FormEvent<HTMLInputElement>) => {
-    setValidate(e.currentTarget.checkValidity());
-    setErrMsg({
-      type: FormErrorType.FormatError,
-      fieldName: FormControlType.Phone,
-      isError: e.currentTarget.validity.patternMismatch,
-    });
+    setErrMsg(checkFormat(e));
     setPhone(e.currentTarget.value);
   };
 
   return (
     <>
-      <Form1>
+      <Form1 ref={formRef}>
         <div className="field">
           <div className="title">手機: </div>
-          <input type="text" className="px-1" pattern="^\d{10}$" required onInput={inputPhoneNumber}></input>
-          <FormErrorMsg format={errMsg[FormControlType.Phone]?.[FormErrorType.FormatError]} />
+          <input
+            type="text"
+            className="px-1"
+            pattern="^\d{10}$"
+            name={FormControlType.Phone}
+            required
+            onInput={inputPhoneNumber}
+          ></input>
+          <FormErrorMsg errMsg={errMsg} name={FormControlType.Phone} />
         </div>
         <input type="button" value="新增" onClick={post} disabled={!validate} />
       </Form1>

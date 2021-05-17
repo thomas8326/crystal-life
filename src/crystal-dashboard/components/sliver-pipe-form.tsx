@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useListVals } from 'react-firebase-hooks/database';
 import { realtimeDB } from 'src/core/config/firebase.config';
 import SelectedItem, { HandSize, SliverPipe } from 'src/core/models/selection';
+import FormErrorMsg from 'src/shared/form-error-msg';
 import { Form1 } from 'src/styles/components/form';
 import { Table } from 'src/styles/components/table';
+import useFormError, { checkInteger, checkRequired, FormControlType } from 'src/utils/customer-hook/useFormError';
+import { useFormValidate } from 'src/utils/customer-hook/useFormValidate';
 
 export default function SliverPipeForm() {
   const dataTable = realtimeDB.ref('sliverPipe');
@@ -13,6 +16,11 @@ export default function SliverPipeForm() {
   const [crystalSize, setCrystalSize] = useState<number>(8);
   const [crystalCount, setCrystalCount] = useState<number>(0);
 
+  // validation
+  const formRef = useRef<HTMLFormElement | null>(null);
+  const validate = useFormValidate(formRef.current, name, crystalCount);
+  const [errMsg, setErrMsg] = useFormError();
+
   const post = () => {
     const newPost = dataTable.push();
     const sliverPipe = new SliverPipe(name, crystalSize, crystalCount);
@@ -21,10 +29,20 @@ export default function SliverPipeForm() {
 
   return (
     <>
-      <Form1>
+      <Form1 ref={formRef}>
         <div className="field">
           <div className="title">名稱: </div>
-          <input type="text" className="px-1" onInput={(e) => setName(e.currentTarget.value)}></input>
+          <input
+            type="text"
+            className="px-1"
+            name={FormControlType.Name}
+            onInput={(e) => {
+              setErrMsg(checkRequired(e));
+              setName(e.currentTarget.value);
+            }}
+            required
+          ></input>
+          <FormErrorMsg errMsg={errMsg} name={FormControlType.Name}></FormErrorMsg>
         </div>
         <div className="field">
           <div className="title">大小: </div>
@@ -53,9 +71,21 @@ export default function SliverPipeForm() {
         </div>
         <div className="field">
           <div className="title">數量: </div>
-          <input type="text" className="px-1" onInput={(e) => setCrystalCount(parseInt(e.currentTarget.value))}></input>
+          <input
+            type="number"
+            className="px-1"
+            step="1"
+            name={FormControlType.CrystalCount}
+            required
+            onInput={(e) => {
+              setErrMsg(checkInteger(e));
+              setErrMsg(checkRequired(e));
+              setCrystalCount(parseInt(e.currentTarget.value));
+            }}
+          ></input>
+          <FormErrorMsg errMsg={errMsg} name={FormControlType.CrystalCount}></FormErrorMsg>
         </div>
-        <input type="button" value="新增" onClick={post} />
+        <input type="button" value="新增" onClick={post} disabled={!validate} />
       </Form1>
       <Table className="table">
         <div className="table-header-group">
