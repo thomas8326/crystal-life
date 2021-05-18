@@ -1,8 +1,6 @@
 import { useState } from 'react';
-import { FLOWER_OPTIONS } from 'src/core/constants/constants';
 import SelectedItem from 'src/core/models/selection';
 import InfiniteList from 'src/shared/infiniteList';
-import styled, { css } from 'styled-components';
 
 export default function FlowerAdder(props: {
   list: SelectedItem[];
@@ -10,7 +8,8 @@ export default function FlowerAdder(props: {
   updateRight: (flower: SelectedItem) => void;
 }) {
   const { list, updateLeft, updateRight } = props;
-  const [selected, setSelected] = useState<SelectedItem>(FLOWER_OPTIONS[0]);
+  const [selected, setSelected] = useState<SelectedItem>(list[0]);
+
   return (
     <div className="flex flex-col">
       <div className="flex flex-row justify-around">

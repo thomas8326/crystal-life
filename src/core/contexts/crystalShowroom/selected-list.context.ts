@@ -1,11 +1,9 @@
-import { EIGHT_MM_SLIVER_PIPE } from '../../constants/constants';
 import { HandSize, SliverPipe } from '../../models/selection';
 import React from 'react';
 import Action from '../../models/action';
 
 import SelectedItem from '../../models/selection';
 
-import { HAND_SIZE } from 'src/core/constants/constants';
 import CrystalRing from 'src/core/models/crystal-ring';
 
 export const INIT_CRYSTAL_SHOWROOM = 'INIT_CRYSTAL_SHOWROOM';
@@ -105,7 +103,7 @@ export const crystalShowroomReducer = (state: CrystalShowroomContextProps, actio
 
       crystalRing.setHandSize(handSize);
       crystalRing.createBeads(handSize.crystalCount);
-      crystalRing.setSliverPipe(EIGHT_MM_SLIVER_PIPE[0]);
+      crystalRing.setSliverPipe(action.data.sliverPipe);
 
       return Object.assign({}, state, { crystalRing });
     case UPDATED_SELECTED_BEAD: {

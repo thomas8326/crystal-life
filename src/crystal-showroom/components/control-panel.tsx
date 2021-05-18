@@ -12,6 +12,7 @@ import { ControlPanelState } from 'src/core/enums/control-panel';
 import FlowerAdder from 'src/crystal-showroom/components/flower-adder';
 import InfiniteList from 'src/shared/infiniteList';
 import { useDBList } from 'src/utils/customer-hook/useDBList';
+import useHttpClient from 'src/utils/customer-hook/useHttpClient';
 import { useListUrl } from 'src/utils/customer-hook/useListUrl';
 import {
   ADD_FLOWER_COVER_ON_LEFT,
@@ -24,9 +25,9 @@ import RadioGroup from '../../shared/redio-group';
 export default function ControlPanel() {
   const [currentState, setCurrentState] = useState<ControlPanelState>(ControlPanelState.HandSize);
   const { crystalRing, dispatch } = useContext(crystalShowroomContext);
-  const handSizes = useDBList<HandSize>('handSize');
-  const sliverPipes = useDBList('sliverPipe');
-  const flowerCovers = useListUrl('flowerCovers');
+  const { list: handSizes } = useHttpClient<HandSize>('handSize');
+  const { list: sliverPipes } = useHttpClient<HandSize>('sliverPipe');
+  const { list: flowerCovers } = useHttpClient<HandSize>('flowerCovers');
 
   useEffect(() => {
     if (!!handSizes && !!handSizes.length) {
@@ -54,7 +55,7 @@ export default function ControlPanel() {
               list={handSizes}
               defaultValue={crystalRing.handSize}
               groupName="handSize"
-              updateRadio={updateSelectHandSize(dispatch)}
+              updateRadio={() => updateSelectHandSize(dispatch, sliverPipes[0])}
             />
           </div>
         )}
