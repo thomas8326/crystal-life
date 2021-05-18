@@ -1,4 +1,5 @@
-import { FormControl } from 'src/utils/customer-hook/useFormError';
+import { FormControl } from 'src/core/models/form';
+
 export default class Action<T = any, U = string> {
   type?: U;
   data!: T;

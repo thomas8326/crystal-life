@@ -1,4 +1,5 @@
 export default class AllowUser {
+  id!: string;
   key!: string;
   phone!: string;
   activate!: boolean;

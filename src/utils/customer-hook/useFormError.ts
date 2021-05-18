@@ -1,5 +1,7 @@
 import { useReducer } from 'react';
+import { FormControlType, FormErrorType } from 'src/core/enums/form.enum';
 import { FormAction } from 'src/core/models/action';
+import { FormControl } from 'src/core/models/form';
 
 export function checkFormat(e: React.FormEvent<HTMLInputElement>) {
   return {
@@ -23,32 +25,6 @@ export function checkInteger(e: React.FormEvent<HTMLInputElement>) {
     fieldName: e.currentTarget.name,
     isError: e.currentTarget.validity.stepMismatch,
   };
-}
-
-export enum FormControlType {
-  Phone = 'phone',
-  Name = 'name',
-  CrystalCount = 'crystalCount',
-  NotAssign = 'notAssign',
-}
-
-export enum FormErrorType {
-  Format = 'formatError',
-  Required = 'requiredError',
-  Integer = 'IntegerError',
-}
-
-export class FromError {
-  [FormErrorType.Format]: boolean;
-  [FormErrorType.Required]: boolean;
-  [FormErrorType.Integer]: boolean;
-}
-
-export class FormControl {
-  [FormControlType.Phone]?: FromError;
-  [FormControlType.Name]?: FromError;
-  [FormControlType.CrystalCount]?: FromError;
-  [FormControlType.NotAssign]: FromError;
 }
 
 export default function useFormError(initialState = new FormControl()) {

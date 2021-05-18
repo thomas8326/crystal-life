@@ -1,11 +1,12 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useListVals } from 'react-firebase-hooks/database';
 import { realtimeDB } from 'src/core/config/firebase.config';
-import SelectedItem, { HandSize, SliverPipe } from 'src/core/models/selection';
+import { FormControlType } from 'src/core/enums/form.enum';
+import { SliverPipe } from 'src/core/models/selection';
 import FormErrorMsg from 'src/shared/form-error-msg';
 import { Form1 } from 'src/styles/components/form';
 import { Table } from 'src/styles/components/table';
-import useFormError, { checkInteger, checkRequired, FormControlType } from 'src/utils/customer-hook/useFormError';
+import useFormError, { checkInteger, checkRequired } from 'src/utils/customer-hook/useFormError';
 import { useFormValidate } from 'src/utils/customer-hook/useFormValidate';
 
 export default function SliverPipeForm() {

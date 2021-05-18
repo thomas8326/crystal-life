@@ -1,4 +1,5 @@
-import { FormControl, FormControlType, FormErrorType } from 'src/utils/customer-hook/useFormError';
+import { FormControlType, FormErrorType } from 'src/core/enums/form.enum';
+import { FormControl } from 'src/core/models/form';
 import styled from 'styled-components';
 
 const Warning = styled.div`
