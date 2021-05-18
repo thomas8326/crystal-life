@@ -1,20 +1,20 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { useListVals } from 'react-firebase-hooks/database';
+import React, { useRef, useState } from 'react';
 import { realtimeDB } from 'src/core/config/firebase.config';
 import { FormControlType } from 'src/core/enums/form.enum';
 import { HandSize } from 'src/core/models/selection';
 import FormErrorMsg from 'src/shared/form-error-msg';
+import { Button1 } from 'src/styles/components/button';
 import { Form1 } from 'src/styles/components/form';
 import { Table } from 'src/styles/components/table';
 import useFormError, { checkInteger, checkRequired } from 'src/utils/customer-hook/useFormError';
 import { useFormValidate } from 'src/utils/customer-hook/useFormValidate';
+import useHttpClient from 'src/utils/customer-hook/useHttpClient';
 
 export default function HandSizeForm() {
-  const dataTable = realtimeDB.ref('handSize');
-  const [values] = useListVals<HandSize>(dataTable);
+  const { list, post, remove } = useHttpClient<HandSize>('handSize');
 
   const [name, setName] = useState('');
-  const [crystalSize, setCrystalSize] = useState(8);
+  const [crystalSize, setCrystalSize] = useState<number>(8);
   const [crystalCount, setCrystalCount] = useState<number>(0);
 
   // validation
@@ -22,10 +22,12 @@ export default function HandSizeForm() {
   const validate = useFormValidate(formRef.current, name, crystalCount);
   const [errMsg, setErrMsg] = useFormError();
 
-  const post = () => {
-    const newPost = dataTable.push();
-    const handSize = new HandSize(name, crystalSize, crystalCount);
-    newPost.set(handSize);
+  const createNewHandSize = () => {
+    post(new HandSize(name, crystalSize, crystalCount)).then(() => {
+      setName('');
+      setCrystalSize(8);
+      setCrystalCount(0);
+    });
   };
 
   return (
@@ -37,6 +39,7 @@ export default function HandSizeForm() {
             type="text"
             className="px-1"
             name={FormControlType.Name}
+            value={name}
             onInput={(e) => {
               setErrMsg(checkRequired(e));
               setName(e.currentTarget.value);
@@ -81,6 +84,7 @@ export default function HandSizeForm() {
             name={FormControlType.CrystalCount}
             step="1"
             required
+            value={crystalCount}
             onInput={(e) => {
               setErrMsg(checkInteger(e));
               setErrMsg(checkRequired(e));
@@ -89,7 +93,7 @@ export default function HandSizeForm() {
           ></input>
           <FormErrorMsg errMsg={errMsg} name={FormControlType.CrystalCount}></FormErrorMsg>
         </div>
-        <input type="button" value="新增" onClick={post} disabled={!validate} />
+        <input type="button" value="新增" onClick={createNewHandSize} disabled={!validate} />
       </Form1>
       <Table className="table">
         <div className="table-header-group">
@@ -97,17 +101,20 @@ export default function HandSizeForm() {
           <div className="table-cell">名稱</div>
           <div className="table-cell">圓珠大小</div>
           <div className="table-cell">圓珠數量</div>
+          <div className="table-cell"></div>
         </div>
         <div className="table-row-group">
-          {values &&
-            values?.map((v: HandSize, index: number) => (
-              <div key={v.key} className="table-row">
-                <div className="table-cell">{index + 1}</div>
-                <div className="table-cell">{v.text}</div>
-                <div className="table-cell">{v.value}</div>
-                <div className="table-cell">{v.crystalCount}</div>
+          {list?.map((v: HandSize, index: number) => (
+            <div key={v.id} className="table-row">
+              <div className="table-cell">{index + 1}</div>
+              <div className="table-cell">{v.text}</div>
+              <div className="table-cell">{v.value}</div>
+              <div className="table-cell">{v.crystalCount}</div>
+              <div className="table-cell">
+                <Button1 onClick={() => remove(v.id)}>刪除</Button1>
               </div>
-            ))}
+            </div>
+          ))}
         </div>
       </Table>
     </>

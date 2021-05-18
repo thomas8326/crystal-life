@@ -1,4 +1,4 @@
-import { useEffect, useRef, Dispatch, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { realtimeDB } from 'src/core/config/firebase.config';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -6,9 +6,19 @@ export default function useHttpClient<T extends { id: string }>(tableName: strin
   const [list, setList] = useState<T[]>([]);
   const tableRef = useRef(realtimeDB.ref(tableName));
 
-  const post = <T>(object: T, child?: string) => {
+  const post = (object: T, child?: string) => {
     const key = child ?? tableRef.current.push().key ?? uuidv4();
-    return new Promise((resolve) => tableRef.current.child(key).set(object, resolve));
+    let newObject = {};
+
+    Object.entries(object).forEach((entry) => {
+      if (entry[1] === undefined || entry[1] === null) {
+        return;
+      }
+
+      newObject = { ...newObject, ...{ [entry[0]]: entry[1] } };
+    });
+
+    return new Promise((resolve) => tableRef.current.child(key).set(newObject, resolve));
   };
 
   const remove = (id: string) => {
@@ -25,8 +35,9 @@ export default function useHttpClient<T extends { id: string }>(tableName: strin
       snapshot.forEach((childSnapshot) => {
         const object = { id: childSnapshot.key, ...childSnapshot.val() };
         list = list.concat(object);
-        setList(list);
       });
+      console.log(list);
+      setList(list);
     });
 
     return () => tableRef.current.off('value');

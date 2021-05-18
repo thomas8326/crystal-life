@@ -62,20 +62,22 @@ export default function AllowListController() {
                 <div className="table-cell">
                   <label>
                     <input
+                      key={`${v.id}activated`}
                       id="activate"
                       type="radio"
                       name={`activated${index}`}
-                      defaultChecked={!!v.activate}
+                      checked={!!v.activate}
                       onChange={() => updateStatus(v.key, true)}
                     />
                     啟用
                   </label>
                   <label>
                     <input
+                      key={`${v.id}deactivated`}
                       id="deactivate"
                       type="radio"
                       name={`activated${index}`}
-                      defaultChecked={!v.activate}
+                      checked={!v.activate}
                       onChange={() => updateStatus(v.key, false)}
                     />
                     停用
