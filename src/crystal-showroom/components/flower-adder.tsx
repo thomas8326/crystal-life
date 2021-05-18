@@ -3,28 +3,31 @@ import SelectedItem from 'src/core/models/selection';
 import InfiniteList from 'src/shared/infiniteList';
 
 export default function FlowerAdder(props: {
-  list: SelectedItem[];
+  removeFlower: () => void;
   updateLeft: (flower: SelectedItem) => void;
   updateRight: (flower: SelectedItem) => void;
 }) {
-  const { list, updateLeft, updateRight } = props;
-  const [selected, setSelected] = useState<SelectedItem>(list[0]);
+  const { updateLeft, updateRight, removeFlower } = props;
+  const [selected, setSelected] = useState<SelectedItem>(new SelectedItem());
 
   return (
     <div className="flex flex-col">
       <div className="flex flex-row justify-around">
         <button onClick={() => updateLeft(selected)} className="text-blue-500">
-          + Add Left
+          + 加在左邊
+        </button>
+        <button onClick={() => removeFlower()} className="text-blue-500">
+          - 移除
         </button>
         <button onClick={() => updateRight(selected)} className="text-blue-500">
-          + Add Right
+          + 加在右邊
         </button>
       </div>
       <div className="flex-1">
         <InfiniteList
           layout="grid"
           tableName="flowerCovers"
-          selected={selected}
+          openSelect={true}
           updateSelect={(flower) => setSelected(flower)}
         ></InfiniteList>
       </div>

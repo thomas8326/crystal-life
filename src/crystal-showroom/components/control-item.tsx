@@ -8,8 +8,6 @@ export default function ControlItem(props: { children: ReactElement<any>; tableN
 
   const list = useListVals(dataTable);
 
-  console.log(tableName);
-  console.log(list);
   return (
     <>
       <label className="text-left text-lg">手圍</label>

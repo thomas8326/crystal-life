@@ -40,6 +40,7 @@ export const Container = styled.div`
     width: 100%;
     height: 30px;
     bottom: 0;
+    pointer-events: none;
   }
 `;
 
@@ -47,21 +48,36 @@ export default function InfiniteList(props: {
   layout: string;
   tableName: string;
   updateSelect: (item: SelectedItem) => void;
-  selected?: SelectedItem | null;
+  openSelect?: boolean;
 }) {
+  const { layout, tableName, openSelect, updateSelect } = props;
+  const [selected, setSelected] = useState<SelectedItem>(new SelectedItem());
   const [anchor, setAnchor] = useState<HTMLDivElement | null>(null);
   const [viewport, setViewport] = useState<HTMLDivElement | null>(null);
   const [mutationElement, setMutationElement] = useState<HTMLUListElement | null>(null);
-
-  const { layout, tableName, selected, updateSelect } = props;
   const list = useInfiniteList(tableName, anchor, viewport, mutationElement);
+
+  useEffect(() => {
+    if (list.length && openSelect) {
+      updateSelectItem(list[0]);
+    }
+  }, [list]);
+
+  const updateSelectItem = (item: SelectedItem) => {
+    setSelected(item);
+    updateSelect(item);
+  };
 
   return (
     <div className="h-full overflow-auto" ref={setViewport}>
       <Container>
         <InfiniteLayout layout={layout} ref={setMutationElement}>
           {list.map((item) => (
-            <InfiniteItem key={item.key} onClick={() => updateSelect(item)} isSelected={item.key === selected?.key}>
+            <InfiniteItem
+              key={item.key}
+              onClick={() => updateSelectItem(item)}
+              isSelected={!!openSelect && item.key === selected.key}
+            >
               <img src={item.url} />
             </InfiniteItem>
           ))}

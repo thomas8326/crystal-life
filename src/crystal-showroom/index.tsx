@@ -23,6 +23,7 @@ function CrystalShowroom() {
       value={{
         crystalRing: state.crystalRing,
         selectedDisplayCrystal: state.selectedDisplayCrystal,
+        isFillCrystal: state.isFillCrystal,
         dispatch,
       }}
     >

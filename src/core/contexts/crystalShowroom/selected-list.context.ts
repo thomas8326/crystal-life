@@ -14,6 +14,7 @@ export const REMOVE_DISPLAY_SELECTED_CRYSTAL_BEAD = 'REMOVE_SELECTED_CRYSTAL_BEA
 
 export const ADD_FLOWER_COVER_ON_LEFT = 'ADD_FLOWER_COVER_ON_LEFT';
 export const ADD_FLOWER_COVER_ON_RIGHT = 'ADD_FLOWER_COVER_ON_RIGHT';
+export const REMOVE_FLOWER = 'REMOVE_FLOWER';
 
 export const ADD_CHARM = 'ADD_CHARM';
 export const REMOVE_CHARM = 'REMOVE_CHARM';
@@ -35,12 +36,15 @@ export class CrystalShowroomContextProps {
 
   selectedDisplayCrystal: string[] = [];
 
+  isFillCrystal!: boolean;
+
   dispatch: React.Dispatch<any> = () => null;
 }
 
 export const crystalShowroomInitState: CrystalShowroomContextProps = {
   crystalRing: new CrystalRing(),
   selectedDisplayCrystal: [],
+  isFillCrystal: false,
   dispatch: () => null,
 };
 
@@ -97,13 +101,29 @@ export const crystalShowroomReducer = (state: CrystalShowroomContextProps, actio
 
       return Object.assign({}, state, { crystalRing, selectedDisplayCrystal: [] });
     }
+    case REMOVE_FLOWER: {
+      const selectedCrystals = state.selectedDisplayCrystal;
+      const crystalRing = state.crystalRing;
+
+      const beads = crystalRing.beads.map((bead) =>
+        selectedCrystals.includes(bead.key)
+          ? { ...bead, ...{ rightFlower: new SelectedItem(), leftFlower: new SelectedItem() } }
+          : bead,
+      );
+
+      console.log(beads);
+
+      crystalRing.setBeads(beads);
+
+      return Object.assign({}, state, { crystalRing, selectedDisplayCrystal: [] });
+    }
     case SELECT_HAND_SIZE:
       const handSize = action.data.handSize;
       const crystalRing = state.crystalRing;
 
       crystalRing.setHandSize(handSize);
       crystalRing.createBeads(handSize.crystalCount);
-      crystalRing.setSliverPipe(action.data.sliverPipe);
+      crystalRing.setSliverPipe(new SelectedItem());
 
       return Object.assign({}, state, { crystalRing });
     case UPDATED_SELECTED_BEAD: {
@@ -112,9 +132,11 @@ export const crystalShowroomReducer = (state: CrystalShowroomContextProps, actio
       const newBeads = state.crystalRing.beads.map((item) =>
         state.selectedDisplayCrystal.includes(item.key) ? { ...item, ...{ url } } : item,
       );
+
+      const isFill = newBeads.every((bead) => !!bead.url);
       crystalRing.setBeads(newBeads);
 
-      return Object.assign({}, state, { crystalRing, selectedDisplayCrystal: [] });
+      return Object.assign({}, state, { crystalRing, selectedDisplayCrystal: [], isFillCrystal: isFill });
     }
     case SELECT_DISPLAY_CRYSTAL_BEAD: {
       const newBeads = state.selectedDisplayCrystal.concat(action.data.selectedDisplayCrystal);

@@ -3,6 +3,7 @@ import {
   addCharm,
   initCrystalRing,
   removeCharm,
+  removeFlowerCover,
   updateFlowerCover,
   updateSelectedCrystal,
   updateSelectHandSize,
@@ -24,16 +25,18 @@ import RadioGroup from '../../shared/redio-group';
 
 export default function ControlPanel() {
   const [currentState, setCurrentState] = useState<ControlPanelState>(ControlPanelState.HandSize);
-  const { crystalRing, dispatch } = useContext(crystalShowroomContext);
+  const { crystalRing, isFillCrystal, dispatch } = useContext(crystalShowroomContext);
   const { list: handSizes } = useHttpClient<HandSize>('handSize');
   const { list: sliverPipes } = useHttpClient<HandSize>('sliverPipe');
-  const { list: flowerCovers } = useHttpClient<HandSize>('flowerCovers');
 
   useEffect(() => {
     if (!!handSizes && !!handSizes.length) {
       initCrystalRing(dispatch)(handSizes[0]);
     }
   }, [handSizes]);
+
+  const disableNextBtn = () =>
+    currentState == ControlPanelState.Charm || (currentState == ControlPanelState.Crystal && !isFillCrystal);
 
   const prevState = () => {
     setCurrentState((prevState) => prevState - 1);
@@ -55,7 +58,7 @@ export default function ControlPanel() {
               list={handSizes}
               defaultValue={crystalRing.handSize}
               groupName="handSize"
-              updateRadio={() => updateSelectHandSize(dispatch, sliverPipes[0])}
+              updateRadio={updateSelectHandSize(dispatch, sliverPipes[0])}
             />
           </div>
         )}
@@ -88,7 +91,7 @@ export default function ControlPanel() {
             <small className="text-left text-xs">在左邊產品中選取圓珠，在右邊選擇想要的花蓋，按下加在左邊或右邊</small>
             <div className="mt-6">
               <FlowerAdder
-                list={flowerCovers}
+                removeFlower={removeFlowerCover(dispatch)}
                 updateLeft={updateFlowerCover(ADD_FLOWER_COVER_ON_LEFT, dispatch)}
                 updateRight={updateFlowerCover(ADD_FLOWER_COVER_ON_RIGHT, dispatch)}
               />
@@ -114,7 +117,7 @@ export default function ControlPanel() {
         <button onClick={() => prevState()} disabled={currentState == 0}>
           Previous
         </button>
-        <button onClick={() => nextState()} disabled={currentState == ControlPanelState.Charm}>
+        <button onClick={() => nextState()} disabled={disableNextBtn()}>
           Next
         </button>
       </div>
