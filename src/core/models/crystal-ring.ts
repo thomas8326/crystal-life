@@ -3,6 +3,8 @@ import Crystal from 'src/core/models/crystal';
 import { v4 as uuidv4 } from 'uuid';
 
 export default class CrystalRing {
+  id!: string;
+
   handSize!: HandSize;
 
   sliverPipe!: SelectedItem;

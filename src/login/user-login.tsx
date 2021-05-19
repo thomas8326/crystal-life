@@ -1,15 +1,18 @@
 import React, { useState } from 'react';
 import { Route, Switch, useHistory } from 'react-router-dom';
 import { realtimeDB } from 'src/core/config/firebase.config';
+import { USER } from 'src/core/constants/storage.constants';
 import { MainPath } from 'src/core/enums/main-path';
 import AllowUser from 'src/core/models/allow-user';
 import CrystalShowroom from 'src/crystal-showroom';
 import { Form1 } from 'src/styles/components/form';
+import useStorage from 'src/utils/customer-hook/useStroage';
 
 export function UserLogin() {
   const history = useHistory();
   const dataTable = realtimeDB.ref('allowList');
   const [phoneNumber, setPhoneNumber] = useState('');
+  const { setStorage } = useStorage();
 
   const onVerifiedUser = () => {
     dataTable
@@ -18,6 +21,7 @@ export function UserLogin() {
       .then((snapShot) => {
         if (!!snapShot.exists()) {
           const user: AllowUser = snapShot.val();
+          setStorage(USER, user);
           !!user.activate && history.push(MainPath.CrystalShowroom);
         }
       });

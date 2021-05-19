@@ -1,4 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { USER } from 'src/core/constants/storage.constants';
 import {
   addCharm,
   initCrystalRing,
@@ -10,11 +12,15 @@ import {
   updateSelectSliverHand,
 } from 'src/core/contexts/crystalShowroom/crystalShowroom.action';
 import { ControlPanelState } from 'src/core/enums/control-panel';
+import { MainPath } from 'src/core/enums/main-path';
+import AllowUser from 'src/core/models/allow-user';
+import CrystalRing from 'src/core/models/crystal-ring';
 import FlowerAdder from 'src/crystal-showroom/components/flower-adder';
 import InfiniteList from 'src/shared/infiniteList';
 import { useDBList } from 'src/utils/customer-hook/useDBList';
 import useHttpClient from 'src/utils/customer-hook/useHttpClient';
 import { useListUrl } from 'src/utils/customer-hook/useListUrl';
+import useStorage from 'src/utils/customer-hook/useStroage';
 import {
   ADD_FLOWER_COVER_ON_LEFT,
   ADD_FLOWER_COVER_ON_RIGHT,
@@ -28,6 +34,9 @@ export default function ControlPanel() {
   const { crystalRing, isFillCrystal, dispatch } = useContext(crystalShowroomContext);
   const { list: handSizes } = useHttpClient<HandSize>('handSize');
   const { list: sliverPipes } = useHttpClient<HandSize>('sliverPipe');
+  const { post } = useHttpClient<CrystalRing>('crystalProduct');
+  const { getStorage } = useStorage();
+  const history = useHistory();
 
   useEffect(() => {
     if (!!handSizes && !!handSizes.length) {
@@ -44,6 +53,10 @@ export default function ControlPanel() {
 
   const nextState = () => {
     setCurrentState((prevState) => prevState + 1);
+  };
+
+  const onSubmit = () => {
+    post(crystalRing, getStorage<AllowUser>(USER).phone).then(() => history.push(MainPath.CompletePage));
   };
 
   return (
@@ -115,11 +128,14 @@ export default function ControlPanel() {
       </div>
       <div className="flex justify-evenly">
         <button onClick={() => prevState()} disabled={currentState == 0}>
-          Previous
+          上一步
         </button>
-        <button onClick={() => nextState()} disabled={disableNextBtn()}>
-          Next
-        </button>
+        {currentState !== ControlPanelState.Charm && (
+          <button onClick={() => nextState()} disabled={disableNextBtn()}>
+            下一步
+          </button>
+        )}
+        {currentState == ControlPanelState.Charm && <button onClick={() => onSubmit()}>提交</button>}
       </div>
     </div>
   );

@@ -5,6 +5,8 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import { MainPath } from 'src/core/enums/main-path';
 import { UserLogin } from 'src/login/user-login';
 import EmployeeLogin from 'src/login/employee-login';
+import { useState } from 'react';
+import { CompletePage } from 'src/shared/complete-page';
 
 export default function App() {
   return (
@@ -18,6 +20,9 @@ export default function App() {
         </Route>
         <Route path={MainPath.CrystalShowroom}>
           <CrystalShowroom />
+        </Route>
+        <Route path={MainPath.CompletePage}>
+          <CompletePage />
         </Route>
         <Route path={MainPath.CrystalDashboard}>
           <CrystalDashboard />

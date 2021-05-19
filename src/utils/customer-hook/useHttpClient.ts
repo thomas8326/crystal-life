@@ -8,15 +8,7 @@ export default function useHttpClient<T extends { id: string }>(tableName: strin
 
   const post = (object: T, child?: string) => {
     const key = child ?? tableRef.current.push().key ?? uuidv4();
-    let newObject = {};
-
-    Object.entries(object).forEach((entry) => {
-      if (entry[1] === undefined || entry[1] === null) {
-        return;
-      }
-
-      newObject = { ...newObject, ...{ [entry[0]]: entry[1] } };
-    });
+    const newObject = JSON.parse(JSON.stringify(object));
 
     return new Promise((resolve) => tableRef.current.child(key).set(newObject, resolve));
   };

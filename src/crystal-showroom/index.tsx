@@ -17,7 +17,6 @@ const Showroom = styled.div`
 
 function CrystalShowroom() {
   const [state, dispatch] = useReducer(crystalShowroomReducer, crystalShowroomInitState);
-
   return (
     <crystalShowroomContext.Provider
       value={{
