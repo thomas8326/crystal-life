@@ -28,7 +28,7 @@ function CrystalShowroom() {
     >
       <Showroom className="App">
         <div className="flex flex-grow justify-center items-center">
-          <Product />
+          <Product crystalRing={state.crystalRing} dispatch={state.dispatch} />
         </div>
         <div className="bg-gray-50 h-full border-l border-gray-500 flex" style={{ flex: '0 0 385px' }}>
           <ControlPanel />

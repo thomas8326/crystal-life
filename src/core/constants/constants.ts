@@ -15,6 +15,11 @@ export const DASHBOARD_NAVIGATION: Navigation[] = [
     path: MainPath.AllowList,
   },
   {
+    key: 'PRODUCT_LIST',
+    text: '產品清單',
+    path: MainPath.CrystalProductList,
+  },
+  {
     key: 'HAND_SIZE',
     text: '手圍',
     path: MainPath.HandSizeForm,

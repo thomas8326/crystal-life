@@ -6,6 +6,7 @@ import { MainPath } from 'src/core/enums/main-path';
 import { DASHBOARD_NAVIGATION } from 'src/core/constants/constants';
 import UploadImageForm from 'src/crystal-dashboard/components/upload-image-form';
 import AllowListController from 'src/crystal-dashboard/components/allowlist-control';
+import CrystalProductList from 'src/crystal-dashboard/components/crystal-product-list';
 
 export default function CrystalDashboard() {
   const { url } = useRouteMatch();
@@ -17,6 +18,9 @@ export default function CrystalDashboard() {
         <Switch>
           <Route path={`${url}${MainPath.AllowList}`}>
             <AllowListController />
+          </Route>
+          <Route path={`${url}${MainPath.CrystalProductList}`}>
+            <CrystalProductList />
           </Route>
           <Route path={`${url}${MainPath.HandSizeForm}`}>
             <HandSizeForm />

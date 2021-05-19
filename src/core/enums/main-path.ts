@@ -4,6 +4,7 @@ export enum MainPath {
   CrystalShowroom = '/crystalShowroom',
   CrystalDashboard = '/crystalDashboard',
   AllowList = '/allowList',
+  CrystalProductList = '/crystalProductList',
   HandSizeForm = '/handSizes',
   SliverPipeForm = '/sliverPipes',
   CrystalBeadForm = '/crystalBeads',

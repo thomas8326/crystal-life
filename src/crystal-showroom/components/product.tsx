@@ -8,6 +8,7 @@ import {
 } from 'src/core/contexts/crystalShowroom/selected-list.context';
 import Crystal from 'src/core/models/crystal';
 import SelectedItem, { HandSize } from 'src/core/models/selection';
+import CrystalRing from 'src/core/models/crystal-ring';
 
 const ProductDisplay = styled.div`
   position: relative;
@@ -135,8 +136,8 @@ function BeadContainer(props: {
   );
 }
 
-export default function Product() {
-  const { crystalRing, dispatch } = useContext(crystalShowroomContext);
+export default function Product(props: { crystalRing: CrystalRing; dispatch: React.Dispatch<any> }) {
+  const { crystalRing, dispatch } = props;
   const { beads, handSize } = crystalRing;
 
   if (!handSize) {
