@@ -59,7 +59,7 @@ export default function Bead(props: {
   item: Crystal;
   angular: number;
   beadSize: number;
-  dispatch: React.Dispatch<any>;
+  dispatch?: React.Dispatch<any>;
 }) {
   const { top, left, item, angular, beadSize, dispatch } = props;
   const [isClicked, setIsClicked] = useState<boolean>(false);
@@ -72,9 +72,11 @@ export default function Bead(props: {
     setIsClicked((preState: boolean) => {
       const newState = !preState;
 
-      newState
-        ? dispatch({ type: SELECT_DISPLAY_CRYSTAL_BEAD, data: { selectedDisplayCrystal: item.key } })
-        : dispatch({ type: REMOVE_DISPLAY_SELECTED_CRYSTAL_BEAD, data: { selectedDisplayCrystal: item.key } });
+      if (dispatch) {
+        newState
+          ? dispatch({ type: SELECT_DISPLAY_CRYSTAL_BEAD, data: { selectedDisplayCrystal: item.key } })
+          : dispatch({ type: REMOVE_DISPLAY_SELECTED_CRYSTAL_BEAD, data: { selectedDisplayCrystal: item.key } });
+      }
 
       return newState;
     });

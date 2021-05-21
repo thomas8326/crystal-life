@@ -21,7 +21,7 @@ const ProductInnerBorder = styled.div`
   border-radius: 50%;
 `;
 
-export default function Product(props: { crystalRing: CrystalRing; dispatch: React.Dispatch<any> }) {
+export default function Product(props: { crystalRing: CrystalRing; dispatch?: React.Dispatch<any> }) {
   const { crystalRing, dispatch } = props;
   const { beads, handSize } = crystalRing;
 
