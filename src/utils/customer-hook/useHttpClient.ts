@@ -2,15 +2,23 @@ import { useEffect, useRef, useState } from 'react';
 import { realtimeDB } from 'src/core/config/firebase.config';
 import { v4 as uuidv4 } from 'uuid';
 
-export default function useHttpClient<T extends { id: string }>(tableName: string) {
-  const [list, setList] = useState<T[]>([]);
+export default function useHttpClient<T extends { id: string }>(tableName: string, isReadData = true) {
   const tableRef = useRef(realtimeDB.ref(tableName));
 
-  const post = (object: T, child?: string) => {
-    const key = child ?? tableRef.current.push().key ?? uuidv4();
+  const [list, setList] = useState<T[]>([]);
+  const [childName, setChildName] = useState<string>('');
+  const [isReadList, setIsReadList] = useState<boolean>(isReadData);
+
+  const getList = (id?: string) => {
+    setIsReadList(true);
+    id && setChildName(id);
+  };
+
+  const post = (object: T, path?: string) => {
+    const apiPath = path ?? tableRef.current.push().key ?? uuidv4();
     const newObject = JSON.parse(JSON.stringify(object));
 
-    return new Promise((resolve) => tableRef.current.child(key).set(newObject, resolve));
+    return new Promise((resolve) => tableRef.current.child(apiPath).set(newObject, resolve));
   };
 
   const remove = (id: string) => {
@@ -22,18 +30,23 @@ export default function useHttpClient<T extends { id: string }>(tableName: strin
   };
 
   useEffect(() => {
-    tableRef.current.on('value', (snapshot) => {
-      let list: T[] = [];
-      snapshot.forEach((childSnapshot) => {
-        const object = { id: childSnapshot.key, ...childSnapshot.val() };
-        list = list.concat(object);
+    const ref = childName ? tableRef.current.child(childName) : tableRef.current;
+
+    if (isReadList) {
+      ref.on('value', (snapshot) => {
+        let list: T[] = [];
+        snapshot.forEach((childSnapshot) => {
+          const object = { id: childSnapshot.key, ...childSnapshot.val() };
+          list = list.concat(object);
+        });
+        setList(list);
       });
-      console.log(list);
-      setList(list);
-    });
+    }
 
-    return () => tableRef.current.off('value');
-  }, [tableName]);
+    return () => ref.off('value');
+  }, [isReadList, childName]);
 
-  return { list, post, remove, patch };
+  useEffect(() => {});
+
+  return { list, getList, post, remove, patch };
 }

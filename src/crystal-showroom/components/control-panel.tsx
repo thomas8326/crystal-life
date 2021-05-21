@@ -34,8 +34,8 @@ export default function ControlPanel() {
   const { crystalRing, isFillCrystal, dispatch } = useContext(crystalShowroomContext);
   const { list: handSizes } = useHttpClient<HandSize>('handSize');
   const { list: sliverPipes } = useHttpClient<HandSize>('sliverPipe');
-  const { post } = useHttpClient<CrystalRing>('crystalProduct');
   const { getStorage } = useStorage();
+  const { post } = useHttpClient<CrystalRing>(`crystalProducts/${getStorage<AllowUser>(USER).phone}`);
   const history = useHistory();
 
   useEffect(() => {
@@ -56,7 +56,7 @@ export default function ControlPanel() {
   };
 
   const onSubmit = () => {
-    post(crystalRing, getStorage<AllowUser>(USER).phone).then(() => history.push(MainPath.CompletePage));
+    post(crystalRing).then(() => history.push(MainPath.CompletePage));
   };
 
   return (

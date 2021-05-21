@@ -1,5 +1,5 @@
 import ControlPanel from './components/control-panel';
-import Product from './components/product';
+import ProductContainer from './components/product-container';
 import styled from 'styled-components';
 import { useReducer } from 'react';
 import React from 'react';
@@ -28,7 +28,7 @@ function CrystalShowroom() {
     >
       <Showroom className="App">
         <div className="flex flex-grow justify-center items-center">
-          <Product crystalRing={state.crystalRing} dispatch={state.dispatch} />
+          <ProductContainer />
         </div>
         <div className="bg-gray-50 h-full border-l border-gray-500 flex" style={{ flex: '0 0 385px' }}>
           <ControlPanel />
