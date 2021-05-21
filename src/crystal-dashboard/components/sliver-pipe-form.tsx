@@ -3,7 +3,7 @@ import { FormControlType } from 'src/core/enums/form.enum';
 import { SliverPipe } from 'src/core/models/selection';
 import FormErrorMsg from 'src/shared/form-error-msg';
 import { Button1 } from 'src/styles/components/button';
-import { Form1 } from 'src/styles/components/form';
+import { Form1, FormField } from 'src/styles/components/form';
 import { Table } from 'src/styles/components/table';
 import useFormError, { checkInteger, checkRequired } from 'src/utils/customer-hook/useFormError';
 import { useFormValidate } from 'src/utils/customer-hook/useFormValidate';
@@ -32,7 +32,7 @@ export default function SliverPipeForm() {
   return (
     <>
       <Form1 ref={formRef}>
-        <div className="field">
+        <FormField>
           <div className="title">名稱: </div>
           <input
             type="text"
@@ -46,8 +46,8 @@ export default function SliverPipeForm() {
             required
           ></input>
           <FormErrorMsg errMsg={errMsg} name={FormControlType.Name}></FormErrorMsg>
-        </div>
-        <div className="field">
+        </FormField>
+        <FormField>
           <div className="title">大小: </div>
           <div className="flex justify-around">
             <label>
@@ -71,8 +71,8 @@ export default function SliverPipeForm() {
               10nm
             </label>
           </div>
-        </div>
-        <div className="field">
+        </FormField>
+        <FormField>
           <div className="title">數量: </div>
           <input
             type="number"
@@ -88,7 +88,7 @@ export default function SliverPipeForm() {
             }}
           ></input>
           <FormErrorMsg errMsg={errMsg} name={FormControlType.CrystalCount}></FormErrorMsg>
-        </div>
+        </FormField>
         <input type="button" value="新增" onClick={createNewPipe} disabled={!validate} />
       </Form1>
       <Table className="table">

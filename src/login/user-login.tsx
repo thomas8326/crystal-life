@@ -5,7 +5,7 @@ import { USER } from 'src/core/constants/storage.constants';
 import { MainPath } from 'src/core/enums/main-path';
 import AllowUser from 'src/core/models/allow-user';
 import CrystalShowroom from 'src/crystal-showroom';
-import { Form1 } from 'src/styles/components/form';
+import { Form1, FormField } from 'src/styles/components/form';
 import useStorage from 'src/utils/customer-hook/useStroage';
 
 export function UserLogin() {
@@ -30,10 +30,10 @@ export function UserLogin() {
   return (
     <div className="w-full h-full flex justify-center items-center flex-col">
       <Form1 direction="column">
-        <label className="field">
+        <FormField>
           <div className="title">輸入您的手機號碼:</div>
           <input onInput={(e) => setPhoneNumber(e.currentTarget.value)}></input>
-        </label>
+        </FormField>
         <input type="button" onClick={onVerifiedUser} value="登入"></input>
       </Form1>
     </div>

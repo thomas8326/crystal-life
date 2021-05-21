@@ -1,6 +1,6 @@
 import AllowUser from 'src/core/models/allow-user';
 import { Table } from 'src/styles/components/table';
-import { Form1 } from 'src/styles/components/form';
+import { Form1, FormField } from 'src/styles/components/form';
 import React, { useRef, useState } from 'react';
 import useFormError, { checkFormat } from 'src/utils/customer-hook/useFormError';
 import FormErrorMsg from 'src/shared/form-error-msg';
@@ -31,7 +31,7 @@ export default function AllowListController() {
   return (
     <>
       <Form1 ref={formRef}>
-        <div className="field">
+        <FormField>
           <div className="title">手機: </div>
           <input
             type="text"
@@ -43,7 +43,7 @@ export default function AllowListController() {
             onInput={inputPhoneNumber}
           ></input>
           <FormErrorMsg errMsg={errMsg} name={FormControlType.Phone} />
-        </div>
+        </FormField>
         <input type="button" value="新增" onClick={newUser} disabled={!validate} />
       </Form1>
       <Table className="table">

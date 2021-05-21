@@ -4,7 +4,7 @@ import { FormControlType } from 'src/core/enums/form.enum';
 import { HandSize } from 'src/core/models/selection';
 import FormErrorMsg from 'src/shared/form-error-msg';
 import { Button1 } from 'src/styles/components/button';
-import { Form1 } from 'src/styles/components/form';
+import { Form1, FormField } from 'src/styles/components/form';
 import { Table } from 'src/styles/components/table';
 import useFormError, { checkInteger, checkRequired } from 'src/utils/customer-hook/useFormError';
 import { useFormValidate } from 'src/utils/customer-hook/useFormValidate';
@@ -33,7 +33,7 @@ export default function HandSizeForm() {
   return (
     <>
       <Form1 ref={formRef}>
-        <div className="field">
+        <FormField>
           <div className="title">名稱: </div>
           <input
             type="text"
@@ -47,8 +47,8 @@ export default function HandSizeForm() {
             required
           ></input>
           <FormErrorMsg errMsg={errMsg} name={FormControlType.Name}></FormErrorMsg>
-        </div>
-        <div className="field">
+        </FormField>
+        <FormField>
           <div className="title">大小: </div>
           <div className="flex justify-around">
             <div className="flex items-center">
@@ -75,8 +75,8 @@ export default function HandSizeForm() {
               <label htmlFor="10mm">10nm</label>
             </div>
           </div>
-        </div>
-        <div className="field">
+        </FormField>
+        <FormField>
           <div className="title">數量: </div>
           <input
             type="number"
@@ -92,7 +92,7 @@ export default function HandSizeForm() {
             }}
           ></input>
           <FormErrorMsg errMsg={errMsg} name={FormControlType.CrystalCount}></FormErrorMsg>
-        </div>
+        </FormField>
         <input type="button" value="新增" onClick={createNewHandSize} disabled={!validate} />
       </Form1>
       <Table className="table">

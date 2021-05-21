@@ -3,6 +3,7 @@ import AllowUser from 'src/core/models/allow-user';
 import CrystalRing from 'src/core/models/crystal-ring';
 import ProductContainer from 'src/crystal-showroom/components/product-container';
 import Product from 'src/shared/product';
+import { FormField } from 'src/styles/components/form';
 import useHttpClient from 'src/utils/customer-hook/useHttpClient';
 
 export default function CrystalProductList() {
@@ -35,22 +36,16 @@ export default function CrystalProductList() {
 
   return (
     <div className="flex">
-      <div>
-        <label htmlFor="chooseUser">
-          <input
-            list="allowList"
-            name="chooseUser"
-            id="chooseUser"
-            onChange={(e) => selectUser(e.currentTarget.value)}
-          />
-          <datalist id="allowList" onChange={(e) => console.log('select')}>
-            {allowList.map((user) => (
-              <option key={user.id} value={user.phone} />
-            ))}
-          </datalist>
-        </label>
+      <FormField htmlFor="chooseUser">
+        <div className="title">選擇使用者電話:</div>
+        <input list="allowList" name="chooseUser" id="chooseUser" onChange={(e) => selectUser(e.currentTarget.value)} />
+        <datalist id="allowList" onChange={(e) => console.log('select')}>
+          {allowList.map((user) => (
+            <option key={user.id} value={user.phone} />
+          ))}
+        </datalist>
         {!!products.length && <Product crystalRing={products[0]}></Product>}
-      </div>
+      </FormField>
     </div>
   );
 }

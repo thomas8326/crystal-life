@@ -1,6 +1,32 @@
 import styled from 'styled-components';
 
-// export const FormField = style.div``
+export const FormField = styled.label`
+  .title {
+    font-size: 12px;
+    color: rgba(0, 0, 0, 0.54);
+    font-weight: bold;
+  }
+
+  width: 192px;
+  &: focus-within {
+    .title {
+      color: #3f51b5;
+    }
+
+    input: not([type= 'button' ]) {
+      border-bottom: 1px solid #3f51b5;
+    }
+  }
+
+  input {
+    width: 100%;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.54);
+
+    &:focus-visible {
+      outline: none;
+    }
+  }
+`;
 
 export const Form1 = styled.form`
   display: flex;
@@ -14,25 +40,6 @@ export const Form1 = styled.form`
   & > * {
     margin-top: 4px;
     margin-bottom: 4px;
-  }
-
-  .title {
-    font-size: 12px;
-    color: rgba(0, 0, 0, 0.54);
-    font-weight: bold;
-  }
-
-  .field {
-    width: 192px;
-    &: focus-within {
-      .title {
-        color: #3f51b5;
-      }
-
-      input: not([type= 'button' ]) {
-        border-bottom: 1px solid #3f51b5;
-      }
-    }
   }
 
   input[type='button'] {
