@@ -3,15 +3,20 @@ import Crystal from 'src/core/models/crystal';
 import CrystalRing from 'src/core/models/crystal-ring';
 import { HandSize } from 'src/core/models/selection';
 import Bead from 'src/shared/bead';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
-const ProductDisplay = styled.div`
+const ProductDisplay = styled.div<any>`
+  width: ${(props: { radius: number; beadSize: number }) => `${props.radius * 2 + props.beadSize}px`};
+  height: ${(props: { radius: number; beadSize: number }) => `${props.radius * 2 + props.beadSize}px`};
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: ${(props: { radius: number; beadSize: number }) => `${props.radius * 2 + props.beadSize}px`};
-  height: ${(props: { radius: number; beadSize: number }) => `${props.radius * 2 + props.beadSize}px`};
+  ${(props: { disabledEvent: number }) =>
+    props.disabledEvent &&
+    css`
+      pointer-events: none;
+    `};
 `;
 
 const ProductInnerBorder = styled.div`
@@ -21,8 +26,12 @@ const ProductInnerBorder = styled.div`
   border-radius: 50%;
 `;
 
-export default function Product(props: { crystalRing: CrystalRing; dispatch?: React.Dispatch<any> }) {
-  const { crystalRing, dispatch } = props;
+export default function Product(props: {
+  crystalRing: CrystalRing;
+  dispatch?: React.Dispatch<any>;
+  disabled?: boolean;
+}) {
+  const { crystalRing, disabled, dispatch } = props;
   const { beads, handSize } = crystalRing;
 
   if (!handSize) {
@@ -32,7 +41,7 @@ export default function Product(props: { crystalRing: CrystalRing; dispatch?: Re
   const itemPosition = generateCrystalBeads(beads, handSize);
 
   return (
-    <ProductDisplay radius={handSize.radiusWidth} beadSize={handSize.beadSize}>
+    <ProductDisplay radius={handSize.radiusWidth} beadSize={handSize.beadSize} disabledEvent={!!disabled}>
       <ProductInnerBorder beadSize={handSize.beadSize}>
         {itemPosition.map((data, index) => (
           <Bead

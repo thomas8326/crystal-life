@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 export const Button1 = styled.button`
   border: 1px solid #417deb;
   border-radius: 5px;
@@ -6,4 +6,19 @@ export const Button1 = styled.button`
   background: #417deb;
   color: white;
   font-size: 14px;
+`;
+
+
+export const SlideButton = styled.button`
+  flex: 0 0 30px;
+  height: 30px;
+  background-image: url(/assets/icon/chevron.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 30px;
+  ${(props: { isLeft?: boolean }) =>
+    props.isLeft &&
+    css`
+      transform: scaleX(-1);
+    `}
 `;

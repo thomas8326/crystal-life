@@ -1,8 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
 import { realtimeDB } from 'src/core/config/firebase.config';
+import { OrderBy } from 'src/core/enums/orderby';
 import { v4 as uuidv4 } from 'uuid';
 
-export default function useHttpClient<T extends { id: string }>(tableName: string, isReadData = true) {
+export default function useHttpClient<T extends { id: string }>(
+  tableName: string,
+  isReadData = true,
+  orderBy?: { path: string; by: OrderBy },
+) {
   const tableRef = useRef(realtimeDB.ref(tableName));
 
   const [list, setList] = useState<T[]>([]);
@@ -31,22 +36,22 @@ export default function useHttpClient<T extends { id: string }>(tableName: strin
 
   useEffect(() => {
     const ref = childName ? tableRef.current.child(childName) : tableRef.current;
+    const orderRef = orderBy ? ref.orderByChild(orderBy.path) : ref;
 
     if (isReadList) {
-      ref.on('value', (snapshot) => {
+      orderRef.on('value', (snapshot) => {
         let list: T[] = [];
         snapshot.forEach((childSnapshot) => {
-          const object = { id: childSnapshot.key, ...childSnapshot.val() };
+          const object: T = { id: childSnapshot.key, ...childSnapshot.val() };
           list = list.concat(object);
         });
-        setList(list);
+
+        orderBy?.by === OrderBy.Desc ? setList(list.reverse()) : setList(list);
       });
     }
 
     return () => ref.off('value');
   }, [isReadList, childName]);
-
-  useEffect(() => {});
 
   return { list, getList, post, remove, patch };
 }

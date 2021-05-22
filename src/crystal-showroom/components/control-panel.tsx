@@ -1,3 +1,4 @@
+import firebase from 'firebase';
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { USER } from 'src/core/constants/storage.constants';
@@ -56,6 +57,7 @@ export default function ControlPanel() {
   };
 
   const onSubmit = () => {
+    crystalRing.setCreatedTime(firebase.database.ServerValue.TIMESTAMP);
     post(crystalRing).then(() => history.push(MainPath.CompletePage));
   };
 

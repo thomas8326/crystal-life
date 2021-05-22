@@ -1,5 +1,6 @@
 import React from 'react';
 import { useContext, useState } from 'react';
+import { SlideButton } from 'src/styles/components/button';
 import styled, { css } from 'styled-components';
 import {
   crystalShowroomContext,
@@ -20,20 +21,6 @@ const Item = styled.img<any>`
     props.isSelected &&
     css`
       border: 1px solid blue;
-    `};
-`;
-
-const ChangeSlideButton = styled.button`
-  flex: 0 0 30px;
-  height: 30px;
-  background-image: url(/assets/icon/chevron.svg);
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 30px;
-  ${(props: { isLeft?: boolean }) =>
-    props.isLeft &&
-    css`
-      transform: scaleX(-1);
     `};
 `;
 
@@ -76,9 +63,9 @@ export default function SlideList(props: { list: SelectedItem[]; updateSelect: (
 
   return (
     <div className="flex flex-row items-center">
-      <ChangeSlideButton isLeft={true} onClick={() => slide(-1)} />
+      <SlideButton isLeft={true} onClick={() => slide(-1)} />
       <ul className="flex flex-row flex-1">{slideRoom(slideIndex)}</ul>
-      <ChangeSlideButton onClick={() => slide(1)} />
+      <SlideButton onClick={() => slide(1)} />
     </div>
   );
 }

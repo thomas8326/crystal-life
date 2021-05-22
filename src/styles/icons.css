@@ -14,10 +14,23 @@
   background-image: url(/src/assets/icon/right-arrow.svg);
 }
 
+.icon-empty-box {
+  background-image: url(/src/assets/icon/box.svg);
+}
+
 .icon {
   display: block;
   width: 24px;
   height: 24px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+.icon-2xl {
+  width: 120px;
+  height: 120px;
+  display: block;
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;

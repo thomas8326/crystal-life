@@ -11,7 +11,7 @@ export default class CrystalRing {
 
   beads: Crystal[] = [];
 
-  constructor() {}
+  createdAt!: Object | number;
 
   setHandSize(handSize: HandSize) {
     this.handSize = handSize;
@@ -23,6 +23,10 @@ export default class CrystalRing {
 
   setBeads(beads: Crystal[]) {
     this.beads = beads;
+  }
+
+  setCreatedTime(createTime: Object | number) {
+    this.createdAt = createTime;
   }
 
   createBeads(count: number) {
