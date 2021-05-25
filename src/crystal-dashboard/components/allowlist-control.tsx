@@ -16,7 +16,7 @@ export default function AllowListController() {
 
   // validation
   const [errMsg, setErrMsg] = useFormErrorMsg();
-  const validate = useFormCheckValidate(errMsg, FormControlType.Phone);
+  const { validate } = useFormCheckValidate(errMsg, FormControlType.Phone);
 
   const deleteUser = (id: string) => remove(id);
   const newUser = () => post(new AllowUser(phone), phone).then((error) => !error && setPhone(''));

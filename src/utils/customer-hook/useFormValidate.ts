@@ -12,6 +12,8 @@ export function useFormCheckValidate(error: FormControl, ...dependencies: FormCo
       if (isNotEmptyOrNil(error[field])) {
         const copy = Object.assign({}, error[field]);
         valid = valid && Object.values(copy).every((value) => !value);
+      } else {
+        valid = false;
       }
     });
 

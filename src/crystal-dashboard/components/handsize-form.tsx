@@ -19,7 +19,7 @@ export default function HandSizeForm() {
 
   // validation
   const [errMsg, setErrMsg] = useFormErrorMsg();
-  const validate = useFormCheckValidate(errMsg, FormControlType.Name, FormControlType.CrystalCount);
+  const { validate } = useFormCheckValidate(errMsg, FormControlType.Name, FormControlType.CrystalCount);
 
   const createNewHandSize = () => {
     post(new HandSize(name, crystalSize, crystalCount)).then(() => {
@@ -31,7 +31,7 @@ export default function HandSizeForm() {
 
   return (
     <>
-      <Form1>
+      <Form1 className="form-inline">
         <FormField>
           <div className="title">名稱: </div>
           <input
@@ -50,7 +50,7 @@ export default function HandSizeForm() {
         <FormField>
           <div className="title">大小: </div>
           <div className="flex justify-around">
-            <div className="flex items-center">
+            <div>
               <input
                 id="8mm"
                 type="radio"
@@ -59,10 +59,11 @@ export default function HandSizeForm() {
                 checked={crystalSize === 8}
                 onChange={(e) => setCrystalSize(parseInt(e.currentTarget.value))}
               ></input>
-              <label htmlFor="8mm">8nm</label>
+              <label htmlFor="8mm" className="cursor-pointer">
+                8nm
+              </label>
             </div>
-
-            <div className="flex items-center">
+            <div>
               <input
                 id="10mm"
                 type="radio"
@@ -71,7 +72,9 @@ export default function HandSizeForm() {
                 checked={crystalSize === 10}
                 onChange={(e) => setCrystalSize(parseInt(e.currentTarget.value))}
               ></input>
-              <label htmlFor="10mm">10nm</label>
+              <label htmlFor="10mm" className="cursor-pointer">
+                10nm
+              </label>
             </div>
           </div>
         </FormField>

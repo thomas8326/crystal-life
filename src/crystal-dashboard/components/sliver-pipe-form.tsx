@@ -18,7 +18,7 @@ export default function SliverPipeForm() {
 
   // validation
   const [errMsg, setErrMsg] = useFormErrorMsg();
-  const validate = useFormCheckValidate(errMsg, FormControlType.Name, FormControlType.CrystalCount);
+  const { validate } = useFormCheckValidate(errMsg, FormControlType.Name, FormControlType.CrystalCount);
 
   const createNewPipe = () => {
     post(new SliverPipe(name, crystalSize, crystalCount)).then(() => {
@@ -49,7 +49,7 @@ export default function SliverPipeForm() {
         <FormField>
           <div className="title">大小: </div>
           <div className="flex justify-around">
-            <label>
+            <label className="cursor-pointer">
               <input
                 type="radio"
                 value={8}
@@ -59,7 +59,7 @@ export default function SliverPipeForm() {
               ></input>
               8nm
             </label>
-            <label>
+            <label className="cursor-pointer">
               <input
                 type="radio"
                 value={10}
