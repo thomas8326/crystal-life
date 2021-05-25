@@ -18,7 +18,6 @@ export function UserLogin() {
   const { setStorage } = useStorage();
 
   // validation
-  const formRef = useRef<HTMLFormElement | null>(null);
   const [errMsg, setErrMsg] = useFormErrorMsg();
   const { validate, setValidate } = useFormCheckValidate(errMsg, FormControlType.Account);
 
@@ -41,7 +40,7 @@ export function UserLogin() {
 
   return (
     <div className="w-full h-full flex justify-center items-center flex-col">
-      <Form1 direction="column" ref={formRef}>
+      <Form1 direction="column">
         <FormField>
           <div className="title">輸入您的手機號碼:</div>
           <input

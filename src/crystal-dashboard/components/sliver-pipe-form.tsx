@@ -17,7 +17,6 @@ export default function SliverPipeForm() {
   const [crystalCount, setCrystalCount] = useState<number>(0);
 
   // validation
-  const formRef = useRef<HTMLFormElement | null>(null);
   const [errMsg, setErrMsg] = useFormErrorMsg();
   const validate = useFormCheckValidate(errMsg, FormControlType.Name, FormControlType.CrystalCount);
 
@@ -31,7 +30,7 @@ export default function SliverPipeForm() {
 
   return (
     <>
-      <Form1 ref={formRef}>
+      <Form1>
         <FormField>
           <div className="title">名稱: </div>
           <input

@@ -15,7 +15,6 @@ export default function AllowListController() {
   const { list, post, remove, patch } = useHttpClient<AllowUser>('allowList');
 
   // validation
-  const formRef = useRef<HTMLFormElement | null>(null);
   const [errMsg, setErrMsg] = useFormErrorMsg();
   const validate = useFormCheckValidate(errMsg, FormControlType.Phone);
 
@@ -30,7 +29,7 @@ export default function AllowListController() {
 
   return (
     <>
-      <Form1 ref={formRef}>
+      <Form1>
         <FormField>
           <div className="title">手機: </div>
           <input
