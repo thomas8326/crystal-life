@@ -2,9 +2,9 @@ import AllowUser from 'src/core/models/allow-user';
 import { Table } from 'src/styles/components/table';
 import { Form1, FormField } from 'src/styles/components/form';
 import React, { useRef, useState } from 'react';
-import useFormError, { checkFormat } from 'src/utils/customer-hook/useFormError';
+import useFormErrorMsg, { checkFormat } from 'src/utils/customer-hook/useFormError';
 import FormErrorMsg from 'src/shared/form-error-msg';
-import { useFormValidate } from 'src/utils/customer-hook/useFormValidate';
+import { useFormCheckValidate } from 'src/utils/customer-hook/useFormValidate';
 import { Button1 } from 'src/styles/components/button';
 import useHttpClient from 'src/utils/customer-hook/useHttpClient';
 import { FormControlType } from 'src/core/enums/form.enum';
@@ -16,8 +16,8 @@ export default function AllowListController() {
 
   // validation
   const formRef = useRef<HTMLFormElement | null>(null);
-  const validate = useFormValidate(formRef.current, phone);
-  const [errMsg, setErrMsg] = useFormError();
+  const [errMsg, setErrMsg] = useFormErrorMsg();
+  const validate = useFormCheckValidate(errMsg, FormControlType.Phone);
 
   const deleteUser = (id: string) => remove(id);
   const newUser = () => post(new AllowUser(phone), phone).then((error) => !error && setPhone(''));

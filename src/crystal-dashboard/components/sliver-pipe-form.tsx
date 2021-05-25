@@ -5,8 +5,8 @@ import FormErrorMsg from 'src/shared/form-error-msg';
 import { Button1 } from 'src/styles/components/button';
 import { Form1, FormField } from 'src/styles/components/form';
 import { Table } from 'src/styles/components/table';
-import useFormError, { checkInteger, checkRequired } from 'src/utils/customer-hook/useFormError';
-import { useFormValidate } from 'src/utils/customer-hook/useFormValidate';
+import useFormErrorMsg, { checkInteger, checkRequired } from 'src/utils/customer-hook/useFormError';
+import { useFormCheckValidate } from 'src/utils/customer-hook/useFormValidate';
 import useHttpClient from 'src/utils/customer-hook/useHttpClient';
 
 export default function SliverPipeForm() {
@@ -18,8 +18,8 @@ export default function SliverPipeForm() {
 
   // validation
   const formRef = useRef<HTMLFormElement | null>(null);
-  const validate = useFormValidate(formRef.current, name, crystalCount);
-  const [errMsg, setErrMsg] = useFormError();
+  const [errMsg, setErrMsg] = useFormErrorMsg();
+  const validate = useFormCheckValidate(errMsg, FormControlType.Name, FormControlType.CrystalCount);
 
   const createNewPipe = () => {
     post(new SliverPipe(name, crystalSize, crystalCount)).then(() => {

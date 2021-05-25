@@ -15,6 +15,7 @@ export default function FormErrorMsg(props: { errMsg: FormControl; name: FormCon
       {errMsg[name]?.[FormErrorType.Format] && <Warning>格式錯誤</Warning>}
       {errMsg[name]?.[FormErrorType.Required] && <Warning>請填寫此項目</Warning>}
       {errMsg[name]?.[FormErrorType.Integer] && <Warning>請輸入正整數</Warning>}
+      {errMsg[name]?.[FormErrorType.Auth] && <Warning>無權限瀏覽</Warning>}
     </>
   );
 }
