@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const LoadingBar = styled.div`
+export const ProgressAnimation = styled.div`
   transition: width 1s ease-in-out;
   width: 100px;
   height: 100%;
@@ -27,9 +27,9 @@ export default function ProgressBar(props: { percent: number }) {
   const { percent } = props;
   return (
     <Bar>
-      <LoadingBar className="bg-blue-600" style={{ width: `${percent}%` }}>
+      <ProgressAnimation className="bg-blue-600" style={{ width: `${percent}%` }}>
         <span>{`${percent}%`}</span>
-      </LoadingBar>
+      </ProgressAnimation>
     </Bar>
   );
 }

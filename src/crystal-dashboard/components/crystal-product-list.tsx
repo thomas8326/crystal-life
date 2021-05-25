@@ -15,7 +15,7 @@ const CreateDate = styled.div`
   background: #dce7f5;
   padding: 12px;
   font-size: 12px;
-  border: 1px solid #61a7ff;
+  border: 1px solid;
   border-radius: 5px;
 `;
 
