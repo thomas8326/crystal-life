@@ -15,7 +15,7 @@ export default function DashboardNavigation(props: { navigation: Navigation[]; c
         {navigation.map((nav) => (
           <NavLink
             key={nav.key}
-            className="flex justify-between py-4 hover:bg-blue-200 rounded-md"
+            className="flex justify-between py-4 hover:bg-blue-200"
             activeClassName="bg-blue-100"
             to={`${currentUrl}${nav.path}`}
           >

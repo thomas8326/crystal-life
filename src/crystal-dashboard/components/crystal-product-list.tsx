@@ -50,7 +50,7 @@ export default function CrystalProductList() {
   const slide = (step: number) => setActiveIndex((prev) => prev + step);
 
   return (
-    <div className="flex flex-col p-11">
+    <div className="flex flex-col p-11 justify-center items-center">
       <FormField htmlFor="chooseUser">
         <div className="title">選擇使用者電話:</div>
         <input

@@ -15,7 +15,7 @@ export default function UploadImageForm(props: { tableName: string }) {
     <>
       <UploadArea tableName={tableName}></UploadArea>
       <hr></hr>
-      <div className="text-2xl">已有產品圖</div>
+      <div className="text-2xl mb-2">已有產品圖</div>
       <div className="max-h-full overflow-hidden">
         <InfiniteList layout="grid" openRemove={true} tableName={tableName} removeSelect={removeImage}></InfiniteList>
       </div>
