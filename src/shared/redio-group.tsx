@@ -13,7 +13,7 @@ export default function RadioGroup<T extends SelectedItem>(props: {
     return (
       <label
         htmlFor={item.key}
-        className="shadow border border-gray-300 h-12 flex items-center p-4 cursor-pointer space-x-2"
+        className="shadow border border-gray-300 h-12 flex items-center p-4 cursor-pointer space-x-2 bg-transparent hover:bg-gray-100 font-bold"
       >
         <input
           type="radio"

@@ -35,3 +35,31 @@
   background-position: center;
   background-size: contain;
 }
+
+.novus-logo {
+  background-image: url(/src/assets/logo/novus.jpg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+.rect-novus-logo {
+  background-image: url(/src/assets/logo/rect-novus.jpg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+.rect-transparent-logo {
+  background-image: url(/src/assets/logo/novus-transparent.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+.novus-flower-logo {
+  background-image: url(/src/assets/logo/novus-flower.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}

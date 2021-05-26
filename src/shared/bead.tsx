@@ -23,7 +23,7 @@ const BeadDisplay = styled.div<any>`
     props.isEmpty &&
     css`
       background-color: #fffbe0;
-      border: 1px dashed rgb(234 146 82 / 50%);
+      border: 1px dashed rgb(234 146 82 / 80%);
     `}
 
   ${(props: { isClicked: boolean }) =>

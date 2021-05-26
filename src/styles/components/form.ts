@@ -28,12 +28,12 @@ export const FormField = styled.label`
   }
 `;
 
-export const Form1 = styled.form`
+export const Form1 = styled.form<any>`
   display: flex;
   flex-direction: ${(props: { direction?: string }) => props?.direction || 'row'};
   justify-content: space-around;
   padding: 10px;
-  border: 1px solid #dadada;
+  border: 1px solid ${(props: { borderColor: string }) => props?.borderColor ?? '#dadada'};
   margin: 12px;
   box-shadow: 1px 1px 2px 0px #dadada, -1px -1px 2px 0px #dadada;
 
@@ -54,9 +54,5 @@ export const Form1 = styled.form`
     &:focus-visible {
       outline: none;
     }
-  }
-
-  .warning {
-    color: #dd3a3a;
   }
 `;

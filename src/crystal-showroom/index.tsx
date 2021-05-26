@@ -15,6 +15,13 @@ const Showroom = styled.div`
   height: 100%;
 `;
 
+const ControlPanelContainer = styled.div`
+  height: 100%;
+  border-left: 1px solid;
+  flex: 0 0 385px;
+  display: flex;
+`;
+
 function CrystalShowroom() {
   const [state, dispatch] = useReducer(crystalShowroomReducer, crystalShowroomInitState);
   return (
@@ -30,9 +37,10 @@ function CrystalShowroom() {
         <div className="flex flex-grow justify-center items-center">
           <ProductContainer />
         </div>
-        <div className="bg-gray-50 h-full border-l border-gray-500 flex" style={{ flex: '0 0 385px' }}>
+        <ControlPanelContainer className="bg-gray-50 relative">
+          <div className="absolute w-full h-full rect-transparent-logo z-0 "></div>
           <ControlPanel />
-        </div>
+        </ControlPanelContainer>
       </Showroom>
     </crystalShowroomContext.Provider>
   );

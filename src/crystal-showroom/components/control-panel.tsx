@@ -128,7 +128,7 @@ export default function ControlPanel() {
           </div>
         )}
       </div>
-      <div className="flex justify-evenly">
+      <div className="flex justify-evenly pt-2">
         <button onClick={() => prevState()} disabled={currentState == 0}>
           上一步
         </button>
