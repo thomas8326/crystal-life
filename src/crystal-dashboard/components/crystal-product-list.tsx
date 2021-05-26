@@ -53,7 +53,13 @@ export default function CrystalProductList() {
     <div className="flex flex-col p-11">
       <FormField htmlFor="chooseUser">
         <div className="title">選擇使用者電話:</div>
-        <input list="allowList" name="chooseUser" id="chooseUser" onChange={(e) => selectUser(e.currentTarget.value)} />
+        <input
+          list="allowList"
+          type="text"
+          name="chooseUser"
+          id="chooseUser"
+          onChange={(e) => selectUser(e.currentTarget.value)}
+        />
         <datalist id="allowList" onChange={(e) => console.log('select')}>
           {allowList.map((user) => (
             <option key={user.id} value={user.phone} />

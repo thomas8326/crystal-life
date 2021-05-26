@@ -38,7 +38,7 @@ function CrystalShowroom() {
           <ProductContainer />
         </div>
         <ControlPanelContainer className="bg-gray-50 relative">
-          <div className="absolute w-full h-full rect-transparent-logo z-0 "></div>
+          <div className="absolute w-full h-full novus-no-border-logo opacity-30 z-0" />
           <ControlPanel />
         </ControlPanelContainer>
       </Showroom>

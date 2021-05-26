@@ -62,40 +62,44 @@ export default function ControlPanel() {
   };
 
   return (
-    <div className="flex flex-col w-full h-full divide-y-2 divide-black space-y-4 py-16 mx-10">
+    <div className="flex flex-col w-full h-full divide-y-2 divide-black space-y-4 py-16 mx-10 z-10">
       <h4 className="text-left text-2xl font-bold">NOVUS LIFE</h4>
       <div className="flex-1 max-h-full overflow-hidden">
         {currentState === ControlPanelState.HandSize && (
           <div className="w-full h-full flex flex-col p-2">
             <label className="text-left text-lg">手圍</label>
             <small className="text-left text-xs">選擇適合你的手圍長度</small>
-            <RadioGroup
-              list={handSizes}
-              defaultValue={crystalRing.handSize}
-              groupName="handSize"
-              updateRadio={updateSelectHandSize(dispatch, sliverPipes[0])}
-            />
+            <div className="flex-1 h-full overflow-auto">
+              <RadioGroup
+                list={handSizes}
+                defaultValue={crystalRing.handSize}
+                groupName="handSize"
+                updateRadio={updateSelectHandSize(dispatch, sliverPipes[0])}
+              />
+            </div>
           </div>
         )}
         {currentState === ControlPanelState.SliverPipe && (
           <div className="w-full h-full flex flex-col p-2">
             <label className="text-left text-lg">銀管</label>
             <small className="text-left text-xs">選擇適合你的銀圍長度</small>
-            <RadioGroup
-              list={
-                sliverPipes && sliverPipes.filter((item: SelectedItem) => item.value === crystalRing.handSize.value)
-              }
-              defaultValue={crystalRing.sliverPipe}
-              groupName="sliverPipe"
-              updateRadio={updateSelectSliverHand(dispatch)}
-            />
+            <div className="flex-1 h-full overflow-auto">
+              <RadioGroup
+                list={
+                  sliverPipes && sliverPipes.filter((item: SelectedItem) => item.value === crystalRing.handSize.value)
+                }
+                defaultValue={crystalRing.sliverPipe}
+                groupName="sliverPipe"
+                updateRadio={updateSelectSliverHand(dispatch)}
+              />
+            </div>
           </div>
         )}
         {currentState === ControlPanelState.Crystal && (
           <div className="w-full h-full flex flex-col p-2">
             <label className="text-left text-lg">水晶</label>
             <small className="text-left text-xs">在左邊產品中選取圓珠，在右邊選擇想要的水晶</small>
-            <div className="mt-6" style={{ maxHeight: '88%' }}>
+            <div className="mt-6 flex-1 h-full overflow-auto">
               <InfiniteList layout="grid" tableName="crystalImages" updateSelect={updateSelectedCrystal(dispatch)} />
             </div>
           </div>
@@ -104,7 +108,7 @@ export default function ControlPanel() {
           <div className="w-full h-full flex flex-col p-2">
             <label className="text-left text-lg">花蓋</label>
             <small className="text-left text-xs">在左邊產品中選取圓珠，在右邊選擇想要的花蓋，按下加在左邊或右邊</small>
-            <div className="mt-6">
+            <div className="mt-6 flex-1 h-full overflow-auto">
               <FlowerAdder
                 removeFlower={removeFlowerCover(dispatch)}
                 updateLeft={updateFlowerCover(ADD_FLOWER_COVER_ON_LEFT, dispatch)}

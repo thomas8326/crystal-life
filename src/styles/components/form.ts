@@ -18,7 +18,7 @@ export const FormField = styled.label`
     }
   }
 
-  input[type='input'] {
+  input[type='text'] {
     width: 100%;
     border-bottom: 1px solid rgba(0, 0, 0, 0.54);
 

@@ -18,6 +18,15 @@
   background-image: url(/src/assets/icon/box.svg);
 }
 
+.icon-sm {
+  display: block;
+  width: 12px;
+  height: 12px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
 .icon {
   display: block;
   width: 24px;
@@ -59,6 +68,13 @@
 
 .novus-flower-logo {
   background-image: url(/src/assets/logo/novus-flower.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+.novus-no-border-logo {
+  background-image: url(/src/assets/logo/novus-no-border.png);
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
