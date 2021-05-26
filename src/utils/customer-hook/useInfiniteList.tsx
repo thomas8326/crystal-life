@@ -1,3 +1,4 @@
+import { otherwise } from 'ramda';
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
 import { storageRef } from 'src/core/config/firebase.config';
 import SelectedItem from 'src/core/models/selection';
@@ -19,8 +20,10 @@ export function useInfiniteList(
   const getPage = async () => {
     const page = await storageRef.child(tableName).list({ maxResults: MAX_RESULT, pageToken: token.current });
 
-    Promise.all(page.items.map((item) => item.getDownloadURL())).then((urls) =>
-      setList((prev) => prev.concat(urls.map((url) => new SelectedItem(url)))),
+    page.items.forEach((item) =>
+      item.getDownloadURL().then((url) => {
+        setList((prev) => prev.concat(new SelectedItem(item.name, url)));
+      }),
     );
 
     token.current = page.nextPageToken;
