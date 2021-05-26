@@ -11,4 +11,5 @@ export enum FormErrorType {
   Required = 'requiredError',
   Integer = 'IntegerError',
   Auth = 'AuthError',
+  Account = 'AccountError',
 }

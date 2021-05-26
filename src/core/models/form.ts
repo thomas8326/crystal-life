@@ -5,6 +5,7 @@ export class FromError {
   [FormErrorType.Required]: boolean;
   [FormErrorType.Integer]: boolean;
   [FormErrorType.Auth]: boolean;
+  [FormErrorType.Account]: boolean;
 }
 
 export class FormControl {

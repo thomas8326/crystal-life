@@ -3,6 +3,14 @@ import { FormControlType, FormErrorType } from 'src/core/enums/form.enum';
 import { FormAction } from 'src/core/models/action';
 import { FormControl } from 'src/core/models/form';
 
+export function checkAccount(isAccountError: boolean) {
+  return {
+    type: FormErrorType.Account,
+    fieldName: FormControlType.Account,
+    isError: isAccountError,
+  };
+}
+
 export function checkAuth(isAuthError: boolean) {
   return {
     type: FormErrorType.Auth,
@@ -38,18 +46,12 @@ export function checkInteger(e: React.FormEvent<HTMLInputElement>) {
 export default function useFormErrorMsg(initialState = new FormControl()) {
   const reducer = (state: FormControl, action: FormAction): FormControl => {
     const fieldName = (action.fieldName as FormControlType) ?? FormControlType.NotAssign;
-    switch (action?.type) {
-      case FormErrorType.Format:
-        return { ...state, [fieldName]: { ...state[fieldName], [FormErrorType.Format]: action.isError } };
-      case FormErrorType.Required:
-        return { ...state, [fieldName]: { ...state[fieldName], [FormErrorType.Required]: action.isError } };
-      case FormErrorType.Integer:
-        return { ...state, [fieldName]: { ...state[fieldName], [FormErrorType.Integer]: action.isError } };
-      case FormErrorType.Auth:
-        return { ...state, [fieldName]: { ...state[fieldName], [FormErrorType.Auth]: action.isError } };
-      default:
-        return state;
+
+    if (action.type) {
+      return { ...state, [fieldName]: { ...state[fieldName], [action.type]: action.isError } };
     }
+
+    return state;
   };
 
   return useReducer(reducer, initialState);

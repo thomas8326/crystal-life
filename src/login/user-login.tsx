@@ -9,19 +9,26 @@ import FormErrorMsg from 'src/shared/form-error-msg';
 import { Form1, FormField } from 'src/styles/components/form';
 import useFormErrorMsg, { checkAuth } from 'src/utils/customer-hook/useFormError';
 import { useFormCheckValidate } from 'src/utils/customer-hook/useFormValidate';
+import useKeyBoard from 'src/utils/customer-hook/userKey';
 import useStorage from 'src/utils/customer-hook/useStroage';
+import { isEmptyOrNil } from 'src/utils/transofrm/ramda-utilis';
 
 export function UserLogin() {
   const history = useHistory();
   const dataTable = realtimeDB.ref('allowList');
   const [phoneNumber, setPhoneNumber] = useState('');
   const { setStorage } = useStorage();
+  const { enter } = useKeyBoard();
 
   // validation
   const [errMsg, setErrMsg] = useFormErrorMsg();
   const { validate, setValidate } = useFormCheckValidate(errMsg, FormControlType.Account);
 
   const onVerifiedUser = () => {
+    if (isEmptyOrNil(phoneNumber)) {
+      return;
+    }
+
     dataTable
       .child(phoneNumber)
       .get()
@@ -39,8 +46,8 @@ export function UserLogin() {
   };
 
   return (
-    <div className="w-full h-full flex justify-center items-center flex-col">
-      <Form1 direction="column">
+    <div className="w-full h-full flex justify-center items-center flex-col novus-logo">
+      <Form1 direction="column" className="opacity-95 bg-white" borderColor="black">
         <FormField>
           <div className="title">輸入您的手機號碼:</div>
           <input
@@ -48,11 +55,12 @@ export function UserLogin() {
               setValidate(true);
               setPhoneNumber(e.currentTarget.value);
             }}
+            onKeyPress={enter(onVerifiedUser)}
           ></input>
         </FormField>
-        <input type="button" onClick={onVerifiedUser} value="登入"></input>
+        {!validate && <FormErrorMsg errMsg={errMsg} name={FormControlType.Account}></FormErrorMsg>}
+        <input type="button" onClick={onVerifiedUser} value="登入" />
       </Form1>
-      {!validate && <FormErrorMsg errMsg={errMsg} name={FormControlType.Account}></FormErrorMsg>}
     </div>
   );
 }
