@@ -47,10 +47,21 @@ const Flower = styled.img.attrs((props: { isLeft: boolean }) => ({ isLeft: props
 `;
 
 const Charm = styled.div`
-  width: 2px;
-  background-color: red;
   height: 100px;
+  display: flex;
+  flex-direction: column;
   position: absolute;
+  left: -40%;
+  top: 100%;
+  z-index: 10;
+  i {
+    flex: 0 0 30px;
+  }
+
+  .charm-image {
+    width: 50px;
+    height: 50px;
+  }
 `;
 
 export default function Bead(props: {
@@ -83,19 +94,28 @@ export default function Bead(props: {
   };
 
   return (
-    <BeadDisplay
-      top={top}
-      left={left}
-      isEmpty={!item?.url}
-      isClicked={isClicked}
-      radius={beadSize}
-      angular={angular}
-      onClick={() => onSelectBead(item)}
-    >
-      {item?.charm && <Charm />}
-      {item?.leftFlower?.url && <Flower src={item?.leftFlower.url} />}
-      {item?.url && <img src={item?.url} className="w-full h-full" />}
-      {item?.rightFlower?.url && <Flower src={item?.rightFlower.url} isLeft={false} />}
-    </BeadDisplay>
+    <>
+      <BeadDisplay
+        top={top}
+        left={left}
+        isEmpty={!item?.url}
+        isClicked={isClicked}
+        radius={beadSize}
+        angular={angular}
+        onClick={() => onSelectBead(item)}
+      >
+        {item?.charm && (
+          <Charm>
+            <i className="icon-xl icon-up-arrow" />
+            <div className="charm-image">
+              <img src={`${process.env.PUBLIC_URL}/assets/01-removebg-preview.png`}></img>
+            </div>
+          </Charm>
+        )}
+        {item?.leftFlower?.url && <Flower src={item?.leftFlower.url} />}
+        <div>{item?.url && <img src={item?.url} className="w-full h-full" />}</div>
+        {item?.rightFlower?.url && <Flower src={item?.rightFlower.url} isLeft={false} />}
+      </BeadDisplay>
+    </>
   );
 }
