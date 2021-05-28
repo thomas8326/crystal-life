@@ -100,7 +100,11 @@ export default function ControlPanel() {
             <label className="text-left text-lg">水晶</label>
             <small className="text-left text-xs">在左邊產品中選取圓珠，在右邊選擇想要的水晶</small>
             <div className="mt-6 flex-1 h-full overflow-auto">
-              <InfiniteList layout="grid" tableName="crystalImages" updateSelect={updateSelectedCrystal(dispatch)} />
+              <InfiniteList
+                layout="grid"
+                tableName="codeList/crystalImages"
+                updateSelect={updateSelectedCrystal(dispatch)}
+              />
             </div>
           </div>
         )}
@@ -121,13 +125,18 @@ export default function ControlPanel() {
           <div className=" h-20 w-full flex flex-col p-2">
             <label className="text-left text-lg">吊飾</label>
             <small className="text-left text-xs">在左邊產品中選取圓珠，按下加吊飾，會在該圓珠左邊加入</small>
-            <div className="mt-6 flex flex-row justify-around">
-              <button onClick={addCharm(dispatch)} className="text-blue-500">
-                加吊飾
-              </button>
-              <button onClick={removeCharm(dispatch)} className="text-blue-500">
-                移除吊飾
-              </button>
+            <div className="flex-col justify-around">
+              <div className="mt-6 flex justify-around">
+                <button onClick={addCharm(dispatch)} className="text-blue-500">
+                  加吊飾
+                </button>
+                <button onClick={removeCharm(dispatch)} className="text-blue-500">
+                  移除吊飾
+                </button>
+              </div>
+              <div className="mt-6 flex-1 h-full overflow-auto">
+                <InfiniteList layout="grid" tableName="codeList/charms" updateSelect={() => {}} />
+              </div>
             </div>
           </div>
         )}

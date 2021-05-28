@@ -1,44 +1,38 @@
-import { otherwise } from 'ramda';
-import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
-import { storageRef } from 'src/core/config/firebase.config';
-import SelectedItem from 'src/core/models/selection';
-
-const MAX_RESULT = 12;
+import { useEffect, useRef, useState } from 'react';
+import useHttpClient from 'src/utils/customer-hook/useHttpClient';
 
 export function useInfiniteList(
   tableName: string,
   observeElement: Element | null,
   rootElement: Element | null,
   mutationElement: Element | null,
-): SelectedItem[] {
-  const [list, setList] = useState<SelectedItem[]>([]);
-  const [isLoadMore, setIsLoadMore] = useState<boolean>(false);
+): any[] {
+  const { list: dataList, getList } = useHttpClient(tableName, false, undefined);
+
   const [isComplete, setIsComplete] = useState<boolean>(false);
-  const token = useRef<string | null>(null);
   const isIntersection = useRef(false);
+  const isSending = useRef(false);
 
   const getPage = async () => {
-    const page = await storageRef.child(tableName).list({ maxResults: MAX_RESULT, pageToken: token.current });
-
-    page.items.forEach((item) =>
-      item.getDownloadURL().then((url) => {
-        setList((prev) => prev.concat(new SelectedItem(item.name, url)));
-      }),
-    );
-
-    token.current = page.nextPageToken;
-    !page.nextPageToken && setIsComplete(true);
+    if (!isComplete) {
+      getList(3).then((isComplete) => {
+        setIsComplete(isComplete);
+      });
+    }
   };
 
   const observeIntersection = (element: Element): IntersectionObserver => {
     const intersectionObserver = new IntersectionObserver(
       (entries) => {
+        debugger;
         isIntersection.current = entries[0].isIntersecting;
+        if (isSending.current) {
+          return;
+        }
 
         if (isIntersection.current) {
-          setIsLoadMore(true);
-        } else {
-          setIsLoadMore(false);
+          isSending.current = true;
+          getPage();
         }
       },
       { root: rootElement },
@@ -51,11 +45,13 @@ export function useInfiniteList(
 
   const observeMutation = (mutationElement: Element): MutationObserver => {
     const mutationObserver = new MutationObserver((mutations: MutationRecord[]) => {
+      debugger;
       const isListChange = mutations[mutations.length - 1].addedNodes[0]?.nodeName == 'LI';
+      isSending.current = false;
+
       if (isIntersection.current && isListChange) {
-        setIsLoadMore(true);
-      } else {
-        setIsLoadMore(false);
+        isSending.current = true;
+        getPage();
       }
     });
     mutationObserver.observe(mutationElement, {
@@ -67,9 +63,7 @@ export function useInfiniteList(
   };
 
   useEffect(() => {
-    setIsLoadMore(false);
     setIsComplete(false);
-    setList([]);
   }, [tableName]);
 
   useEffect(() => {
@@ -87,12 +81,5 @@ export function useInfiniteList(
     };
   }, [tableName, observeElement, rootElement]);
 
-  useEffect(() => {
-    if (!!isLoadMore && !isComplete) {
-      getPage();
-      setIsLoadMore(false);
-    }
-  }, [tableName, isLoadMore, isComplete]);
-
-  return list;
+  return dataList;
 }

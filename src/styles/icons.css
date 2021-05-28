@@ -14,6 +14,10 @@
   background-image: url(/src/assets/icon/right-arrow.svg);
 }
 
+.icon-up-arrow {
+  background-image: url(/src/assets/icon/up-arrow.svg);
+}
+
 .icon-empty-box {
   background-image: url(/src/assets/icon/box.svg);
 }
@@ -36,7 +40,16 @@
   background-size: contain;
 }
 
-.icon-2xl {
+.icon-xl {
+  display: block;
+  width: 48px;
+  height: 48px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+.icon-5xl {
   width: 120px;
   height: 120px;
   display: block;

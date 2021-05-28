@@ -34,6 +34,9 @@ export default function CrystalDashboard() {
           <Route path={`${url}${MainPath.FlowerCoverForm}`}>
             <UploadImageForm key="flowerCovers" tableName="flowerCovers" />
           </Route>
+          <Route path={`${url}${MainPath.CharmForm}`}>
+            <UploadImageForm key="charms" tableName="charms" />
+          </Route>
           <Route exact path={`${url}`}>
             <Redirect to={`${url}${MainPath.AllowList}`}></Redirect>
           </Route>

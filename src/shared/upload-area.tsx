@@ -1,10 +1,14 @@
+import firebase from 'firebase';
 import React, { useEffect, useRef, useState } from 'react';
-import { storageRef } from 'src/core/config/firebase.config';
+import { realtimeDB, storageRef } from 'src/core/config/firebase.config';
+import { FileInfo } from 'src/core/models/file-info';
 import { FileLink } from 'src/core/models/fileLink';
+import SelectedItem from 'src/core/models/selection';
 import ProgressBar from 'src/shared/progress-bar';
 import { Button1 } from 'src/styles/components/button';
 import { Grid } from 'src/styles/layout/grid';
 import useDragFiles from 'src/utils/customer-hook/useDragFile';
+import useHttpClient from 'src/utils/customer-hook/useHttpClient';
 import useImageReader from 'src/utils/customer-hook/useImageReader';
 import useUploadFileStatus, {
   FileUploadStatusType,
@@ -71,6 +75,7 @@ const GridItem = styled.div`
 const MAX_ARRAY_LENGTH = 32;
 
 export function UploadArea(props: { tableName: string }) {
+  const { tableName } = props;
   const uploadedFilesRef = useRef<HTMLInputElement>(null);
 
   const [gridWidth] = useState<number>(300);
@@ -79,15 +84,15 @@ export function UploadArea(props: { tableName: string }) {
   const [imageUrls, setImageUrls] = useState<FileLink[]>([]);
   const [selectedImage, setSelectedImage] = useState<FileLink | null>();
   const [uploadAreaRef, setUploadAreaRef] = useState<HTMLLabelElement | null>(null);
+  const { post } = useHttpClient(`codeList/${tableName}`);
 
   const { isDragging, files } = useDragFiles(uploadAreaRef);
   const readFile = useImageReader();
-  const { tableName } = props;
 
   const [uploadStatus, setUploadStatus] = useUploadFileStatus();
 
   const onUploadFile = (current: HTMLInputElement) => {
-    if (!current || !current.files) {
+    if (!current || !current.files?.length) {
       return;
     }
 
@@ -95,12 +100,17 @@ export function UploadArea(props: { tableName: string }) {
     for (const file of Array.from(current.files)) {
       const task = storageRef.child(`${tableName}/${file.name}`).put(file, { contentType: 'image/jpeg' });
       task.on('state_changed', null, null, () => {
-        task.snapshot.ref.getDownloadURL().then((url) => setUploadStatus(uploading(url)));
+        const fileRef = task.snapshot.ref;
+        fileRef.getDownloadURL().then((url) => {
+          post(new FileInfo({ name: fileRef.name, url, createdAt: firebase.database.ServerValue.TIMESTAMP }));
+          setUploadStatus(uploading(url));
+        });
       });
     }
   };
 
   const readImage = (files: FileList | null) => {
+    console.log(files);
     if (files && files.length) {
       Array.from(files).map((file) => {
         readFile(file).then((image) => {

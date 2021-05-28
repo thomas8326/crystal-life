@@ -3,7 +3,7 @@ import { realtimeDB } from 'src/core/config/firebase.config';
 import { OrderBy } from 'src/core/enums/orderby';
 import { v4 as uuidv4 } from 'uuid';
 
-export default function useHttpClient<T extends { id: string }>(
+export default function useHttpClient<T extends { id?: string }>(
   tableName: string,
   isReadData = true,
   orderBy?: { path: string; by: OrderBy },
@@ -11,12 +11,35 @@ export default function useHttpClient<T extends { id: string }>(
   const tableRef = useRef(realtimeDB.ref(tableName));
 
   const [list, setList] = useState<T[]>([]);
-  const [childName, setChildName] = useState<string>('');
-  const [isReadList, setIsReadList] = useState<boolean>(isReadData);
+  const listRef = useRef<T[]>([]);
 
-  const getList = (id?: string) => {
-    setIsReadList(true);
-    id && setChildName(id);
+  const getList = (limitCount?: number, id?: string): Promise<boolean> => {
+    const currentList = listRef.current;
+    const idRef = id ? tableRef.current.child(id) : tableRef.current;
+    const lastTimeStamp = (currentList[currentList.length - 1] as any)?.createdAt || 0;
+    const filterRef = limitCount
+      ? idRef.orderByChild('createdAt').startAfter(lastTimeStamp).limitToFirst(limitCount)
+      : idRef;
+
+    return new Promise((resolve) => {
+      filterRef.once('value', (snapshot) => {
+        if (snapshot.exists()) {
+          let dataList: T[] = [];
+          Object.entries<any>(snapshot.val()).forEach((entries) => {
+            const entry: T = { id: entries[0], ...entries[1] };
+            dataList = dataList.concat(entry);
+          });
+
+          listRef.current = currentList.concat(dataList);
+          orderBy?.by === OrderBy.Desc ? setList(listRef.current.reverse()) : setList(listRef.current);
+          resolve(false);
+        } else {
+          resolve(true);
+        }
+
+        filterRef.off();
+      });
+    });
   };
 
   const post = (object: T, path?: string) => {
@@ -35,11 +58,10 @@ export default function useHttpClient<T extends { id: string }>(
   };
 
   useEffect(() => {
-    const ref = childName ? tableRef.current.child(childName) : tableRef.current;
-    const orderRef = orderBy ? ref.orderByChild(orderBy.path) : ref;
+    const ref = orderBy ? tableRef.current.orderByChild(orderBy.path) : tableRef.current;
 
-    if (isReadList) {
-      orderRef.on('value', (snapshot) => {
+    if (isReadData) {
+      ref.on('value', (snapshot) => {
         let list: T[] = [];
         snapshot.forEach((childSnapshot) => {
           const object: T = { id: childSnapshot.key, ...childSnapshot.val() };
@@ -51,7 +73,7 @@ export default function useHttpClient<T extends { id: string }>(
     }
 
     return () => ref.off('value');
-  }, [isReadList, childName]);
+  }, []);
 
   return { list, getList, post, remove, patch };
 }

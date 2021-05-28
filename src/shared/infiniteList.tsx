@@ -1,6 +1,7 @@
 // prettier-ignore
 import { ReactChild, useEffect, useRef, useState } from 'react';
 import { storageRef } from 'src/core/config/firebase.config';
+import { FileInfo } from 'src/core/models/file-info';
 import SelectedItem from 'src/core/models/selection';
 import { useInfiniteList } from 'src/utils/customer-hook/useInfiniteList';
 import styled, { css } from 'styled-components';
@@ -11,6 +12,7 @@ export const InfiniteLayout = styled.ul`
     css`
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+      grid-template-rows: 60px;
       gap: 14px;
       width: 100%;
       height: 100%;
@@ -52,7 +54,7 @@ export default function InfiniteList(props: {
   openSelect?: boolean;
   openRemove?: boolean;
   updateSelect?: (item: SelectedItem) => void;
-  removeSelect?: (item: SelectedItem) => void;
+  removeSelect?: (item: FileInfo) => void;
 }) {
   const { layout, tableName, openSelect, openRemove, updateSelect, removeSelect } = props;
   const [selected, setSelected] = useState<SelectedItem>(new SelectedItem());
@@ -72,7 +74,7 @@ export default function InfiniteList(props: {
     updateSelect && updateSelect(item);
   };
 
-  const removeSelectedItem = (item: SelectedItem) => {
+  const removeSelectedItem = (item: FileInfo) => {
     removeSelect && removeSelect(item);
   };
 
@@ -82,7 +84,7 @@ export default function InfiniteList(props: {
         <InfiniteLayout layout={layout} ref={setMutationElement}>
           {list.map((item) => (
             <InfiniteItem
-              key={item.key}
+              key={item.id}
               onClick={() => updateSelectItem(item)}
               isSelected={!!openSelect && item.key === selected.key}
             >

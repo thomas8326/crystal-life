@@ -26,7 +26,7 @@ export default function FlowerAdder(props: {
       <div className="flex-1">
         <InfiniteList
           layout="grid"
-          tableName="flowerCovers"
+          tableName="codeList/flowerCovers"
           openSelect={true}
           updateSelect={(flower) => setSelected(flower)}
         ></InfiniteList>

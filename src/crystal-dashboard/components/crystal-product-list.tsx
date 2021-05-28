@@ -43,7 +43,7 @@ export default function CrystalProductList() {
 
   useEffect(() => {
     if (activeId) {
-      getList(activeId);
+      getList(-1, activeId);
     }
   }, [activeId]);
 
@@ -82,7 +82,7 @@ export default function CrystalProductList() {
         )}
         {!products.length && (
           <div className="w-full h-full flex rounded flex-col justify-center items-center border-4 border-dashed">
-            <i className="icon-2xl icon-empty-box" />
+            <i className="icon-5xl icon-empty-box" />
             查無資料
           </div>
         )}
