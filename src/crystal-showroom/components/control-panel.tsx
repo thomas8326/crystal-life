@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { USER } from 'src/core/constants/storage.constants';
 import {
-  addCharm,
+  updateCharm,
   initCrystalRing,
   removeCharm,
   removeFlowerCover,
@@ -16,6 +16,7 @@ import { ControlPanelState } from 'src/core/enums/control-panel';
 import { MainPath } from 'src/core/enums/main-path';
 import AllowUser from 'src/core/models/allow-user';
 import CrystalRing from 'src/core/models/crystal-ring';
+import CharmAdder from 'src/crystal-showroom/components/charm-adder';
 import FlowerAdder from 'src/crystal-showroom/components/flower-adder';
 import InfiniteList from 'src/shared/infiniteList';
 import { useDBList } from 'src/utils/customer-hook/useDBList';
@@ -126,17 +127,7 @@ export default function ControlPanel() {
             <label className="text-left text-lg">吊飾</label>
             <small className="text-left text-xs">在左邊產品中選取圓珠，按下加吊飾，會在該圓珠左邊加入</small>
             <div className="flex-col justify-around">
-              <div className="mt-6 flex justify-around">
-                <button onClick={addCharm(dispatch)} className="text-blue-500">
-                  加吊飾
-                </button>
-                <button onClick={removeCharm(dispatch)} className="text-blue-500">
-                  移除吊飾
-                </button>
-              </div>
-              <div className="mt-6 flex-1 h-full overflow-auto">
-                <InfiniteList layout="grid" tableName="codeList/charms" updateSelect={() => {}} />
-              </div>
+              <CharmAdder addCharm={updateCharm(dispatch)} removeCharm={() => {}}></CharmAdder>
             </div>
           </div>
         )}

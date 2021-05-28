@@ -9,6 +9,7 @@ import {
 } from 'src/core/contexts/crystalShowroom/selected-list.context';
 import SelectedItem, { HandSize, SliverPipe } from 'src/core/models/selection';
 import { CHARM_OPTIONS } from 'src/core/constants/constants';
+import { FileInfo } from 'src/core/models/file-info';
 
 export const updateSelectedCrystal = (dispatch: React.Dispatch<any>) => (bead: SelectedItem) => {
   dispatch({ type: UPDATED_SELECTED_BEAD, data: { bead } });
@@ -22,7 +23,7 @@ export const updateSelectSliverHand = (dispatch: React.Dispatch<any>) => (item: 
   dispatch({ type: SELECT_SLIVER_PIPE, data: { sliverPipe: item } });
 };
 
-export const updateFlowerCover = (type: string, dispatch: React.Dispatch<any>) => (flower: SelectedItem) => {
+export const updateFlowerCover = (type: string, dispatch: React.Dispatch<any>) => (flower: FileInfo) => {
   dispatch({ type, data: { flower } });
 };
 
@@ -30,8 +31,9 @@ export const removeFlowerCover = (dispatch: React.Dispatch<any>) => () => {
   dispatch({ type: REMOVE_FLOWER });
 };
 
-export const addCharm = (dispatch: React.Dispatch<any>) => () => {
-  dispatch({ type: ADD_CHARM, data: { charm: CHARM_OPTIONS[0] } });
+export const updateCharm = (dispatch: React.Dispatch<any>) => (charm: FileInfo) => {
+  console.log(charm);
+  dispatch({ type: ADD_CHARM, data: { charm } });
 };
 
 export const removeCharm = (dispatch: React.Dispatch<any>) => () => {

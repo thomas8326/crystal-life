@@ -48,16 +48,16 @@ export const Container = styled.div`
   }
 `;
 
-export default function InfiniteList(props: {
+export default function InfiniteList<T extends { id: string }>(props: {
   layout: string;
   tableName: string;
   openSelect?: boolean;
   openRemove?: boolean;
-  updateSelect?: (item: SelectedItem) => void;
-  removeSelect?: (item: FileInfo) => void;
+  updateSelect?: (item: T) => void;
+  removeSelect?: (item: T) => void;
 }) {
   const { layout, tableName, openSelect, openRemove, updateSelect, removeSelect } = props;
-  const [selected, setSelected] = useState<SelectedItem>(new SelectedItem());
+  const [selected, setSelected] = useState<T>();
   const [anchor, setAnchor] = useState<HTMLDivElement | null>(null);
   const [viewport, setViewport] = useState<HTMLDivElement | null>(null);
   const [mutationElement, setMutationElement] = useState<HTMLUListElement | null>(null);
@@ -69,12 +69,12 @@ export default function InfiniteList(props: {
     }
   }, [list]);
 
-  const updateSelectItem = (item: SelectedItem) => {
+  const updateSelectItem = (item: T) => {
     setSelected(item);
     updateSelect && updateSelect(item);
   };
 
-  const removeSelectedItem = (item: FileInfo) => {
+  const removeSelectedItem = (item: T) => {
     removeSelect && removeSelect(item);
   };
 
@@ -86,7 +86,7 @@ export default function InfiniteList(props: {
             <InfiniteItem
               key={item.id}
               onClick={() => updateSelectItem(item)}
-              isSelected={!!openSelect && item.key === selected.key}
+              isSelected={!!openSelect && item.id === selected?.id}
             >
               <img src={item.url} />
               {openRemove && (

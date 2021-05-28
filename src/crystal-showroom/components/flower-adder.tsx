@@ -1,14 +1,14 @@
 import { useState } from 'react';
-import SelectedItem from 'src/core/models/selection';
+import { FileInfo } from 'src/core/models/file-info';
 import InfiniteList from 'src/shared/infiniteList';
 
 export default function FlowerAdder(props: {
   removeFlower: () => void;
-  updateLeft: (flower: SelectedItem) => void;
-  updateRight: (flower: SelectedItem) => void;
+  updateLeft: (flower: FileInfo) => void;
+  updateRight: (flower: FileInfo) => void;
 }) {
   const { updateLeft, updateRight, removeFlower } = props;
-  const [selected, setSelected] = useState<SelectedItem>(new SelectedItem());
+  const [selected, setSelected] = useState<FileInfo>(new FileInfo());
 
   return (
     <div className="flex flex-col">

@@ -1,3 +1,4 @@
+import { FileInfo } from 'src/core/models/file-info';
 import SelectedItem from 'src/core/models/selection';
 
 export default class Crystal extends SelectedItem {
@@ -11,11 +12,11 @@ export default class Crystal extends SelectedItem {
 
   isSelected?: boolean;
 
-  leftFlower!: SelectedItem;
+  leftFlower!: FileInfo;
 
-  rightFlower!: SelectedItem;
+  rightFlower!: FileInfo;
 
-  charm?: SelectedItem;
+  charm?: FileInfo;
 
   constructor(key?: string, url?: string) {
     super(key);

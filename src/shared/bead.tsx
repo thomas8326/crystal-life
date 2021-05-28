@@ -104,11 +104,11 @@ export default function Bead(props: {
         angular={angular}
         onClick={() => onSelectBead(item)}
       >
-        {item?.charm && (
+        {item?.charm?.url && (
           <Charm>
             <i className="icon-xl icon-up-arrow" />
             <div className="charm-image">
-              <img src={`${process.env.PUBLIC_URL}/assets/01-removebg-preview.png`}></img>
+              <img src={item.charm.url}></img>
             </div>
           </Charm>
         )}

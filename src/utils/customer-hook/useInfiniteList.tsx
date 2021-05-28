@@ -24,7 +24,6 @@ export function useInfiniteList(
   const observeIntersection = (element: Element): IntersectionObserver => {
     const intersectionObserver = new IntersectionObserver(
       (entries) => {
-        debugger;
         isIntersection.current = entries[0].isIntersecting;
         if (isSending.current) {
           return;
@@ -45,7 +44,6 @@ export function useInfiniteList(
 
   const observeMutation = (mutationElement: Element): MutationObserver => {
     const mutationObserver = new MutationObserver((mutations: MutationRecord[]) => {
-      debugger;
       const isListChange = mutations[mutations.length - 1].addedNodes[0]?.nodeName == 'LI';
       isSending.current = false;
 

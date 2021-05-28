@@ -5,6 +5,7 @@ import Action from '../../models/action';
 import SelectedItem from '../../models/selection';
 
 import CrystalRing from 'src/core/models/crystal-ring';
+import { FileInfo } from 'src/core/models/file-info';
 
 export const INIT_CRYSTAL_SHOWROOM = 'INIT_CRYSTAL_SHOWROOM';
 
@@ -24,11 +25,11 @@ export const SELECT_HAND_SIZE = 'SELECT_HAND_SIZE';
 
 export class CrystalShowroomAction {
   handSize!: HandSize;
-  bead!: SelectedItem;
   sliverPipe!: SliverPipe;
   selectedDisplayCrystal!: string;
-  flower!: SelectedItem;
-  charm!: SelectedItem;
+  flower!: FileInfo;
+  charm!: FileInfo;
+  bead!: FileInfo;
 }
 
 export class CrystalShowroomContextProps {
@@ -59,6 +60,7 @@ export const crystalShowroomReducer = (state: CrystalShowroomContextProps, actio
       return Object.assign({}, state, { crystalRing, selectedDisplayCrystal: [] });
     }
     case ADD_CHARM: {
+      debugger;
       const selectedCrystals = state.selectedDisplayCrystal;
       const crystalRing: CrystalRing = state.crystalRing;
 
