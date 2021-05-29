@@ -6,7 +6,6 @@ export default function useImageReader() {
       const reader = new FileReader();
       reader.onload = (e) => {
         if (e.target?.result) {
-          console.log(new FileLink(e.target.result as string));
           resolve(new FileLink(e.target.result as string));
         }
       };

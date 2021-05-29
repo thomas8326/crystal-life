@@ -91,13 +91,13 @@ export function UploadArea(props: { tableName: string }) {
 
   const [uploadStatus, setUploadStatus] = useUploadFileStatus();
 
-  const onUploadFile = (current: HTMLInputElement) => {
-    if (!current || !current.files?.length) {
+  const onUploadFile = (files: File[]) => {
+    if (!files.length) {
       return;
     }
 
-    setUploadStatus(startUpload(Array.from(current.files)));
-    for (const file of Array.from(current.files)) {
+    setUploadStatus(startUpload(files));
+    for (const file of files) {
       const task = storageRef.child(`${tableName}/${file.name}`).put(file, { contentType: 'image/jpeg' });
       task.on('state_changed', null, null, () => {
         const fileRef = task.snapshot.ref;
@@ -110,7 +110,6 @@ export function UploadArea(props: { tableName: string }) {
   };
 
   const readImage = (files: FileList | null) => {
-    console.log(files);
     if (files && files.length) {
       Array.from(files).map((file) => {
         readFile(file).then((image) => {
@@ -120,13 +119,14 @@ export function UploadArea(props: { tableName: string }) {
       });
 
       emptyList.length > 0 && setEmptyList((list) => fillUUIDToArray(list.length - files.length));
+      console.log(uploadedFilesRef?.current?.files ?? 'null');
     }
   };
 
   const uploadImage = () => {
-    if (uploadedFilesRef?.current) {
-      onUploadFile(uploadedFilesRef.current);
-    }
+    const dragFiles = Array.from(files ?? []);
+    const normalFiles = Array.from(uploadedFilesRef?.current?.files ?? []);
+    onUploadFile(normalFiles.concat(dragFiles));
   };
 
   const removeUploadImage = (file: FileLink) => {
