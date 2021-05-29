@@ -2,7 +2,7 @@ import AllowUser from 'src/core/models/allow-user';
 import { Table } from 'src/styles/components/table';
 import { Form1, FormField } from 'src/styles/components/form';
 import React, { useRef, useState } from 'react';
-import useFormErrorMsg, { checkFormat } from 'src/utils/customer-hook/useFormError';
+import useFormErrorMsg, { checkFormat, checkRequired } from 'src/utils/customer-hook/useFormError';
 import FormErrorMsg from 'src/shared/form-error-msg';
 import { useFormCheckValidate } from 'src/utils/customer-hook/useFormValidate';
 import { Button1 } from 'src/styles/components/button';
@@ -12,14 +12,15 @@ import { TAIWAN_PHONE_PATTERN } from 'src/core/constants/form.constants';
 
 export default function AllowListController() {
   const [phone, setPhone] = useState<string>('');
+  const [customerName, setCustomerName] = useState<string>('');
   const { list, post, remove, patch } = useHttpClient<AllowUser>('allowList');
 
   // validation
   const [errMsg, setErrMsg] = useFormErrorMsg();
-  const { validate } = useFormCheckValidate(errMsg, FormControlType.Phone);
+  const { validate } = useFormCheckValidate(errMsg, FormControlType.Phone, FormControlType.Name);
 
   const deleteUser = (id: string) => remove(id);
-  const newUser = () => post(new AllowUser(phone), phone).then((error) => !error && setPhone(''));
+  const newUser = () => post(new AllowUser(phone, customerName), phone).then((error) => !error && setPhone(''));
   const updateStatus = (id: string, status: boolean) => patch(id, { activate: status });
 
   const inputPhoneNumber = (e: React.FormEvent<HTMLInputElement>) => {
@@ -27,6 +28,10 @@ export default function AllowListController() {
     setPhone(e.currentTarget.value);
   };
 
+  const inputCustomerName = (e: React.FormEvent<HTMLInputElement>) => {
+    setErrMsg(checkRequired(e));
+    setCustomerName(e.currentTarget.value)
+  }
   return (
     <>
       <Form1>
@@ -43,12 +48,25 @@ export default function AllowListController() {
           ></input>
           <FormErrorMsg errMsg={errMsg} name={FormControlType.Phone} />
         </FormField>
+        <FormField>
+          <div className="title">顧客姓名: </div>
+          <input
+            type="text"
+            className="px-1"
+            value={customerName}
+            name={FormControlType.Name}
+            onInput={inputCustomerName}
+            required
+          ></input>
+             <FormErrorMsg errMsg={errMsg} name={FormControlType.Name} />
+        </FormField>
         <input type="button" value="新增" onClick={newUser} disabled={!validate} />
       </Form1>
       <Table className="table">
         <div className="table-header-group">
           <div className="table-cell">編號</div>
           <div className="table-cell">手機號碼</div>
+          <div className="table-cell">顧客姓名</div>
           <div className="table-cell">活動狀態</div>
           <div className="table-cell"></div>
         </div>
@@ -58,6 +76,7 @@ export default function AllowListController() {
               <li key={v.id} className="table-row">
                 <div className="table-cell">{index + 1}</div>
                 <div className="table-cell">{v.phone}</div>
+                <div className="table-cell">{v.name}</div>
                 <div className="table-cell">
                   <label>
                     <input

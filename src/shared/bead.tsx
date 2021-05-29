@@ -51,7 +51,7 @@ const Charm = styled.div`
   display: flex;
   flex-direction: column;
   position: absolute;
-  left: -40%;
+  left: -50%;
   top: 100%;
   z-index: 10;
   align-items: center;

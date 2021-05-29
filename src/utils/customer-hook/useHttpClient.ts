@@ -13,11 +13,12 @@ export default function useHttpClient<T extends { id?: string }>(
   const [list, setList] = useState<T[]>([]);
   const listRef = useRef<T[]>([]);
 
-  const getList = (limitCount?: number, id?: string): Promise<boolean> => {
+  const getList = (id?: string, limitCount?: number): Promise<boolean> => {
     const currentList = listRef.current;
     const idRef = id ? tableRef.current.child(id) : tableRef.current;
     const lastTimeStamp = (currentList[currentList.length - 1] as any)?.createdAt || 0;
-    const filterRef = limitCount
+    console.log(!!limitCount ? '1' : '2');
+    const filterRef = !!limitCount
       ? idRef.orderByChild('createdAt').startAfter(lastTimeStamp).limitToFirst(limitCount)
       : idRef;
 

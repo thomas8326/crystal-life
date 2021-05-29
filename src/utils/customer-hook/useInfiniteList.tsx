@@ -15,7 +15,7 @@ export function useInfiniteList(
 
   const getPage = async () => {
     if (!isComplete) {
-      getList(3).then((isComplete) => {
+      getList('', 3).then((isComplete) => {
         setIsComplete(isComplete);
       });
     }

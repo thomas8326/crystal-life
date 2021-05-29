@@ -43,7 +43,7 @@ export default function CrystalProductList() {
 
   useEffect(() => {
     if (activeId) {
-      getList(-1, activeId);
+      getList(activeId);
     }
   }, [activeId]);
 

@@ -64,7 +64,7 @@ export default function ControlPanel() {
 
   return (
     <div className="flex flex-col w-full h-full divide-y-2 divide-black space-y-4 py-16 mx-10 z-10">
-      <h4 className="text-left text-2xl font-bold">NOVUS LIFE</h4>
+      <h4 className="text-left text-3xl font-bold">Crystal Life</h4>
       <div className="flex-1 max-h-full overflow-hidden">
         {currentState === ControlPanelState.HandSize && (
           <div className="w-full h-full flex flex-col p-2">
