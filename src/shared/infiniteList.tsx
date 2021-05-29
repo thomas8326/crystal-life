@@ -79,7 +79,7 @@ export default function InfiniteList<T extends { id: string }>(props: {
   };
 
   return (
-    <div className="h-full overflow-auto" ref={setViewport}>
+    <div className="h-full overflow-y-auto overflow-x-hidden" ref={setViewport}>
       <Container>
         <InfiniteLayout layout={layout} ref={setMutationElement}>
           {list.map((item) => (
@@ -87,6 +87,7 @@ export default function InfiniteList<T extends { id: string }>(props: {
               key={item.id}
               onClick={() => updateSelectItem(item)}
               isSelected={!!openSelect && item.id === selected?.id}
+              className="transform hover:scale-110"
             >
               <img src={item.url} />
               {openRemove && (
