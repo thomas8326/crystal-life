@@ -90,7 +90,10 @@ export default function InfiniteList<T extends { id: string }>(props: {
             >
               <img src={item.url} />
               {openRemove && (
-                <i className="icon-sm icon-x-mark absolute top-0 right-0" onClick={() => removeSelectedItem(item)} />
+                <i
+                  className="icon-xs transform hover:scale-125 icon-x-mark absolute top-1 right-1"
+                  onClick={() => removeSelectedItem(item)}
+                />
               )}
             </InfiniteItem>
           ))}

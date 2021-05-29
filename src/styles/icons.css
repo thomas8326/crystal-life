@@ -26,10 +26,19 @@
   background-image: url(/src/assets/icon/information.svg);
 }
 
-.icon-sm {
+.icon-xs {
   display: block;
   width: 12px;
   height: 12px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+.icon-sm {
+  display: block;
+  width: 18px;
+  height: 18px;
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
