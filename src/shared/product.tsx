@@ -12,6 +12,7 @@ const ProductDisplay = styled.div<any>`
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: auto;
   ${(props: { disabledEvent: number }) =>
     props.disabledEvent &&
     css`

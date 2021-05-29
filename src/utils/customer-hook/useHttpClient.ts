@@ -17,7 +17,6 @@ export default function useHttpClient<T extends { id?: string }>(
     const currentList = listRef.current;
     const idRef = id ? tableRef.current.child(id) : tableRef.current;
     const lastTimeStamp = (currentList[currentList.length - 1] as any)?.createdAt || 0;
-    console.log(!!limitCount ? '1' : '2');
     const filterRef = !!limitCount
       ? idRef.orderByChild('createdAt').startAfter(lastTimeStamp).limitToFirst(limitCount)
       : idRef;
@@ -31,10 +30,11 @@ export default function useHttpClient<T extends { id?: string }>(
             dataList = dataList.concat(entry);
           });
 
-          listRef.current = currentList.concat(dataList);
+          listRef.current = limitCount ? currentList.concat(dataList) : dataList;
           orderBy?.by === OrderBy.Desc ? setList(listRef.current.reverse()) : setList(listRef.current);
           resolve(false);
         } else {
+          !limitCount && setList([]);
           resolve(true);
         }
 

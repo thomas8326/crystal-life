@@ -22,6 +22,10 @@
   background-image: url(/src/assets/icon/box.svg);
 }
 
+.icon-more-info {
+  background-image: url(/src/assets/icon/information.svg);
+}
+
 .icon-sm {
   display: block;
   width: 12px;

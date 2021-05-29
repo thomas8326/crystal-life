@@ -10,12 +10,12 @@ export const Button1 = styled.button`
 
 
 export const SlideButton = styled.button`
-  flex: 0 0 30px;
-  height: 30px;
+  flex: 0 0 60px;
+  height: 60px;
   background-image: url(/assets/icon/chevron.svg);
   background-repeat: no-repeat;
   background-position: center;
-  background-size: 30px;
+  background-size: 60px;
   ${(props: { isLeft?: boolean }) =>
     props.isLeft &&
     css`

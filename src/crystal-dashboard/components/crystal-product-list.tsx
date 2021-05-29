@@ -2,50 +2,35 @@ import React, { useEffect, useState } from 'react';
 import { OrderBy } from 'src/core/enums/orderby';
 import AllowUser from 'src/core/models/allow-user';
 import CrystalRing from 'src/core/models/crystal-ring';
+import { MoreInfo } from 'src/shared/more-info';
 import Product from 'src/shared/product';
 import { SlideButton } from 'src/styles/components/button';
 import { FormField } from 'src/styles/components/form';
 import useHttpClient from 'src/utils/customer-hook/useHttpClient';
 import styled from 'styled-components';
 
-const CreateDate = styled.div`
-  position: absolute;
-  top: 0;
-  right: 0;
-  background: #dce7f5;
-  padding: 12px;
-  font-size: 12px;
-  border: 1px solid;
-  border-radius: 5px;
-`;
-
 const SORT = { path: 'createdAt', by: OrderBy.Desc };
 
 export default function CrystalProductList() {
   const { list: allowList } = useHttpClient<AllowUser>('allowList');
   const { list: products, getList } = useHttpClient<CrystalRing>('crystalProducts', false, SORT);
-  const [activeId, setActiveId] = useState<string>('');
+
+  const [list, setList] = useState<CrystalRing[]>([]);
+  const [activeUser, setActiveUser] = useState<AllowUser | undefined>();
   const [activeIndex, setActiveIndex] = useState<number>(0);
 
   const selectUser = (value: string) => {
-    if (allowList.find((user) => user.id === value)) {
-      setActiveId(value);
-    }
+    const user = allowList.find((user) => user.id === value);
+    setActiveUser(user);
   };
 
   const getTime = (time: number | Object) => (time ? new Date(time as number).toLocaleString() : '無時間資料');
 
   useEffect(() => {
-    if (allowList.length) {
-      setActiveId(allowList[0].id);
+    if (activeUser?.id) {
+      getList(activeUser.id);
     }
-  }, [allowList]);
-
-  useEffect(() => {
-    if (activeId) {
-      getList(activeId);
-    }
-  }, [activeId]);
+  }, [activeUser]);
 
   const slide = (step: number) => setActiveIndex((prev) => prev + step);
 
@@ -58,28 +43,33 @@ export default function CrystalProductList() {
           type="text"
           name="chooseUser"
           id="chooseUser"
+          value={activeUser?.id}
           onChange={(e) => selectUser(e.currentTarget.value)}
-        />
-        <datalist id="allowList" onChange={(e) => console.log('select')}>
+        ></input>
+        <datalist id="allowList">
           {allowList.map((user) => (
             <option key={user.id} value={user.phone} />
           ))}
         </datalist>
       </FormField>
-      <div className="m-16 flex justify-center items-center relative" style={{ width: 500, height: 500 }}>
+      <div className="m-16 flex justify-center items-center" style={{ width: 800, height: 500 }}>
         {!!products.length && (
-          <>
+          <div className="flex w-full items-center justify-center relative">
+            <div className="absolute flex flex-col items-center">
+              <span>{activeUser?.name ?? '顧客'}</span>
+              <span>{getTime(products[activeIndex]?.createdAt)}</span>
+            </div>
             <SlideButton isLeft={true} onClick={() => slide(-1)} disabled={products.length <= 1 || activeIndex === 0} />
-            <Product crystalRing={products[activeIndex]} disabled={true}></Product>
-            <CreateDate>
-              <div>{getTime(products[activeIndex].createdAt)}</div>
-            </CreateDate>
+            <div className="flex-1 flex items-center">
+              {<Product crystalRing={products[activeIndex]} disabled={true}></Product>}
+            </div>
             <SlideButton
               disabled={products.length <= 1 || activeIndex >= products.length - 1}
               onClick={() => slide(1)}
             />
-          </>
+          </div>
         )}
+
         {!products.length && (
           <div className="w-full h-full flex rounded flex-col justify-center items-center border-4 border-dashed">
             <i className="icon-5xl icon-empty-box" />
