@@ -32,7 +32,6 @@ export const removeFlowerCover = (dispatch: React.Dispatch<any>) => () => {
 };
 
 export const updateCharm = (dispatch: React.Dispatch<any>) => (charm: FileInfo) => {
-  console.log(charm);
   dispatch({ type: ADD_CHARM, data: { charm } });
 };
 

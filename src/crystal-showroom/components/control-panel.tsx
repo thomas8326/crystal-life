@@ -127,7 +127,7 @@ export default function ControlPanel() {
             <label className="text-left text-lg">吊飾</label>
             <small className="text-left text-xs">在左邊產品中選取圓珠，按下加吊飾，會在該圓珠左邊加入</small>
             <div className="flex-col justify-around">
-              <CharmAdder addCharm={updateCharm(dispatch)} removeCharm={() => {}}></CharmAdder>
+              <CharmAdder addCharm={updateCharm(dispatch)} removeCharm={removeCharm(dispatch)}></CharmAdder>
             </div>
           </div>
         )}

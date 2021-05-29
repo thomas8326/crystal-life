@@ -60,7 +60,6 @@ export const crystalShowroomReducer = (state: CrystalShowroomContextProps, actio
       return Object.assign({}, state, { crystalRing, selectedDisplayCrystal: [] });
     }
     case ADD_CHARM: {
-      debugger;
       const selectedCrystals = state.selectedDisplayCrystal;
       const crystalRing: CrystalRing = state.crystalRing;
 
@@ -75,7 +74,7 @@ export const crystalShowroomReducer = (state: CrystalShowroomContextProps, actio
       const crystalRing: CrystalRing = state.crystalRing;
 
       const beads = crystalRing.beads.map((bead) =>
-        selectedCrystals.includes(bead.key) ? { ...bead, ...{ charm: undefined } } : bead,
+        selectedCrystals.includes(bead.key) ? { ...bead, ...{ charm: new FileInfo() } } : bead,
       );
       crystalRing.setBeads(beads);
       return Object.assign({}, state, { crystalRing, selectedDisplayCrystal: [] });
@@ -109,7 +108,7 @@ export const crystalShowroomReducer = (state: CrystalShowroomContextProps, actio
 
       const beads = crystalRing.beads.map((bead) =>
         selectedCrystals.includes(bead.key)
-          ? { ...bead, ...{ rightFlower: new SelectedItem(), leftFlower: new SelectedItem() } }
+          ? { ...bead, ...{ rightFlower: new FileInfo(), leftFlower: new FileInfo() } }
           : bead,
       );
 

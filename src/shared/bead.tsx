@@ -54,13 +54,18 @@ const Charm = styled.div`
   left: -40%;
   top: 100%;
   z-index: 10;
+  align-items: center;
+
   i {
     flex: 0 0 30px;
   }
 
   .charm-image {
-    width: 50px;
-    height: 50px;
+    padding: 4px;
+    border-radius: 20px;
+    margin-top: 2px;
+    width: 60px;
+    height: 60px;
   }
 `;
 
