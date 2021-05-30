@@ -9,7 +9,7 @@ import FormErrorMsg from 'src/shared/form-error-msg';
 import { Form1, FormField } from 'src/styles/components/form';
 import useFormErrorMsg, { checkAuth } from 'src/utils/customer-hook/useFormError';
 import { useFormCheckValidate } from 'src/utils/customer-hook/useFormValidate';
-import { useAuth } from 'src/utils/customer-hook/userAuth';
+import { useAuth } from 'src/utils/customer-hook/useAuth';
 import useKeyBoard from 'src/utils/customer-hook/userKey';
 import useStorage from 'src/utils/customer-hook/useStroage';
 import { isEmptyOrNil } from 'src/utils/transofrm/ramda-utilis';

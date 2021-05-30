@@ -1,6 +1,6 @@
 import { Redirect, Route } from 'react-router-dom';
 import { MainPath } from 'src/core/enums/main-path';
-import { useAuth } from 'src/utils/customer-hook/userAuth';
+import { useAuth } from 'src/utils/customer-hook/useAuth';
 
 class ProtectedRoute {
   children!: JSX.Element | JSX.Element[];

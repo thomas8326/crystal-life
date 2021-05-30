@@ -1,5 +1,5 @@
 import { authContext } from 'src/core/contexts/auth/auth.context';
-import { useProvideAuth } from 'src/utils/customer-hook/userAuth';
+import { useProvideAuth } from 'src/utils/customer-hook/useAuth';
 
 export function AuthProvider(props: { children: JSX.Element | JSX.Element[] }) {
   const { children } = props;
