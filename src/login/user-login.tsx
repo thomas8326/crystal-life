@@ -9,13 +9,14 @@ import FormErrorMsg from 'src/shared/form-error-msg';
 import { Form1, FormField } from 'src/styles/components/form';
 import useFormErrorMsg, { checkAuth } from 'src/utils/customer-hook/useFormError';
 import { useFormCheckValidate } from 'src/utils/customer-hook/useFormValidate';
+import { useAuth } from 'src/utils/customer-hook/userAuth';
 import useKeyBoard from 'src/utils/customer-hook/userKey';
 import useStorage from 'src/utils/customer-hook/useStroage';
 import { isEmptyOrNil } from 'src/utils/transofrm/ramda-utilis';
 
 export function UserLogin() {
   const history = useHistory();
-  const dataTable = realtimeDB.ref('allowList');
+  const { userLogin } = useAuth();
   const [phoneNumber, setPhoneNumber] = useState('');
   const { setStorage } = useStorage();
   const { enter } = useKeyBoard();
@@ -29,20 +30,17 @@ export function UserLogin() {
       return;
     }
 
-    dataTable
-      .child(phoneNumber)
-      .get()
-      .then((snapShot) => {
-        const user: AllowUser = snapShot.val();
-        const error = !snapShot.exists() || !user.activate;
+    userLogin(phoneNumber).then((snapShot) => {
+      const user: AllowUser = snapShot.val();
+      const error = !snapShot.exists() || !user.activate;
 
-        setErrMsg(checkAuth(error));
-        if (error) {
-          return;
-        }
-        setStorage(USER, user);
-        history.push(MainPath.CrystalShowroom);
-      });
+      setErrMsg(checkAuth(error));
+      if (error) {
+        return;
+      }
+      setStorage(USER, user);
+      history.push(MainPath.CrystalShowroom);
+    });
   };
 
   return (

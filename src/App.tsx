@@ -6,6 +6,7 @@ import { MainPath } from 'src/core/enums/main-path';
 import { UserLogin } from 'src/login/user-login';
 import EmployeeLogin from 'src/login/employee-login';
 import { CompletePage } from 'src/shared/complete-page';
+import { AdminRoute, UserRoute } from 'src/shared/auth-router';
 
 export default function App() {
   return (
@@ -14,17 +15,17 @@ export default function App() {
         <Route path={MainPath.UserLogin}>
           <UserLogin />
         </Route>
+        <UserRoute path={MainPath.CrystalShowroom}>
+          <CrystalShowroom />
+        </UserRoute>
+        <AdminRoute path={MainPath.CrystalDashboard}>
+          <CrystalDashboard />
+        </AdminRoute>
         <Route path={MainPath.EmployeeLogin}>
           <EmployeeLogin />
         </Route>
-        <Route path={MainPath.CrystalShowroom}>
-          <CrystalShowroom />
-        </Route>
         <Route path={MainPath.CompletePage}>
           <CompletePage />
-        </Route>
-        <Route path={MainPath.CrystalDashboard}>
-          <CrystalDashboard />
         </Route>
         <Route exact path="/">
           <Redirect to={MainPath.UserLogin} />

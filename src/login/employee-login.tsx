@@ -7,6 +7,7 @@ import FormErrorMsg from 'src/shared/form-error-msg';
 import { Form1, FormField } from 'src/styles/components/form';
 import useFormErrorMsg, { checkAccount } from 'src/utils/customer-hook/useFormError';
 import { useFormCheckValidate } from 'src/utils/customer-hook/useFormValidate';
+import { useAuth } from 'src/utils/customer-hook/userAuth';
 import useKeyBoard from 'src/utils/customer-hook/userKey';
 import styled from 'styled-components';
 
@@ -21,6 +22,7 @@ export default function EmployeeLogin() {
   const history = useHistory();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const { adminLogin } = useAuth();
   const { enter } = useKeyBoard();
 
   // validation
@@ -38,9 +40,7 @@ export default function EmployeeLogin() {
   };
 
   const onAuthVerified = () => {
-    firebase
-      .auth()
-      .signInWithEmailAndPassword(email, password)
+    adminLogin(email, password)
       .then((userCredential) => {
         history.push(MainPath.CrystalDashboard);
       })
