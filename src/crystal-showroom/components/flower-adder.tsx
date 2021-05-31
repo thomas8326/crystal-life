@@ -11,7 +11,7 @@ export default function FlowerAdder(props: {
   const [selected, setSelected] = useState<FileInfo>(new FileInfo());
 
   return (
-    <div className="flex flex-col">
+    <div className="h-full flex flex-col">
       <div className="flex flex-row justify-around">
         <button onClick={() => updateLeft(selected)} className="text-blue-500">
           + 加在左邊

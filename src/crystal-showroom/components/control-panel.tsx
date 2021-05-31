@@ -123,10 +123,10 @@ export default function ControlPanel() {
           </div>
         )}
         {currentState === ControlPanelState.Charm && (
-          <div className=" h-20 w-full flex flex-col p-2">
+          <div className="h-full w-full flex flex-col p-2">
             <label className="text-left text-lg">吊飾</label>
             <small className="text-left text-xs">在左邊產品中選取圓珠，按下加吊飾，會在該圓珠左邊加入</small>
-            <div className="flex-col justify-around">
+            <div className="mt-6 flex-1 h-full overflow-auto">
               <CharmAdder addCharm={updateCharm(dispatch)} removeCharm={removeCharm(dispatch)}></CharmAdder>
             </div>
           </div>

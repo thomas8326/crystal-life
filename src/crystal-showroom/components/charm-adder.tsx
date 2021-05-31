@@ -7,7 +7,7 @@ export default function CharmAdder(props: { removeCharm: () => void; addCharm: (
   const [selected, setSelected] = useState<FileInfo>(new FileInfo());
 
   return (
-    <div className="flex flex-col">
+    <div className="h-full flex flex-col">
       <div className="flex flex-row justify-around">
         <button onClick={() => addCharm(selected)} className="text-blue-500">
           加吊飾

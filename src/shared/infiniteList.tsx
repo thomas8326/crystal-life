@@ -87,9 +87,8 @@ export default function InfiniteList<T extends { id: string }>(props: {
               key={item.id}
               onClick={() => updateSelectItem(item)}
               isSelected={!!openSelect && item.id === selected?.id}
-              className="transform hover:scale-110"
             >
-              <img src={item.url} />
+              <img className="transform hover:scale-110" src={item.url} />
               {openRemove && (
                 <i
                   className="icon-xs transform hover:scale-125 icon-x-mark absolute top-1 right-1"
