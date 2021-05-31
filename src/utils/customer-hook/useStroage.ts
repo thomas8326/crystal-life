@@ -1,12 +1,12 @@
 export default function useStorage() {
-  const setStorage = (name: string, object: object) => {
+  const setSession = (name: string, object: object) => {
     const objectParsing = JSON.stringify(object);
     sessionStorage.setItem(name, objectParsing);
   };
 
-  const getStorage = <T>(name: string): T => {
-    return JSON.parse(sessionStorage.getItem(name) ?? '');
+  const getSession = <T>(name: string): T | null => {
+    return sessionStorage.getItem(name) ? JSON.parse(sessionStorage.getItem(name) ?? '') : null;
   };
 
-  return { setStorage, getStorage };
+  return { setSession, getSession };
 }

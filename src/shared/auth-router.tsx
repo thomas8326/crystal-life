@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { Redirect, Route } from 'react-router-dom';
 import { MainPath } from 'src/core/enums/main-path';
 import { useAuth } from 'src/utils/customer-hook/useAuth';
@@ -8,28 +9,26 @@ class ProtectedRoute {
 }
 
 export const UserRoute = ({ children, ...rest }: ProtectedRoute) => {
-  const auth = useAuth();
+  const { isUser } = useAuth();
+
   return (
     <Route
       {...rest}
       render={({ location }) =>
-        auth.isUser ? children : <Redirect to={{ pathname: MainPath.UserLogin, state: { from: location } }}></Redirect>
+        isUser ? children : <Redirect to={{ pathname: MainPath.UserLogin, state: { from: location } }}></Redirect>
       }
     ></Route>
   );
 };
 
 export function AdminRoute({ children, ...rest }: ProtectedRoute) {
-  const auth = useAuth();
+  const { isAdmin } = useAuth();
+
   return (
     <Route
       {...rest}
       render={({ location }) =>
-        auth.isAdmin ? (
-          children
-        ) : (
-          <Redirect to={{ pathname: MainPath.EmployeeLogin, state: { from: location } }}></Redirect>
-        )
+        isAdmin ? children : <Redirect to={{ pathname: MainPath.EmployeeLogin, state: { from: location } }}></Redirect>
       }
     ></Route>
   );

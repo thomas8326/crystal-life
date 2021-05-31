@@ -1,6 +1,6 @@
 import firebase from 'firebase';
-import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Redirect, useHistory } from 'react-router-dom';
 import { FormControlType } from 'src/core/enums/form.enum';
 import { MainPath } from 'src/core/enums/main-path';
 import FormErrorMsg from 'src/shared/form-error-msg';
@@ -24,6 +24,7 @@ export default function EmployeeLogin() {
   const [password, setPassword] = useState('');
   const { adminLogin } = useAuth();
   const { enter } = useKeyBoard();
+  const { isAdmin } = useAuth();
 
   // validation
   const [errMsg, setErrMsg] = useFormErrorMsg();
@@ -52,23 +53,27 @@ export default function EmployeeLogin() {
 
   return (
     <>
-      <div className="w-full h-full flex justify-center items-center">
-        <NovusLogo className="rect-novus-logo"></NovusLogo>
-        <div className="flex flex-1 flex justify-center items-center">
-          <Form1 direction="column" className="items-center" style={{ width: '260px' }}>
-            <FormField className="field ">
-              <div className="title">帳號</div>
-              <input onInput={inputEmail} onKeyPress={enter(onAuthVerified)}></input>
-            </FormField>
-            <FormField className="field">
-              <div className="title">密碼</div>
-              <input type="password" onInput={inputPassword} onKeyPress={enter(onAuthVerified)}></input>
-            </FormField>
-            <input type="button" onClick={onAuthVerified} value="登入" />
-            {!validate && <FormErrorMsg errMsg={errMsg} name={FormControlType.Account}></FormErrorMsg>}
-          </Form1>
+      {isAdmin ? (
+        <Redirect to={{ pathname: MainPath.CrystalDashboard }}></Redirect>
+      ) : (
+        <div className="w-full h-full flex justify-center items-center">
+          <NovusLogo className="rect-novus-logo"></NovusLogo>
+          <div className="flex flex-1 flex justify-center items-center">
+            <Form1 direction="column" className="items-center" style={{ width: '260px' }}>
+              <FormField className="field ">
+                <div className="title">帳號</div>
+                <input onInput={inputEmail} onKeyPress={enter(onAuthVerified)}></input>
+              </FormField>
+              <FormField className="field">
+                <div className="title">密碼</div>
+                <input type="password" onInput={inputPassword} onKeyPress={enter(onAuthVerified)}></input>
+              </FormField>
+              <input type="button" onClick={onAuthVerified} value="登入" />
+              {!validate && <FormErrorMsg errMsg={errMsg} name={FormControlType.Account}></FormErrorMsg>}
+            </Form1>
+          </div>
         </div>
-      </div>
+      )}
     </>
   );
 }

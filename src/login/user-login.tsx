@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { realtimeDB } from 'src/core/config/firebase.config';
 import { USER } from 'src/core/constants/storage.constants';
@@ -18,7 +18,7 @@ export function UserLogin() {
   const history = useHistory();
   const { userLogin } = useAuth();
   const [phoneNumber, setPhoneNumber] = useState('');
-  const { setStorage } = useStorage();
+  const { setSession } = useStorage();
   const { enter } = useKeyBoard();
 
   // validation
@@ -38,7 +38,7 @@ export function UserLogin() {
       if (error) {
         return;
       }
-      setStorage(USER, user);
+      setSession(USER, user);
       history.push(MainPath.CrystalShowroom);
     });
   };

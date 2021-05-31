@@ -36,8 +36,8 @@ export default function ControlPanel() {
   const { crystalRing, isFillCrystal, dispatch } = useContext(crystalShowroomContext);
   const { list: handSizes } = useHttpClient<HandSize>('handSize');
   const { list: sliverPipes } = useHttpClient<HandSize>('sliverPipe');
-  const { getStorage } = useStorage();
-  const { post } = useHttpClient<CrystalRing>(`crystalProducts/${getStorage<User>(USER).phone}`);
+  const { getSession } = useStorage();
+  const { post } = useHttpClient<CrystalRing>(`crystalProducts/${getSession<User>(USER)?.phone ?? ''}`);
   const history = useHistory();
 
   useEffect(() => {

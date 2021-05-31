@@ -1,11 +1,14 @@
 import { Link, NavLink, useHistory } from 'react-router-dom';
 import { MainPath } from 'src/core/enums/main-path';
 import Navigation from 'src/core/models/navigation';
+import { useAuth } from 'src/utils/customer-hook/useAuth';
 
 export default function DashboardNavigation(props: { navigation: Navigation[]; currentUrl: string }) {
   const { navigation, currentUrl } = props;
+  const { adminLogout } = useAuth();
   const history = useHistory();
   const signOut = () => {
+    adminLogout();
     history.push(MainPath.EmployeeLogin);
   };
 

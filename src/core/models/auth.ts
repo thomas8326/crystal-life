@@ -3,4 +3,6 @@ export class Auth {
   isUser!: boolean;
   userLogin!: (account: string) => Promise<any>;
   adminLogin!: (account: string, password: string) => Promise<any>;
+  userLogout!: () => Promise<any>;
+  adminLogout!: () => Promise<any>;
 }
