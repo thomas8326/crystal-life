@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { OrderBy } from 'src/core/enums/orderby';
-import AllowUser from 'src/core/models/allow-user';
+import User from 'src/core/models/allow-user';
 import CrystalRing from 'src/core/models/crystal-ring';
 import { MoreInfo } from 'src/shared/more-info';
 import Product from 'src/shared/product';
@@ -12,11 +12,11 @@ import styled from 'styled-components';
 const SORT = { path: 'createdAt', by: OrderBy.Desc };
 
 export default function CrystalProductList() {
-  const { list: allowList } = useHttpClient<AllowUser>('allowList');
+  const { list: allowList } = useHttpClient<User>('allowList');
   const { list: products, getList } = useHttpClient<CrystalRing>('crystalProducts', false, SORT);
 
   const [list, setList] = useState<CrystalRing[]>([]);
-  const [activeUser, setActiveUser] = useState<AllowUser | undefined>();
+  const [activeUser, setActiveUser] = useState<User | undefined>();
   const [activeIndex, setActiveIndex] = useState<number>(0);
 
   const selectUser = (value: string) => {

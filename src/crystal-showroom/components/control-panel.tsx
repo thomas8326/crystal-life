@@ -14,7 +14,7 @@ import {
 } from 'src/core/contexts/crystalShowroom/crystalShowroom.action';
 import { ControlPanelState } from 'src/core/enums/control-panel';
 import { MainPath } from 'src/core/enums/main-path';
-import AllowUser from 'src/core/models/allow-user';
+import User from 'src/core/models/allow-user';
 import CrystalRing from 'src/core/models/crystal-ring';
 import CharmAdder from 'src/crystal-showroom/components/charm-adder';
 import FlowerAdder from 'src/crystal-showroom/components/flower-adder';
@@ -37,7 +37,7 @@ export default function ControlPanel() {
   const { list: handSizes } = useHttpClient<HandSize>('handSize');
   const { list: sliverPipes } = useHttpClient<HandSize>('sliverPipe');
   const { getStorage } = useStorage();
-  const { post } = useHttpClient<CrystalRing>(`crystalProducts/${getStorage<AllowUser>(USER).phone}`);
+  const { post } = useHttpClient<CrystalRing>(`crystalProducts/${getStorage<User>(USER).phone}`);
   const history = useHistory();
 
   useEffect(() => {

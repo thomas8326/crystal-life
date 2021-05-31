@@ -1,4 +1,4 @@
-import AllowUser from 'src/core/models/allow-user';
+import User from 'src/core/models/allow-user';
 import { Table } from 'src/styles/components/table';
 import { Form1, FormField } from 'src/styles/components/form';
 import React, { useRef, useState } from 'react';
@@ -13,14 +13,16 @@ import { TAIWAN_PHONE_PATTERN } from 'src/core/constants/form.constants';
 export default function AllowListController() {
   const [phone, setPhone] = useState<string>('');
   const [customerName, setCustomerName] = useState<string>('');
-  const { list, post, remove, patch } = useHttpClient<AllowUser>('allowList');
+  const { list, post, remove, patch } = useHttpClient<User>('allowList');
 
   // validation
   const [errMsg, setErrMsg] = useFormErrorMsg();
   const { validate } = useFormCheckValidate(errMsg, FormControlType.Phone, FormControlType.Name);
 
   const deleteUser = (id: string) => remove(id);
-  const newUser = () => post(new AllowUser(phone, customerName), phone).then((error) => !error && setPhone(''));
+  const newUser = () => {
+    post(new User(phone, customerName), phone).then((error) => !error && setPhone(''));
+  };
   const updateStatus = (id: string, status: boolean) => patch(id, { activate: status });
 
   const inputPhoneNumber = (e: React.FormEvent<HTMLInputElement>) => {
@@ -30,8 +32,8 @@ export default function AllowListController() {
 
   const inputCustomerName = (e: React.FormEvent<HTMLInputElement>) => {
     setErrMsg(checkRequired(e));
-    setCustomerName(e.currentTarget.value)
-  }
+    setCustomerName(e.currentTarget.value);
+  };
   return (
     <>
       <Form1>
@@ -58,7 +60,7 @@ export default function AllowListController() {
             onInput={inputCustomerName}
             required
           ></input>
-             <FormErrorMsg errMsg={errMsg} name={FormControlType.Name} />
+          <FormErrorMsg errMsg={errMsg} name={FormControlType.Name} />
         </FormField>
         <input type="button" value="新增" onClick={newUser} disabled={!validate} />
       </Form1>
@@ -72,7 +74,7 @@ export default function AllowListController() {
         </div>
         <div className="table-row-group">
           {list &&
-            list?.map((v: AllowUser, index: number) => (
+            list?.map((v: User, index: number) => (
               <li key={v.id} className="table-row">
                 <div className="table-cell">{index + 1}</div>
                 <div className="table-cell">{v.phone}</div>
