@@ -59,8 +59,6 @@ export default function useUploadFileStatus() {
           newCompletedList.length === state.list.length
             ? { isCompleted: true, isUploading: false }
             : { isUploading: true, isCompleted: false };
-        console.log(status);
-        console.log({ ...state, ...status, isStart: false, progress: percent, completedList: newCompletedList });
 
         return { ...state, ...status, isStart: false, progress: percent, completedList: newCompletedList };
       default:

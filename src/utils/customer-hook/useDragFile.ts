@@ -27,7 +27,6 @@ export default function useDragFiles(targetElement: HTMLElement | null) {
   }, []);
 
   useEffect(() => {
-    console.log(targetElement);
     if (targetElement) {
       targetElement.addEventListener('drop', handlerFileDrop);
       targetElement.addEventListener('dragenter', handlerDragEnter);

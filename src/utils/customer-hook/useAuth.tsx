@@ -31,7 +31,6 @@ export const useProvideAuth = (): Auth => {
         .child(account)
         .get()
         .then((userCredential) => {
-          console.log('In');
           setIsAdmin(false);
           setIsUser(true);
           resolve(userCredential);

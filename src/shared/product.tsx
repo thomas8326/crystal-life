@@ -35,8 +35,6 @@ export default function Product(props: {
   const { crystalRing, disabled, dispatch } = props;
   const { beads, handSize } = crystalRing;
 
-  console.log(crystalRing);
-
   if (!handSize) {
     return <></>;
   }

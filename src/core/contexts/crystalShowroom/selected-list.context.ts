@@ -112,8 +112,6 @@ export const crystalShowroomReducer = (state: CrystalShowroomContextProps, actio
           : bead,
       );
 
-      console.log(beads);
-
       crystalRing.setBeads(beads);
 
       return Object.assign({}, state, { crystalRing, selectedDisplayCrystal: [] });
@@ -141,7 +139,6 @@ export const crystalShowroomReducer = (state: CrystalShowroomContextProps, actio
     }
     case SELECT_DISPLAY_CRYSTAL_BEAD: {
       const newBeads = state.selectedDisplayCrystal.concat(action.data.selectedDisplayCrystal);
-      console.log(newBeads);
       return Object.assign({}, state, { selectedDisplayCrystal: newBeads });
     }
 

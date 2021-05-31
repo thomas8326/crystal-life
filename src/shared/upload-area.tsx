@@ -119,7 +119,6 @@ export function UploadArea(props: { tableName: string }) {
       });
 
       emptyList.length > 0 && setEmptyList((list) => fillUUIDToArray(list.length - files.length));
-      console.log(uploadedFilesRef?.current?.files ?? 'null');
     }
   };
 
