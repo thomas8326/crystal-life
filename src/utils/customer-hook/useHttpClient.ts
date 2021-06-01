@@ -8,12 +8,14 @@ export default function useHttpClient<T extends { id?: string }>(
   isReadData = true,
   orderBy?: { path: string; by: OrderBy },
 ) {
+  const [isLoading, setIsLoading] = useState(false);
   const tableRef = useRef(realtimeDB.ref(tableName));
 
   const [list, setList] = useState<T[]>([]);
   const listRef = useRef<T[]>([]);
 
   const getList = (id?: string, limitCount?: number): Promise<boolean> => {
+    setIsLoading(true);
     const currentList = listRef.current;
     const idRef = id ? tableRef.current.child(id) : tableRef.current;
     const lastTimeStamp = (currentList[currentList.length - 1] as any)?.createdAt || 0;
@@ -32,9 +34,11 @@ export default function useHttpClient<T extends { id?: string }>(
 
           listRef.current = limitCount ? currentList.concat(dataList) : dataList;
           orderBy?.by === OrderBy.Desc ? setList(listRef.current.reverse()) : setList(listRef.current);
+          setIsLoading(false);
           resolve(false);
         } else {
           !limitCount && setList([]);
+          setIsLoading(false);
           resolve(true);
         }
 
@@ -59,6 +63,7 @@ export default function useHttpClient<T extends { id?: string }>(
   };
 
   useEffect(() => {
+    setIsLoading(true);
     const ref = orderBy ? tableRef.current.orderByChild(orderBy.path) : tableRef.current;
 
     if (isReadData) {
@@ -69,6 +74,7 @@ export default function useHttpClient<T extends { id?: string }>(
           list = list.concat(object);
         });
 
+        setIsLoading(false);
         orderBy?.by === OrderBy.Desc ? setList(list.reverse()) : setList(list);
       });
     }
@@ -76,5 +82,5 @@ export default function useHttpClient<T extends { id?: string }>(
     return () => ref.off('value');
   }, []);
 
-  return { list, getList, post, remove, patch };
+  return { list, isLoading, getList, post, remove, patch };
 }

@@ -6,8 +6,8 @@ export function useInfiniteList(
   observeElement: Element | null,
   rootElement: Element | null,
   mutationElement: Element | null,
-): any[] {
-  const { list: dataList, getList } = useHttpClient(tableName, false, undefined);
+): { list: any[]; isLoading: boolean } {
+  const { list: dataList, isLoading, getList } = useHttpClient(tableName, false, undefined);
 
   const [isComplete, setIsComplete] = useState<boolean>(false);
   const isIntersection = useRef(false);
@@ -79,5 +79,5 @@ export function useInfiniteList(
     };
   }, [tableName, observeElement, rootElement]);
 
-  return dataList;
+  return { list: dataList, isLoading };
 }

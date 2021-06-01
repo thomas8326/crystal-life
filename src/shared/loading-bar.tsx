@@ -12,7 +12,13 @@ const bounceDelay = keyframes`
 }
 `;
 
-const LoadingAnimation = styled.div`
+const LoadingAnimation = styled.div<any>`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  transform: ${(props: { scale?: number }) => `scale(${props?.scale ?? 1})`};
+
   .bounce1 {
     animation-delay: -0.64s;
   }
@@ -40,9 +46,11 @@ const LoadingAnimation = styled.div`
   }
 `;
 
-export default function LoadingBar() {
+export default function LoadingBar(props: { scale?: number }) {
+  const { scale } = props;
+
   return (
-    <LoadingAnimation>
+    <LoadingAnimation scale={scale}>
       <div className="bounce1"></div>
       <div className="bounce2"></div>
       <div className="bounce3"></div>

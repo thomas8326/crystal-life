@@ -1,8 +1,5 @@
-// prettier-ignore
-import { ReactChild, useEffect, useRef, useState } from 'react';
-import { storageRef } from 'src/core/config/firebase.config';
-import { FileInfo } from 'src/core/models/file-info';
-import SelectedItem from 'src/core/models/selection';
+import { useEffect, useState } from 'react';
+import LoadingBar from 'src/shared/loading-bar';
 import { useInfiniteList } from 'src/utils/customer-hook/useInfiniteList';
 import styled, { css } from 'styled-components';
 
@@ -61,7 +58,7 @@ export default function InfiniteList<T extends { id: string }>(props: {
   const [anchor, setAnchor] = useState<HTMLDivElement | null>(null);
   const [viewport, setViewport] = useState<HTMLDivElement | null>(null);
   const [mutationElement, setMutationElement] = useState<HTMLUListElement | null>(null);
-  const list = useInfiniteList(tableName, anchor, viewport, mutationElement);
+  const { list, isLoading } = useInfiniteList(tableName, anchor, viewport, mutationElement);
 
   useEffect(() => {
     if (list.length && openSelect) {
@@ -100,6 +97,7 @@ export default function InfiniteList<T extends { id: string }>(props: {
         </InfiniteLayout>
         <div className="sensor" ref={setAnchor}></div>
       </Container>
+      <div className="mt-2">{isLoading && <LoadingBar scale={0.5}></LoadingBar>}</div>
     </div>
   );
 }
