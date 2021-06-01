@@ -22,6 +22,10 @@
   background-image: url(/src/assets/icon/box.svg);
 }
 
+.icon-page-not-found {
+  background-image: url(/src/assets/icon/not-found.svg);
+}
+
 .icon-xs {
   display: block;
   width: 12px;

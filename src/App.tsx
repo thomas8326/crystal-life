@@ -7,6 +7,8 @@ import { UserLogin } from 'src/login/user-login';
 import EmployeeLogin from 'src/login/employee-login';
 import { CompletePage } from 'src/shared/complete-page';
 import { AdminRoute, UserRoute } from 'src/shared/auth-router';
+import React from 'react';
+import { NotFoundPage } from 'src/shared/not-found-page';
 
 export default function App() {
   return (
@@ -29,6 +31,9 @@ export default function App() {
         </Route>
         <Route exact path="/">
           <Redirect to={MainPath.UserLogin} />
+        </Route>
+        <Route path="*">
+          <NotFoundPage></NotFoundPage>
         </Route>
       </Switch>
     </>
