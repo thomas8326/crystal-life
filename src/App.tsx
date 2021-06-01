@@ -32,7 +32,7 @@ export default function App() {
         <Route exact path="/">
           <Redirect to={MainPath.UserLogin} />
         </Route>
-        <Route path="*">
+        <Route exact path="*">
           <NotFoundPage></NotFoundPage>
         </Route>
       </Switch>
