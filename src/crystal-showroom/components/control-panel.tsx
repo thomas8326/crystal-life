@@ -19,17 +19,17 @@ import CrystalRing from 'src/core/models/crystal-ring';
 import CharmAdder from 'src/crystal-showroom/components/charm-adder';
 import FlowerAdder from 'src/crystal-showroom/components/flower-adder';
 import InfiniteList from 'src/shared/infiniteList';
-import { useDBList } from 'src/utils/customer-hook/useDBList';
 import useHttpClient from 'src/utils/customer-hook/useHttpClient';
-import { useListUrl } from 'src/utils/customer-hook/useListUrl';
 import useStorage from 'src/utils/customer-hook/useStroage';
 import {
   ADD_FLOWER_COVER_ON_LEFT,
   ADD_FLOWER_COVER_ON_RIGHT,
   crystalShowroomContext,
 } from '../../core/contexts/crystalShowroom/selected-list.context';
-import SelectedItem, { HandSize } from '../../core/models/selection';
+import SelectedItem, { HandSize, SliverPipe } from '../../core/models/selection';
 import RadioGroup from '../../shared/redio-group';
+
+const EMPTY_SLIVER_PIPE: SliverPipe = new SliverPipe('無銀管', 0, 0);
 
 export default function ControlPanel() {
   const [currentState, setCurrentState] = useState<ControlPanelState>(ControlPanelState.HandSize);
@@ -75,7 +75,7 @@ export default function ControlPanel() {
                 list={handSizes}
                 defaultValue={crystalRing.handSize}
                 groupName="handSize"
-                updateRadio={updateSelectHandSize(dispatch, sliverPipes[0])}
+                updateRadio={updateSelectHandSize(dispatch, EMPTY_SLIVER_PIPE)}
               />
             </div>
           </div>
@@ -89,9 +89,10 @@ export default function ControlPanel() {
                 list={
                   sliverPipes && sliverPipes.filter((item: SelectedItem) => item.value === crystalRing.handSize.value)
                 }
-                defaultValue={crystalRing.sliverPipe}
+                defaultValue={crystalRing.sliverPipe ?? EMPTY_SLIVER_PIPE}
                 groupName="sliverPipe"
                 updateRadio={updateSelectSliverHand(dispatch)}
+                emptyOption={EMPTY_SLIVER_PIPE}
               />
             </div>
           </div>

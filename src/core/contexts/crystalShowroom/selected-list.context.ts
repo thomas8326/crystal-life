@@ -118,13 +118,14 @@ export const crystalShowroomReducer = (state: CrystalShowroomContextProps, actio
     }
     case SELECT_HAND_SIZE:
       const handSize = action.data.handSize;
+      const sliverPipe = action.data.sliverPipe;
       const crystalRing = state.crystalRing;
 
       crystalRing.setHandSize(handSize);
       crystalRing.createBeads(handSize.crystalCount);
-      crystalRing.setSliverPipe(new SelectedItem());
+      crystalRing.setSliverPipe(sliverPipe);
 
-      return Object.assign({}, state, { crystalRing });
+      return Object.assign({}, state, { crystalRing, isFillCrystal: false });
     case UPDATED_SELECTED_BEAD: {
       const url = action.data.bead.url;
       const crystalRing = state.crystalRing;
@@ -156,6 +157,7 @@ export const crystalShowroomReducer = (state: CrystalShowroomContextProps, actio
       return Object.assign({}, state, {
         crystalRing: currentCrystalRing,
         selectedDisplayCrystal: [],
+        isFillCrystal: false,
       });
     }
     default:
