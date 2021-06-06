@@ -10,6 +10,7 @@ import {
   crystalShowroomReducer,
 } from '../core/contexts/crystalShowroom/selected-list.context';
 import { ProductHelper } from 'src/crystal-showroom/components/product-helpler';
+import { useAuth } from 'src/utils/customer-hook/useAuth';
 
 const Showroom = styled.div`
   display: flex;
@@ -25,6 +26,8 @@ const ControlPanelContainer = styled.div`
 
 function CrystalShowroom() {
   const [state, dispatch] = useReducer(crystalShowroomReducer, crystalShowroomInitState);
+  const { userLogout } = useAuth();
+
   return (
     <crystalShowroomContext.Provider
       value={{
@@ -38,6 +41,10 @@ function CrystalShowroom() {
         <div className="flex flex-grow justify-center items-center relative">
           <ProductHelper />
           <ProductContainer />
+          <button className="flex absolute top-4 left-4" onClick={userLogout}>
+            <i className="icon icon-leave"></i>
+            離開
+          </button>
         </div>
         <ControlPanelContainer className="bg-gray-50 relative">
           <div className="absolute w-full h-full novus-no-border-logo opacity-30 z-0" />

@@ -7,7 +7,7 @@ import {
 import styled from 'styled-components';
 
 export const ProductHelperContainer = styled.div`
-  left: 20px;
+  right: 30px;
   top: 20px;
   position: absolute;
   width: 150px;
@@ -36,7 +36,7 @@ const ProductHelperContent = styled.div<any>`
   background: #f9fafb;
   flex-direction: column;
 
-  display: ${(props: { visibility: boolean }) => (props.visibility ? 'none' : 'flex')};
+  display: ${(props: { isVisible: boolean }) => (props.isVisible ? 'flex' : 'none')};
 `;
 
 const ProductHelperSelector = styled.label`
@@ -75,7 +75,7 @@ export function ProductHelper() {
         <span>圓珠選項控制器</span>
         {visibility ? <i className="icon-xs icon-up-open-arrow" /> : <i className="icon-xs icon-down-open-arrow" />}
       </ProductHelperHeader>
-      <ProductHelperContent visibility={visibility}>
+      <ProductHelperContent isVisible={visibility}>
         {beads.length && (
           <ProductHelperSelector>
             <input

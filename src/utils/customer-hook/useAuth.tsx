@@ -1,7 +1,9 @@
 import firebase from 'firebase';
 import { useContext, useEffect, useRef, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { realtimeDB } from 'src/core/config/firebase.config';
 import { authContext } from 'src/core/contexts/auth/auth.context';
+import { MainPath } from 'src/core/enums/main-path';
 import { Auth } from 'src/core/models/auth';
 import useStorage from 'src/utils/customer-hook/useStroage';
 
@@ -19,6 +21,7 @@ class AccessRight {
 
 export const useProvideAuth = (): Auth => {
   const { getSession, setSession } = useStorage();
+  const history = useHistory();
   const { adminToken, isUser: userState } =
     getSession<AccessRight>('accessRight') ?? new AccessRight({ adminToken: null, isUser: false });
 
@@ -27,6 +30,11 @@ export const useProvideAuth = (): Auth => {
   const [isUser, setIsUser] = useState<boolean>(userState);
 
   useEffect(() => {
+    if (userState) {
+      setSession('accessRight', new AccessRight({ adminToken: null, isUser: userState }));
+      return;
+    }
+
     const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
       if (!tokenRef.current) {
         setIsAdmin(false);
@@ -85,6 +93,7 @@ export const useProvideAuth = (): Auth => {
           setIsUser(false);
           setSession('accessRight', new AccessRight({ adminToken: null, isUser: false }));
           resolve('log out');
+          history.push(MainPath.EmployeeLogin);
         })
         .catch((e) => {
           console.warn(e);
@@ -116,6 +125,7 @@ export const useProvideAuth = (): Auth => {
       setIsAdmin(false);
       setIsUser(false);
       setSession('accessRight', new AccessRight({ adminToken: null, isUser: false }));
+      history.push(MainPath.UserLogin);
       resolve('log out');
     });
   };

@@ -34,6 +34,10 @@
   background-image: url(/src/assets/icon/up-open-arrow.svg);
 }
 
+.icon-leave {
+  background-image: url(/src/assets/icon/logout.svg);
+}
+
 .icon-xs {
   display: block;
   width: 12px;

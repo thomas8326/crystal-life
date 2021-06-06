@@ -2,16 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import { MainPath } from 'src/core/enums/main-path';
 import LoadingBar from 'src/shared/loading-bar';
-import { useAuth } from 'src/utils/customer-hook/useAuth';
 
 export function CompletePage() {
   const [redirect, setRedirect] = useState(false);
-  const { userLogout } = useAuth();
 
   useEffect(() => {
     setTimeout(() => {
       setRedirect(true);
-      userLogout();
     }, 3000);
   }, []);
   return (
