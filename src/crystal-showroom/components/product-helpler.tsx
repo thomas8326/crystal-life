@@ -32,7 +32,6 @@ const ProductHelperHeader = styled.div`
 
 const ProductHelperContent = styled.div<any>`
   flex: 1;
-  overflow: auto;
   background: #f9fafb;
   flex-direction: column;
 
@@ -75,7 +74,7 @@ export function ProductHelper() {
         <span>圓珠選項控制器</span>
         {visibility ? <i className="icon-xs icon-up-open-arrow" /> : <i className="icon-xs icon-down-open-arrow" />}
       </ProductHelperHeader>
-      <ProductHelperContent isVisible={visibility}>
+      <ProductHelperContent isVisible={visibility} className="main-scroll">
         {!!beads.length && (
           <ProductHelperSelector>
             <input

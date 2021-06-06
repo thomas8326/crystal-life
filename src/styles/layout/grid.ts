@@ -5,5 +5,4 @@ export const Grid = styled.div`
   grid-auto-rows: 60px;
   width: 100%;
   height: 100%;
-  overflow: auto;
 `;

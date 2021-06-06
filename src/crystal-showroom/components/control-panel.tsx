@@ -72,7 +72,7 @@ export default function ControlPanel() {
           <div className="w-full h-full flex flex-col p-2">
             <label className="text-left text-lg">手圍</label>
             <small className="text-left text-xs">選擇適合你的手圍長度</small>
-            <div className="flex-1 h-full overflow-auto">
+            <div className="flex-1 h-full main-scroll">
               <RadioGroup
                 list={handSizes}
                 defaultValue={crystalRing.handSize}
@@ -86,7 +86,7 @@ export default function ControlPanel() {
           <div className="w-full h-full flex flex-col p-2">
             <label className="text-left text-lg">銀管</label>
             <small className="text-left text-xs">選擇適合你的銀圍長度</small>
-            <div className="flex-1 h-full overflow-auto">
+            <div className="flex-1 h-full main-scroll">
               <RadioGroup
                 list={
                   sliverPipes && sliverPipes.filter((item: SelectedItem) => item.value === crystalRing.handSize.value)
@@ -103,7 +103,7 @@ export default function ControlPanel() {
           <div className="w-full h-full flex flex-col p-2">
             <label className="text-left text-lg">水晶</label>
             <small className="text-left text-xs">在左邊產品中選取圓珠，在右邊選擇想要的水晶</small>
-            <div className="mt-6 flex-1 h-full overflow-auto">
+            <div className="mt-6 flex-1 h-full main-scroll">
               <InfiniteList
                 layout="grid"
                 tableName="codeList/crystalImages"
@@ -116,7 +116,7 @@ export default function ControlPanel() {
           <div className="w-full h-full flex flex-col p-2">
             <label className="text-left text-lg">花蓋</label>
             <small className="text-left text-xs">在左邊產品中選取圓珠，在右邊選擇想要的花蓋，按下加在左邊或右邊</small>
-            <div className="mt-6 flex-1 h-full overflow-auto">
+            <div className="mt-6 flex-1 h-full main-scroll">
               <FlowerAdder
                 removeFlower={removeFlowerCover(dispatch)}
                 updateLeft={updateFlowerCover(ADD_FLOWER_COVER_ON_LEFT, dispatch)}
@@ -129,7 +129,7 @@ export default function ControlPanel() {
           <div className="h-full w-full flex flex-col p-2">
             <label className="text-left text-lg">吊飾</label>
             <small className="text-left text-xs">在左邊產品中選取圓珠，按下加吊飾，會在該圓珠左邊加入</small>
-            <div className="mt-6 flex-1 h-full overflow-auto">
+            <div className="mt-6 flex-1 h-full main-scroll">
               <CharmAdder addCharm={updateCharm(dispatch)} removeCharm={removeCharm(dispatch)}></CharmAdder>
             </div>
           </div>

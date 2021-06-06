@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+@import './styles/base/scroll-bar.css';
 @import './styles/icons.css';
 
 .App {

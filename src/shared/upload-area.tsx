@@ -173,7 +173,7 @@ export function UploadArea(props: { tableName: string }) {
         {isDragging && <UploaderOverlay></UploaderOverlay>}
       </Uploader>
       <div className="flex justify-center flex-col border">
-        <Grid style={{ width: gridWidth }}>
+        <Grid className="main-scroll" style={{ width: gridWidth }}>
           {imageUrls.map((file: FileLink, index: number) => (
             <GridItem
               key={file.id}

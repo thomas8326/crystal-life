@@ -16,7 +16,7 @@ export default function CharmAdder(props: { removeCharm: () => void; addCharm: (
           移除吊飾
         </button>
       </div>
-      <div className="mt-6 flex-1 h-full overflow-auto">
+      <div className="mt-6 flex-1 h-full main-scroll">
         <InfiniteList
           layout="grid"
           tableName="codeList/charms"
