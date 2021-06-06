@@ -76,7 +76,7 @@ export function ProductHelper() {
         {visibility ? <i className="icon-xs icon-up-open-arrow" /> : <i className="icon-xs icon-down-open-arrow" />}
       </ProductHelperHeader>
       <ProductHelperContent isVisible={visibility}>
-        {beads.length && (
+        {!!beads.length && (
           <ProductHelperSelector>
             <input
               type="checkbox"
