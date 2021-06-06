@@ -41,8 +41,8 @@ function CrystalShowroom() {
         <div className="flex flex-grow justify-center items-center relative">
           <ProductHelper />
           <ProductContainer />
-          <button className="flex absolute top-4 left-4" onClick={userLogout}>
-            <i className="icon icon-leave"></i>
+          <button className="flex absolute top-4 left-4 text-sm" onClick={userLogout}>
+            <i className="icon-sm icon-leave"></i>
             離開
           </button>
         </div>
