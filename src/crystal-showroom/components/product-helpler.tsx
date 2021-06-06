@@ -27,13 +27,13 @@ const ProductHelperHeader = styled.div`
   justify-content: space-around;
   align-items: center;
   user-select: none;
-  background: #deeef4;
+  background: #f9fafb;
 `;
 
 const ProductHelperContent = styled.div<any>`
   flex: 1;
   overflow: auto;
-  background: #f5fcff;
+  background: #f9fafb;
   flex-direction: column;
 
   display: ${(props: { visibility: boolean }) => (props.visibility ? 'none' : 'flex')};
@@ -45,7 +45,7 @@ const ProductHelperSelector = styled.label`
   cursor: pointer;
 
   &:hover {
-    background: #eefaff;
+    background: #f3f4f6;
   }
 
   & + & {

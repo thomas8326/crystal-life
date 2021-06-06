@@ -18,6 +18,7 @@ const BeadDisplay = styled.div<any>`
   cursor: pointer;
   align-items: center;
   transform: rotate(${(props: { angular: number }) => `${props.angular}deg`});
+  color: #f8d0a4;
 
   ${(props: { isEmpty: boolean; isClicked: boolean }) =>
     props.isEmpty &&
@@ -37,7 +38,7 @@ const BeadDisplay = styled.div<any>`
   }
 `;
 
-const BeadTest = styled.div`
+const BeadLabel = styled.div`
   transform: rotate(${(props: { angular: number }) => `${-props.angular}deg`});
   width: 100%;
   height: 100%;
@@ -119,7 +120,7 @@ export default function Bead(props: {
         )}
         {item?.leftFlower?.url && <Flower src={item?.leftFlower.url} />}
         {item?.url && <img src={item?.url} className="w-full h-full" />}
-        {!item.url && <BeadTest angular={angular}>{index}</BeadTest>}
+        {!item.url && <BeadLabel angular={angular}>{index}</BeadLabel>}
         {item?.rightFlower?.url && <Flower src={item?.rightFlower.url} isLeft={false} />}
       </BeadDisplay>
     </>
