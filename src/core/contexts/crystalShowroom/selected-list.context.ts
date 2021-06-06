@@ -26,7 +26,7 @@ export const SELECT_HAND_SIZE = 'SELECT_HAND_SIZE';
 export class CrystalShowroomAction {
   handSize!: HandSize;
   sliverPipe!: SliverPipe;
-  selectedDisplayCrystal!: string;
+  selectedDisplayCrystal!: string | string[];
   flower!: FileInfo;
   charm!: FileInfo;
   bead!: FileInfo;
@@ -144,7 +144,11 @@ export const crystalShowroomReducer = (state: CrystalShowroomContextProps, actio
     }
 
     case REMOVE_DISPLAY_SELECTED_CRYSTAL_BEAD:
-      const newBeads = state.selectedDisplayCrystal.filter((bead) => bead !== action.data.selectedDisplayCrystal);
+      const selects = Array.isArray(state.selectedDisplayCrystal)
+        ? state.selectedDisplayCrystal
+        : [state.selectedDisplayCrystal];
+
+      const newBeads = state.selectedDisplayCrystal.filter((bead) => selects.every((select) => select !== bead));
       return Object.assign({}, state, { selectedDisplayCrystal: newBeads });
     case SELECT_SLIVER_PIPE: {
       const selectedSliverPipe = action.data.sliverPipe;

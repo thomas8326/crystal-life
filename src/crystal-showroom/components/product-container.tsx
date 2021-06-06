@@ -3,7 +3,7 @@ import { crystalShowroomContext } from 'src/core/contexts/crystalShowroom/select
 import Product from 'src/shared/product';
 
 export default function ProductContainer() {
-  const { crystalRing, dispatch } = useContext(crystalShowroomContext);
+  const { crystalRing, selectedDisplayCrystal, dispatch } = useContext(crystalShowroomContext);
 
-  return <Product crystalRing={crystalRing} dispatch={dispatch}></Product>;
+  return <Product crystalRing={crystalRing} selectedBeads={selectedDisplayCrystal} dispatch={dispatch}></Product>;
 }

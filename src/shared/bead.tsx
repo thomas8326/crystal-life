@@ -37,6 +37,15 @@ const BeadDisplay = styled.div<any>`
   }
 `;
 
+const BeadTest = styled.div`
+  transform: rotate(${(props: { angular: number }) => `${-props.angular}deg`});
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 const Flower = styled.img.attrs((props: { isLeft: boolean }) => ({ isLeft: props.isLeft ?? true }))`
   position: absolute;
   ${(props) => (props.isLeft ? `left: -25%` : `right: -25%`)};
@@ -75,27 +84,18 @@ export default function Bead(props: {
   item: Crystal;
   angular: number;
   beadSize: number;
+  isChecked: boolean;
+  index: number;
   dispatch?: React.Dispatch<any>;
 }) {
-  const { top, left, item, angular, beadSize, dispatch } = props;
-  const [isClicked, setIsClicked] = useState<boolean>(false);
-
-  useEffect(() => {
-    setIsClicked(false);
-  }, [item]);
+  const { top, left, item, angular, beadSize, isChecked, index, dispatch } = props;
 
   const onSelectBead = (item: SelectedItem) => {
-    setIsClicked((preState: boolean) => {
-      const newState = !preState;
-
-      if (dispatch) {
-        newState
-          ? dispatch({ type: SELECT_DISPLAY_CRYSTAL_BEAD, data: { selectedDisplayCrystal: item.key } })
-          : dispatch({ type: REMOVE_DISPLAY_SELECTED_CRYSTAL_BEAD, data: { selectedDisplayCrystal: item.key } });
-      }
-
-      return newState;
-    });
+    if (dispatch) {
+      !isChecked
+        ? dispatch({ type: SELECT_DISPLAY_CRYSTAL_BEAD, data: { selectedDisplayCrystal: item.key } })
+        : dispatch({ type: REMOVE_DISPLAY_SELECTED_CRYSTAL_BEAD, data: { selectedDisplayCrystal: item.key } });
+    }
   };
 
   return (
@@ -104,7 +104,7 @@ export default function Bead(props: {
         top={top}
         left={left}
         isEmpty={!item?.url}
-        isClicked={isClicked}
+        isClicked={isChecked}
         radius={beadSize}
         angular={angular}
         onClick={() => onSelectBead(item)}
@@ -118,7 +118,8 @@ export default function Bead(props: {
           </Charm>
         )}
         {item?.leftFlower?.url && <Flower src={item?.leftFlower.url} />}
-        <div>{item?.url && <img src={item?.url} className="w-full h-full" />}</div>
+        {item?.url && <img src={item?.url} className="w-full h-full" />}
+        {!item.url && <BeadTest angular={angular}>{index}</BeadTest>}
         {item?.rightFlower?.url && <Flower src={item?.rightFlower.url} isLeft={false} />}
       </BeadDisplay>
     </>

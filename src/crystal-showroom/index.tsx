@@ -9,6 +9,7 @@ import {
   crystalShowroomInitState,
   crystalShowroomReducer,
 } from '../core/contexts/crystalShowroom/selected-list.context';
+import { ProductHelper } from 'src/crystal-showroom/components/product-helpler';
 
 const Showroom = styled.div`
   display: flex;
@@ -34,7 +35,8 @@ function CrystalShowroom() {
       }}
     >
       <Showroom className="App">
-        <div className="flex flex-grow justify-center items-center">
+        <div className="flex flex-grow justify-center items-center relative">
+          <ProductHelper />
           <ProductContainer />
         </div>
         <ControlPanelContainer className="bg-gray-50 relative">

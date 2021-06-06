@@ -26,6 +26,14 @@
   background-image: url(/src/assets/icon/not-found.svg);
 }
 
+.icon-down-open-arrow {
+  background-image: url(/src/assets/icon/down-open-arrow.svg);
+}
+
+.icon-up-open-arrow {
+  background-image: url(/src/assets/icon/up-open-arrow.svg);
+}
+
 .icon-xs {
   display: block;
   width: 12px;

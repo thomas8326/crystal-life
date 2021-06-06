@@ -29,10 +29,11 @@ const ProductInnerBorder = styled.div`
 
 export default function Product(props: {
   crystalRing: CrystalRing;
+  selectedBeads?: string[];
   dispatch?: React.Dispatch<any>;
   disabled?: boolean;
 }) {
-  const { crystalRing, disabled, dispatch } = props;
+  const { crystalRing, selectedBeads, disabled, dispatch } = props;
   const { beads, handSize } = crystalRing;
 
   if (!handSize) {
@@ -52,7 +53,9 @@ export default function Product(props: {
             item={data.item}
             dispatch={dispatch}
             beadSize={handSize.beadSize}
+            index={index + 1}
             angular={data.angular * index * -1}
+            isChecked={selectedBeads?.includes(data.item.key) ?? false}
           />
         ))}
       </ProductInnerBorder>
