@@ -142,11 +142,12 @@ export const crystalShowroomReducer = (state: CrystalShowroomContextProps, actio
     }
 
     case REMOVE_DISPLAY_SELECTED_CRYSTAL_BEAD:
-      const selects = Array.isArray(state.selectedDisplayCrystal)
-        ? state.selectedDisplayCrystal
-        : [state.selectedDisplayCrystal];
+      const selects = Array.isArray(action.data.selectedDisplayCrystal)
+        ? action.data.selectedDisplayCrystal
+        : [action.data.selectedDisplayCrystal];
 
-      const newBeads = state.selectedDisplayCrystal.filter((bead) => selects.every((select) => select !== bead));
+      const newBeads = state.selectedDisplayCrystal.filter((bead) => !selects.includes(bead));
+      console.log(newBeads);
       return Object.assign({}, state, { selectedDisplayCrystal: newBeads });
     case SELECT_SLIVER_PIPE: {
       const selectedSliverPipe = action.data.sliverPipe;
