@@ -1,13 +1,6 @@
 import { MainPath } from 'src/core/enums/main-path';
 import Navigation from 'src/core/models/navigation';
 
-export const CHARM_OPTIONS: any[] = [
-  {
-    key: 'CHARM_001',
-    text: 'default-charm',
-  },
-];
-
 export const DASHBOARD_NAVIGATION: Navigation[] = [
   {
     key: 'ALLOW_LIST',

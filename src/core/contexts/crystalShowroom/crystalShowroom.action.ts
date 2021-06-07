@@ -8,7 +8,6 @@ import {
   REMOVE_FLOWER,
 } from 'src/core/contexts/crystalShowroom/selected-list.context';
 import SelectedItem, { HandSize, SliverPipe } from 'src/core/models/selection';
-import { CHARM_OPTIONS } from 'src/core/constants/constants';
 import { FileInfo } from 'src/core/models/file-info';
 
 export const updateSelectedCrystal = (dispatch: React.Dispatch<any>) => (bead: SelectedItem) => {
