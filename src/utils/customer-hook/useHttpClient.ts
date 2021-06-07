@@ -19,9 +19,11 @@ export default function useHttpClient<T extends { id?: string }>(tableName: stri
       : tableRef.current;
 
     if (!!limitCount) {
-      const sortColumn = sort?.path ?? 'id';
-      const lastData = (currentList[currentList.length - 1] as any)[sortColumn] ?? 0;
-      filterRef = filterRef.orderByChild(sortColumn).startAfter(lastData).limitToFirst(limitCount);
+      const sortColumn: string = sort?.path ?? 'id';
+      const lastDataIndex = sort?.by === OrderBy.Desc ? 0 : currentList.length - 1;
+      const lastData = currentList[lastDataIndex] as any;
+      const lastDataSortedField = lastData?.[sortColumn] || 0;
+      filterRef = filterRef.orderByChild(sortColumn).startAfter(lastDataSortedField).limitToFirst(limitCount);
     }
 
     return new Promise((resolve) => {

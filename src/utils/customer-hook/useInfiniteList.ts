@@ -1,3 +1,4 @@
+import { CREATED_SORT } from './../../core/constants/sort.constants';
 import { useEffect, useRef, useState } from 'react';
 import useHttpClient from 'src/utils/customer-hook/useHttpClient';
 
@@ -15,7 +16,7 @@ export function useInfiniteList(
 
   const getPage = async () => {
     if (!isComplete) {
-      getList('', 3).then((isComplete) => {
+      getList('', 3, CREATED_SORT).then((isComplete) => {
         setIsComplete(isComplete);
       });
     }
