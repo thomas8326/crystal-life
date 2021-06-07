@@ -1,27 +1,28 @@
 import { useEffect, useRef, useState } from 'react';
 import { realtimeDB } from 'src/core/config/firebase.config';
 import { OrderBy } from 'src/core/enums/orderby.enum';
+import { Sort } from 'src/core/models/sort';
 import { v4 as uuidv4 } from 'uuid';
 
-export default function useHttpClient<T extends { id?: string }>(
-  tableName: string,
-  isReadData = true,
-  orderBy?: { path: string; by: OrderBy },
-) {
+export default function useHttpClient<T extends { id?: string }>(tableName: string, isReadData = true, sort?: Sort) {
   const [isLoading, setIsLoading] = useState(false);
   const tableRef = useRef(realtimeDB.ref(tableName));
 
   const [list, setList] = useState<T[]>([]);
   const listRef = useRef<T[]>([]);
 
-  const getList = (id?: string, limitCount?: number): Promise<boolean> => {
+  const getList = (id?: string, limitCount?: number, sort?: Sort): Promise<boolean> => {
     setIsLoading(true);
     const currentList = listRef.current;
-    const idRef = id ? tableRef.current.child(id) : tableRef.current;
-    const lastTimeStamp = (currentList[currentList.length - 1] as any)?.createdAt || 0;
-    const filterRef = !!limitCount
-      ? idRef.orderByChild('createdAt').startAfter(lastTimeStamp).limitToFirst(limitCount)
-      : idRef;
+    let filterRef: firebase.default.database.Query | firebase.default.database.Reference = id
+      ? tableRef.current.child(id)
+      : tableRef.current;
+
+    if (!!limitCount) {
+      const sortColumn = sort?.path ?? 'id';
+      const lastData = (currentList[currentList.length - 1] as any)[sortColumn] ?? 0;
+      filterRef = filterRef.orderByChild(sortColumn).startAfter(lastData).limitToFirst(limitCount);
+    }
 
     return new Promise((resolve) => {
       filterRef.once('value', (snapshot) => {
@@ -33,7 +34,7 @@ export default function useHttpClient<T extends { id?: string }>(
           });
 
           listRef.current = limitCount ? currentList.concat(dataList) : dataList;
-          orderBy?.by === OrderBy.Desc ? setList(listRef.current.reverse()) : setList(listRef.current);
+          sort?.by === OrderBy.Desc ? setList(listRef.current.reverse()) : setList(listRef.current);
           setIsLoading(false);
           resolve(false);
         } else {
@@ -64,7 +65,7 @@ export default function useHttpClient<T extends { id?: string }>(
 
   useEffect(() => {
     setIsLoading(true);
-    const ref = orderBy ? tableRef.current.orderByChild(orderBy.path) : tableRef.current;
+    const ref = sort ? tableRef.current.orderByChild(sort.path) : tableRef.current;
 
     if (isReadData) {
       ref.on('value', (snapshot) => {
@@ -75,7 +76,7 @@ export default function useHttpClient<T extends { id?: string }>(
         });
 
         setIsLoading(false);
-        orderBy?.by === OrderBy.Desc ? setList(list.reverse()) : setList(list);
+        sort?.by === OrderBy.Desc ? setList(list.reverse()) : setList(list);
       });
     }
 

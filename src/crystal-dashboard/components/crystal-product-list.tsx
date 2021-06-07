@@ -1,21 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { OrderBy } from 'src/core/enums/orderby.enum';
+import { CREATED_SORT } from 'src/core/constants/sort.constants';
 import User from 'src/core/models/allow-user';
 import CrystalRing from 'src/core/models/crystal-ring';
-import { MoreInfo } from 'src/shared/more-info';
 import Product from 'src/shared/product';
 import { SlideButton } from 'src/styles/components/button';
 import { FormField } from 'src/styles/components/form';
 import useHttpClient from 'src/utils/customer-hook/useHttpClient';
-import styled from 'styled-components';
-
-const SORT = { path: 'createdAt', by: OrderBy.Desc };
 
 export default function CrystalProductList() {
   const { list: allowList } = useHttpClient<User>('allowList');
-  const { list: products, getList } = useHttpClient<CrystalRing>('crystalProducts', false, SORT);
+  const { list: products, getList } = useHttpClient<CrystalRing>('crystalProducts', false);
 
-  const [list, setList] = useState<CrystalRing[]>([]);
   const [activeUser, setActiveUser] = useState<User | undefined>();
   const [activeIndex, setActiveIndex] = useState<number>(0);
 
@@ -28,7 +23,7 @@ export default function CrystalProductList() {
 
   useEffect(() => {
     if (activeUser?.id) {
-      getList(activeUser.id);
+      getList(activeUser.id, 0, CREATED_SORT);
     }
   }, [activeUser]);
 
