@@ -2,7 +2,7 @@ import DashboardNavigation from 'src/crystal-dashboard/components/dashboard-navi
 import HandSizeForm from 'src/crystal-dashboard/components/handsize-form';
 import SliverPipeForm from 'src/crystal-dashboard/components/sliver-pipe-form';
 import { Switch, Route, useRouteMatch, Redirect } from 'react-router-dom';
-import { MainPath } from 'src/core/enums/main-path';
+import { MainPath } from 'src/core/enums/main-path.enum';
 import UploadImageForm from 'src/crystal-dashboard/components/upload-image-form';
 import AllowListController from 'src/crystal-dashboard/components/allowlist-control';
 import CrystalProductList from 'src/crystal-dashboard/components/crystal-product-list';

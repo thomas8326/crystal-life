@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { realtimeDB } from 'src/core/config/firebase.config';
 import { USER } from 'src/core/constants/storage.constants';
 import { FormControlType } from 'src/core/enums/form.enum';
-import { MainPath } from 'src/core/enums/main-path';
+import { MainPath } from 'src/core/enums/main-path.enum';
 import User from 'src/core/models/allow-user';
 import FormErrorMsg from 'src/shared/form-error-msg';
 import { Form1, FormField } from 'src/styles/components/form';

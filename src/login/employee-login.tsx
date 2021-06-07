@@ -2,7 +2,7 @@ import firebase from 'firebase';
 import React, { useEffect, useState } from 'react';
 import { Redirect, useHistory } from 'react-router-dom';
 import { FormControlType } from 'src/core/enums/form.enum';
-import { MainPath } from 'src/core/enums/main-path';
+import { MainPath } from 'src/core/enums/main-path.enum';
 import FormErrorMsg from 'src/shared/form-error-msg';
 import { Form1, FormField } from 'src/styles/components/form';
 import useFormErrorMsg, { checkAccount } from 'src/utils/customer-hook/useFormError';

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Redirect, Route } from 'react-router-dom';
-import { MainPath } from 'src/core/enums/main-path';
+import { MainPath } from 'src/core/enums/main-path.enum';
 import { useAuth } from 'src/utils/customer-hook/useAuth';
 
 class ProtectedRoute {

@@ -12,8 +12,8 @@ import {
   updateSelectHandSize,
   updateSelectSliverHand,
 } from 'src/core/contexts/crystal-showroom/crystal-showroom.action';
-import { ControlPanelState } from 'src/core/enums/control-panel';
-import { MainPath } from 'src/core/enums/main-path';
+import { ControlPanelState } from 'src/core/enums/control-panel.enum';
+import { MainPath } from 'src/core/enums/main-path.enum';
 import User from 'src/core/models/allow-user';
 import CrystalRing from 'src/core/models/crystal-ring';
 import CharmAdder from 'src/crystal-showroom/components/charm-adder';

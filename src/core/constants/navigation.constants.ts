@@ -1,4 +1,4 @@
-import { MainPath } from 'src/core/enums/main-path';
+import { MainPath } from 'src/core/enums/main-path.enum';
 import Navigation from 'src/core/models/navigation';
 
 export const DASHBOARD_NAVIGATION: Navigation[] = [

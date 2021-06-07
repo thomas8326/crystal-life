@@ -3,7 +3,7 @@ import { useContext, useEffect, useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { realtimeDB } from 'src/core/config/firebase.config';
 import { authContext } from 'src/core/contexts/auth/auth.context';
-import { MainPath } from 'src/core/enums/main-path';
+import { MainPath } from 'src/core/enums/main-path.enum';
 import { Auth } from 'src/core/models/auth';
 import useStorage from 'src/utils/customer-hook/useStroage';
 

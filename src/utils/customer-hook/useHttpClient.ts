@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { realtimeDB } from 'src/core/config/firebase.config';
-import { OrderBy } from 'src/core/enums/orderby';
+import { OrderBy } from 'src/core/enums/orderby.enum';
 import { v4 as uuidv4 } from 'uuid';
 
 export default function useHttpClient<T extends { id?: string }>(

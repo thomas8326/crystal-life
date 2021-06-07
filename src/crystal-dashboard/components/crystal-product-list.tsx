@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { OrderBy } from 'src/core/enums/orderby';
+import { OrderBy } from 'src/core/enums/orderby.enum';
 import User from 'src/core/models/allow-user';
 import CrystalRing from 'src/core/models/crystal-ring';
 import { MoreInfo } from 'src/shared/more-info';

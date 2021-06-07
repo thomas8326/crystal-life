@@ -2,7 +2,7 @@ import './styles.css';
 import CrystalShowroom from './crystal-showroom';
 import CrystalDashboard from 'src/crystal-dashboard';
 import { Switch, Route, Redirect } from 'react-router-dom';
-import { MainPath } from 'src/core/enums/main-path';
+import { MainPath } from 'src/core/enums/main-path.enum';
 import { UserLogin } from 'src/login/user-login';
 import EmployeeLogin from 'src/login/employee-login';
 import { CompletePage } from 'src/shared/complete-page';
