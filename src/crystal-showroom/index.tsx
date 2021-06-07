@@ -8,7 +8,7 @@ import {
   crystalShowroomContext,
   crystalShowroomInitState,
   crystalShowroomReducer,
-} from '../core/contexts/crystalShowroom/selected-list.context';
+} from '../core/contexts/crystal-showroom/crystal-showroom.context';
 import { ProductHelper } from 'src/crystal-showroom/components/product-helpler';
 import { useAuth } from 'src/utils/customer-hook/useAuth';
 

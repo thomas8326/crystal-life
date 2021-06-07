@@ -6,7 +6,7 @@ import {
   crystalShowroomContext,
   CrystalShowroomContextProps,
   UPDATED_SELECTED_BEAD,
-} from '../core/contexts/crystalShowroom/selected-list.context';
+} from '../core/contexts/crystal-showroom/crystal-showroom.context';
 import Action from '../core/models/action';
 import SelectedItem from '../core/models/selection';
 import use2DArray from '../utils/customer-hook/use2DArray';

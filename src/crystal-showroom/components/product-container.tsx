@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { crystalShowroomContext } from 'src/core/contexts/crystalShowroom/selected-list.context';
+import { crystalShowroomContext } from 'src/core/contexts/crystal-showroom/crystal-showroom.context';
 import Product from 'src/shared/product';
 
 export default function ProductContainer() {

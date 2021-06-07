@@ -6,7 +6,7 @@ import {
   REMOVE_CHARM,
   INIT_CRYSTAL_SHOWROOM,
   REMOVE_FLOWER,
-} from 'src/core/contexts/crystalShowroom/selected-list.context';
+} from 'src/core/contexts/crystal-showroom/crystal-showroom.context';
 import SelectedItem, { HandSize, SliverPipe } from 'src/core/models/selection';
 import { FileInfo } from 'src/core/models/file-info';
 

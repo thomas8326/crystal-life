@@ -11,7 +11,7 @@ import {
   updateSelectedCrystal,
   updateSelectHandSize,
   updateSelectSliverHand,
-} from 'src/core/contexts/crystalShowroom/crystalShowroom.action';
+} from 'src/core/contexts/crystal-showroom/crystal-showroom.action';
 import { ControlPanelState } from 'src/core/enums/control-panel';
 import { MainPath } from 'src/core/enums/main-path';
 import User from 'src/core/models/allow-user';
@@ -26,7 +26,7 @@ import {
   ADD_FLOWER_COVER_ON_LEFT,
   ADD_FLOWER_COVER_ON_RIGHT,
   crystalShowroomContext,
-} from '../../core/contexts/crystalShowroom/selected-list.context';
+} from '../../core/contexts/crystal-showroom/crystal-showroom.context';
 import SelectedItem, { HandSize, SliverPipe } from '../../core/models/selection';
 import RadioGroup from '../../shared/redio-group';
 

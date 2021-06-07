@@ -3,7 +3,7 @@ import {
   crystalShowroomContext,
   SELECT_DISPLAY_CRYSTAL_BEAD,
   REMOVE_DISPLAY_SELECTED_CRYSTAL_BEAD,
-} from 'src/core/contexts/crystalShowroom/selected-list.context';
+} from 'src/core/contexts/crystal-showroom/crystal-showroom.context';
 import styled from 'styled-components';
 
 export const ProductHelperContainer = styled.div`

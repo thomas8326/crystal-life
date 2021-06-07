@@ -2,8 +2,6 @@ import { HandSize, SliverPipe } from '../../models/selection';
 import React from 'react';
 import Action from '../../models/action';
 
-import SelectedItem from '../../models/selection';
-
 import CrystalRing from 'src/core/models/crystal-ring';
 import { FileInfo } from 'src/core/models/file-info';
 

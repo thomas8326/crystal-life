@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import {
   SELECT_DISPLAY_CRYSTAL_BEAD,
   REMOVE_DISPLAY_SELECTED_CRYSTAL_BEAD,
-} from 'src/core/contexts/crystalShowroom/selected-list.context';
+} from 'src/core/contexts/crystal-showroom/crystal-showroom.context';
 import Crystal from 'src/core/models/crystal';
 import SelectedItem from 'src/core/models/selection';
 import styled, { css } from 'styled-components';
