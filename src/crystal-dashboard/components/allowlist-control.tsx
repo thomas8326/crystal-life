@@ -46,6 +46,7 @@ export default function AllowListController() {
           <div className="title">手機: </div>
           <input
             type="text"
+            data-testid="inputPhone"
             className="px-1"
             pattern={TAIWAN_PHONE_PATTERN}
             value={phone}
@@ -58,6 +59,7 @@ export default function AllowListController() {
         <FormField>
           <div className="title">顧客姓名: </div>
           <input
+            data-testid="inputName"
             type="text"
             className="px-1"
             value={customerName}
