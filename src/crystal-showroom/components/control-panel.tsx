@@ -18,7 +18,7 @@ import User from 'src/core/models/allow-user';
 import CrystalRing from 'src/core/models/crystal-ring';
 import CharmAdder from 'src/crystal-showroom/components/charm-adder';
 import FlowerAdder from 'src/crystal-showroom/components/flower-adder';
-import InfiniteList from 'src/shared/infiniteList';
+import InfiniteList from 'src/shared/infinite-list';
 import { useAuth } from 'src/utils/customer-hook/useAuth';
 import useHttpClient from 'src/utils/customer-hook/useHttpClient';
 import useStorage from 'src/utils/customer-hook/useStroage';

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { FileInfo } from 'src/core/models/file-info';
-import InfiniteList from 'src/shared/infiniteList';
+import InfiniteList from 'src/shared/infinite-list';
 
 export default function CharmAdder(props: { removeCharm: () => void; addCharm: (charm: FileInfo) => void }) {
   const { addCharm, removeCharm } = props;

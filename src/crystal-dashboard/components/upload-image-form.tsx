@@ -1,7 +1,7 @@
 import React from 'react';
 import { realtimeDB, storageRef } from 'src/core/config/firebase.config';
 import { FileInfo } from 'src/core/models/file-info';
-import InfiniteList from 'src/shared/infiniteList';
+import InfiniteList from 'src/shared/infinite-list';
 import { UploadArea } from 'src/shared/upload-area';
 import useHttpClient from 'src/utils/customer-hook/useHttpClient';
 
