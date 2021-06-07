@@ -22,6 +22,8 @@
     "@babel/core": "^7.13.10",
     "@babel/preset-react": "^7.12.13",
     "@tailwindcss/postcss7-compat": "^2.0.3",
+    "@testing-library/jest-dom": "^5.13.0",
+    "@testing-library/react": "^11.2.7",
     "@types/ramda": "^0.27.40",
     "@types/react": "17.0.0",
     "@types/react-dom": "17.0.0",
