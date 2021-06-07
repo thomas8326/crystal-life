@@ -1,4 +1,4 @@
-import { FileLink } from 'src/core/models/fileLink';
+import { FileLink } from 'src/core/models/file-link';
 
 export default function useImageReader() {
   const readFile = (file: File) =>

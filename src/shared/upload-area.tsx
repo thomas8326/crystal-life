@@ -2,7 +2,7 @@ import firebase from 'firebase';
 import React, { useEffect, useRef, useState } from 'react';
 import { realtimeDB, storageRef } from 'src/core/config/firebase.config';
 import { FileInfo } from 'src/core/models/file-info';
-import { FileLink } from 'src/core/models/fileLink';
+import { FileLink } from 'src/core/models/file-link';
 import SelectedItem from 'src/core/models/selection';
 import ProgressBar from 'src/shared/progress-bar';
 import { Button1 } from 'src/styles/components/button';
