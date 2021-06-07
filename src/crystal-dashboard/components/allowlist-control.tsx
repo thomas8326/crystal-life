@@ -9,17 +9,22 @@ import { Button1 } from 'src/styles/components/button';
 import useHttpClient from 'src/utils/customer-hook/useHttpClient';
 import { FormControlType } from 'src/core/enums/form.enum';
 import { TAIWAN_PHONE_PATTERN } from 'src/core/constants/form.constants';
+import CrystalRing from 'src/core/models/crystal-ring';
 
 export default function AllowListController() {
   const [phone, setPhone] = useState<string>('');
   const [customerName, setCustomerName] = useState<string>('');
-  const { list, post, remove, patch } = useHttpClient<User>('allowList');
+  const { list, post, remove: removeUser, patch } = useHttpClient<User>('allowList');
+  const { remove: removeProducts } = useHttpClient<CrystalRing>('crystalProducts');
 
   // validation
   const [errMsg, setErrMsg] = useFormErrorMsg();
   const { validate } = useFormCheckValidate(errMsg, FormControlType.Phone, FormControlType.Name);
 
-  const deleteUser = (id: string) => remove(id);
+  const deleteUser = (id: string) => {
+    removeUser(id);
+    removeProducts(id);
+  };
   const newUser = () => {
     post(new User(phone, customerName), phone).then((error) => !error && setPhone(''));
   };
