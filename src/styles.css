@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 @import './styles/base/scroll-bar.css';
-@import './styles/icons.css';
+@import './styles/base/icons.css';
 
 .App {
   font-family: sans-serif;
